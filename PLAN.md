@@ -39,13 +39,13 @@ map, examine pairwise migration flows, and trace trends across all available yea
 
 Write a Python script that reads `fips.txt` and outputs two CSV files:
 
-- `state_fips.csv` — columns: `fips_code`, `state_name`, `state_postal`
-- `county_fips.csv` — columns: `state_fips`, `county_fips`, `county_name`, `state_name`, `state_postal`
+- [x] `state_fips.csv` — columns: `fips_code`, `state_name`, `state_postal`
+- [x] `county_fips.csv` — columns: `state_fips`, `county_fips`, `county_name`, `state_name`, `state_postal`
 
 Implementation notes:
-- The file mixes state-level blocks and county sub-entries with fixed-width formatting; parse both in
+- [x] The file mixes state-level blocks and county sub-entries with fixed-width formatting; parse both in
   one pass using indentation/column-position heuristics.
-- Derive `state_postal` by mapping state names to the standard two-letter abbreviation using a
+- [x] Derive `state_postal` by mapping state names to the standard two-letter abbreviation using a
   hard-coded lookup dictionary (all 50 states + DC).
 
 **Output:** `state_fips.csv`, `county_fips.csv`
@@ -57,8 +57,8 @@ Implementation notes:
 Write a general-purpose Python script that accepts any state inflow **or** outflow CSV and joins it
 with `state_fips.csv` to add:
 
-- `y2_state_postal` — postal abbreviation of the receiving/destination state (`y2_statefips`)
-- `y2_state_name` — full name of the receiving/destination state
+- [ ] `y2_state_postal` — postal abbreviation of the receiving/destination state (`y2_statefips`)
+- [ ] `y2_state_name` — full name of the receiving/destination state
 
 The script should be callable as:
 ```
@@ -66,10 +66,10 @@ python enrich_state_data.py <input_csv> <output_csv>
 ```
 
 Batch-produce the four enriched files:
-- `stateinflow2122_enriched.csv`
-- `stateinflow2223_enriched.csv`
-- `stateoutflow2122_enriched.csv`
-- `stateoutflow2223_enriched.csv`
+- [ ] `stateinflow2122_enriched.csv`
+- [ ] `stateinflow2223_enriched.csv`
+- [ ] `stateoutflow2122_enriched.csv`
+- [ ] `stateoutflow2223_enriched.csv`
 
 ---
 
@@ -78,9 +78,9 @@ Batch-produce the four enriched files:
 Write a general-purpose Python script that accepts any county inflow **or** outflow CSV and joins it
 with `county_fips.csv` to add:
 
-- `y2_state_postal` — postal abbreviation for the `y2` state
-- `y2_state_name` — full name of the `y2` state
-- `y2_county_name` — county name for the `y2` county (joined on `y2_statefips` + `y2_countyfips`)
+- [ ] `y2_state_postal` — postal abbreviation for the `y2` state
+- [ ] `y2_state_name` — full name of the `y2` state
+- [ ] `y2_county_name` — county name for the `y2` county (joined on `y2_statefips` + `y2_countyfips`)
 
 The script should be callable as:
 ```
@@ -88,19 +88,19 @@ python enrich_county_data.py <input_csv> <output_csv>
 ```
 
 Batch-produce the four enriched files:
-- `countyinflow2122_enriched.csv`
-- `countyinflow2223_enriched.csv`
-- `countyoutflow2122_enriched.csv`
-- `countyoutflow2223_enriched.csv`
+- [ ] `countyinflow2122_enriched.csv`
+- [ ] `countyinflow2223_enriched.csv`
+- [ ] `countyoutflow2122_enriched.csv`
+- [ ] `countyoutflow2223_enriched.csv`
 
 ---
 
 ### Milestone 1.4 — Data Validation
 
 After generating all enriched files, run a quick validation script (`validate_data.py`) that checks:
-- No null values in key join columns (`state_postal`, `state_name`, `county_name`)
-- Row counts match raw originals
-- Special FIPS codes (96, 97, 98) are preserved without dropping
+- [ ] No null values in key join columns (`state_postal`, `state_name`, `county_name`)
+- [ ] Row counts match raw originals
+- [ ] Special FIPS codes (96, 97, 98) are preserved without dropping
 
 **Deliverables for Phase 1:**
 ```
@@ -126,30 +126,30 @@ validate_data.py
 ### Milestone 2.1 — HTML Structure (`index.html`)
 
 Create `index.html` containing:
-- A `<header>` with the project title and subtitle
-- A top control bar containing:
-  - Radio button pair: **State** / **County** (granularity toggle)
-  - Year slider (range input, min/max set dynamically from available years)
-  - Metric dropdown (all 22 metrics listed in SPECS.md)
-- A two-panel main layout:
-  - **Left panel (large):** map container `<div id="map">`
-  - **Right panel (narrow):** line graph container `<div id="linechart">` + its own secondary dropdown
+- [ ] A `<header>` with the project title and subtitle
+- [ ] A top control bar containing:
+  - [ ] Radio button pair: **State** / **County** (granularity toggle)
+  - [ ] Year slider (range input, min/max set dynamically from available years)
+  - [ ] Metric dropdown (all 22 metrics listed in SPECS.md)
+- [ ] A two-panel main layout:
+  - [ ] **Left panel (large):** map container `<div id="map">`
+  - [ ] **Right panel (narrow):** line graph container `<div id="linechart">` + its own secondary dropdown
     for flow-type selection (shown only when a primary region is selected but no secondary is selected)
-- A status/tooltip bar at the bottom of the map for hover feedback
-- Semantic HTML5 elements throughout; unique IDs on all interactive controls
+- [ ] A status/tooltip bar at the bottom of the map for hover feedback
+- [ ] Semantic HTML5 elements throughout; unique IDs on all interactive controls
 
 ### Milestone 2.2 — Design System (`styles.css`)
 
 Implement a readable light-mode aesthetic:
-- Color palette: snowy white background (`#fffafa`), accent very light bluish-green (`#e2f2f0`), dark goldenrod highlights
+- [ ] Color palette: snowy white background (`#fffafa`), accent very light bluish-green (`#e2f2f0`), dark goldenrod highlights
   (`#b8860b`), soft black text (`#2a2f36`)
-- Typography: **Inter** (or **Outfit**) from Google Fonts for all body text; a slightly heavier
+- [ ] Typography: **Inter** (or **Outfit**) from Google Fonts for all body text; a slightly heavier
   weight for headings
-- Clean card styling for control panels and the line graph panel
-- Smooth CSS transitions on all interactive elements (hover, select, slider thumb)
-- Fully responsive layout using CSS Grid (map + sidebar), collapsing gracefully on narrow viewports
-- Custom-styled range slider and radio buttons using CSS pseudo-elements
-- Color scale legend strip positioned at the bottom of the map panel
+- [ ] Clean card styling for control panels and the line graph panel
+- [ ] Smooth CSS transitions on all interactive elements (hover, select, slider thumb)
+- [ ] Fully responsive layout using CSS Grid (map + sidebar), collapsing gracefully on narrow viewports
+- [ ] Custom-styled range slider and radio buttons using CSS pseudo-elements
+- [ ] Color scale legend strip positioned at the bottom of the map panel
 
 ---
 
@@ -160,17 +160,17 @@ any visuals.
 
 ### Milestone 3.1 — Data Loading & Preprocessing
 
-- Use `d3.csv()` to load all enriched state and county files, keyed by `{level, year, direction}`.
-- Parse all numeric columns (`n1`, `n2`, `AGI`) to numbers.
-- Build two in-memory lookup structures:
-  - **State flow map:** `stateFlows[year][direction][y1_fips][y2_fips]` → `{n1, n2, AGI}`
-  - **County flow map:** `countyFlows[year][direction][y1_key][y2_key]` → `{n1, n2, AGI}` where
+- [ ] Use `d3.csv()` to load all enriched state and county files, keyed by `{level, year, direction}`.
+- [ ] Parse all numeric columns (`n1`, `n2`, `AGI`) to numbers.
+- [ ] Build two in-memory lookup structures:
+  - [ ] **State flow map:** `stateFlows[year][direction][y1_fips][y2_fips]` → `{n1, n2, AGI}`
+  - [ ] **County flow map:** `countyFlows[year][direction][y1_key][y2_key]` → `{n1, n2, AGI}` where
     `key = statefips_countyfips`
-- Precompute "total" aggregates (summing across all origins/destinations) per region per year.
+- [ ] Precompute "total" aggregates (summing across all origins/destinations) per region per year.
 
 ### Milestone 3.2 — Derived Metric Computation
 
-Implement a `computeMetric(flowRecord, metricKey)` function that returns the correct value for the
+- [ ] Implement a `computeMetric(flowRecord, metricKey)` function that returns the correct value for the
 selected metric given a raw flow record. Metrics requiring a denominator (e.g., "as a share of
 population") should use the region's total (code `96`) row as the denominator. Cover all 22 metrics
 from SPECS.md:
@@ -184,7 +184,7 @@ from SPECS.md:
 
 ### Milestone 3.3 — Application State & Event Wiring
 
-Maintain a central `appState` object:
+- [ ] Maintain a central `appState` object:
 ```js
 {
   level: 'state' | 'county',
@@ -196,7 +196,7 @@ Maintain a central `appState` object:
 }
 ```
 
-Wire all controls to update `appState` and call a `render()` function that re-renders both the map
+- [ ] Wire all controls to update `appState` and call a `render()` function that re-renders both the map
 and the line chart based on current state.
 
 ---
@@ -207,35 +207,35 @@ and the line chart based on current state.
 
 ### Milestone 4.1 — GeoJSON Integration
 
-- Fetch U.S. state TopoJSON from the `topojson-us` CDN (`us-10m.json`).
-- For county mode, fetch the county-level TopoJSON (also from CDN).
-- Use `topojson.feature()` to convert to GeoJSON; project with `d3.geoAlbersUsa()`.
+- [ ] Fetch U.S. state TopoJSON from the `topojson-us` CDN (`us-10m.json`).
+- [ ] For county mode, fetch the county-level TopoJSON (also from CDN).
+- [ ] Use `topojson.feature()` to convert to GeoJSON; project with `d3.geoAlbersUsa()`.
 
 ### Milestone 4.2 — Choropleth Rendering
 
-- Bind the current year's metric values to each geographic region.
-- Compute a sequential color scale (`d3.scaleSequential`) using a curated diverging palette:
-  - **Net metrics:** diverging scale (negative = red-orange, zero = neutral gray, positive = green)
-  - **Inflow/outflow only metrics:** sequential scale (light → accent teal)
-- Render region `<path>` elements; fill by computed metric value.
-- Render a gradient color legend at the bottom of the map.
+- [ ] Bind the current year's metric values to each geographic region.
+- [ ] Compute a sequential color scale (`d3.scaleSequential`) using a curated diverging palette:
+  - [ ] **Net metrics:** diverging scale (negative = red-orange, zero = neutral gray, positive = green)
+  - [ ] **Inflow/outflow only metrics:** sequential scale (light → accent teal)
+- [ ] Render region `<path>` elements; fill by computed metric value.
+- [ ] Render a gradient color legend at the bottom of the map.
 
 ### Milestone 4.3 — Selection Logic
 
-- **Click to select primary region:** clicking a region with no primary selected makes it the
+- [ ] **Click to select primary region:** clicking a region with no primary selected makes it the
   primary; clicking again deselects. Clicking a different region when one is already selected sets
   the new one as secondary (or replaces the primary if none is secondary).
-- **Visual feedback:** primary region highlighted with gold stroke + slight scale-up; secondary with
+- [ ] **Visual feedback:** primary region highlighted with gold stroke + slight scale-up; secondary with
   teal stroke; all others dimmed proportionally to their flow with the primary.
-- **No selection mode:** map shows total inbound or outbound flow per region (based on metric type).
-- **Primary selected mode:** map shows the flow between the primary region and every other region.
+- [ ] **No selection mode:** map shows total inbound or outbound flow per region (based on metric type).
+- [ ] **Primary selected mode:** map shows the flow between the primary region and every other region.
 
 ### Milestone 4.4 — Tooltips & Hover State
 
-- On `mouseover`: display a tooltip showing region name + current metric value (formatted with
+- [ ] On `mouseover`: display a tooltip showing region name + current metric value (formatted with
   `d3.format`). Use a floating `<div>` tooltip that follows the cursor.
-- On `mouseout`: hide tooltip.
-- Smooth `transition().duration(200)` on fill changes during hover.
+- [ ] On `mouseout`: hide tooltip.
+- [ ] Smooth `transition().duration(200)` on fill changes during hover.
 
 ---
 
@@ -245,30 +245,30 @@ and the line chart based on current state.
 
 ### Milestone 5.1 — Chart Scaffold
 
-- Create an SVG inside `#linechart` with margins for axes and labels.
-- Define `x` scale as `d3.scaleLinear` over available years; `y` scale as `d3.scaleLinear` over
+- [ ] Create an SVG inside `#linechart` with margins for axes and labels.
+- [ ] Define `x` scale as `d3.scaleLinear` over available years; `y` scale as `d3.scaleLinear` over
   value range.
-- Render axes with `d3.axisBottom` and `d3.axisLeft`.
+- [ ] Render axes with `d3.axisBottom` and `d3.axisLeft`.
 
 ### Milestone 5.2 — No-Selection State
 
-- When `primaryRegion === null`, overlay a centered placeholder message: *"Select a region on the
+- [ ] When `primaryRegion === null`, overlay a centered placeholder message: *"Select a region on the
   map to see trends over time."*
 
 ### Milestone 5.3 — Primary Only State (Aggregate Trend)
 
-- Show the secondary flow-type dropdown (Total flow, Total U.S. flow, Total foreign flow, Total
+- [ ] Show the secondary flow-type dropdown (Total flow, Total U.S. flow, Total foreign flow, Total
   same-state flow, Total different-state flow [county only], Total non-movers).
-- Plot a single line representing the selected flow type for the primary region across all years.
-- Animate the line using `stroke-dasharray` / `stroke-dashoffset` on initial render.
-- Add circular data-point markers at each year; on hover, show a tooltip with the exact value.
+- [ ] Plot a single line representing the selected flow type for the primary region across all years.
+- [ ] Animate the line using `stroke-dasharray` / `stroke-dashoffset` on initial render.
+- [ ] Add circular data-point markers at each year; on hover, show a tooltip with the exact value.
 
 ### Milestone 5.4 — Primary + Secondary State (Pairwise Trend)
 
-- Hide the flow-type dropdown.
-- Plot the migration flow between the primary and secondary region across all years.
-- Label the line with the secondary region name at the endpoint.
-- Smoothly transition the line when either selection changes.
+- [ ] Hide the flow-type dropdown.
+- [ ] Plot the migration flow between the primary and secondary region across all years.
+- [ ] Label the line with the secondary region name at the endpoint.
+- [ ] Smoothly transition the line when either selection changes.
 
 ---
 
@@ -278,23 +278,23 @@ and the line chart based on current state.
 
 ### Milestone 6.1 — Micro-Animations & UX Polish
 
-- Animated map load: regions fade in with a staggered `delay` on first render.
-- Line chart path draws itself in on appearance.
-- Slider year indicator updates a visible numeric label in real time.
-- Metric dropdown uses a custom-styled `<select>` grouped by metric category.
+- [ ] Animated map load: regions fade in with a staggered `delay` on first render.
+- [ ] Line chart path draws itself in on appearance.
+- [ ] Slider year indicator updates a visible numeric label in real time.
+- [ ] Metric dropdown uses a custom-styled `<select>` grouped by metric category.
 
 ### Milestone 6.2 — Accessibility
 
-- All interactive elements have `aria-label` attributes.
-- Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
-- Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
+- [ ] All interactive elements have `aria-label` attributes.
+- [ ] Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
+- [ ] Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
 
 ### Milestone 6.3 — Performance
 
-- County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
-  - Load county data lazily (only when the user switches to County mode).
-  - Precompute and cache aggregated totals per county on load.
-  - Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
+- [ ] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
+  - [ ] Load county data lazily (only when the user switches to County mode).
+  - [ ] Precompute and cache aggregated totals per county on load.
+  - [ ] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
 
 ### Milestone 6.4 — Final Validation Checklist
 

@@ -52,7 +52,11 @@ How to display the line graph:
     - Total non-movers
 - If both a primary and a secondary state or county are selected, then display the data for the flow between the states or counties over the course of all the years for which there is data.
 
-Code to use to display the data: index.html, styles.css, and script.js
+Code to use to display the data:
+
+- index.html: the static content file
+- styles.css: the styling file
+- script.js: the scripting file, which should use D3.js to display all the interactive visuals
 
 Data modifications:
 
@@ -71,4 +75,5 @@ Data notes:
     - y2 refers to the sending state.
     - n1 refers to the number of households.
     - n2 refers to the number of individuals.
+    - The last four digits represent the last two digits of the preceding year followed by the last two digits of the succeeding year (e.g., “2223” means “2022 to 2023”).
 - When writing the Python programs to create new state and county CSV data files, please use abstraction to write two general-purpose Python programs: one for state data and one for county data.

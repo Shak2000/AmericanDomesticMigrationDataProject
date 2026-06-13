@@ -114,26 +114,35 @@ Batch-produce the four enriched files:
 
 ### Milestone 1.4 — Data Validation
 
-After generating all enriched files, run a quick validation script (`validate_data.py`) that checks:
-- [ ] No null values in key join columns (`state_postal`, `state_name`, `county_name`)
-- [ ] Row counts match raw originals
-- [ ] Special FIPS codes (96, 97, 98) are preserved without dropping
-- [ ] Connecticut 2021–22 county rows resolve to traditional county names (FIPS < 100)
-- [ ] Connecticut 2022–23 county rows resolve to planning-region names (FIPS ≥ 100)
+After generating all enriched files, run `scripts/validate_data.py` which checks:
+- [x] No unexpected empty values in key join columns (`state_postal`, `state_name`, `county_name`).
+  IRS pseudo-FIPS 58 (same-state aggregate) and 59 (different-state aggregate) produce intentionally
+  empty labels; these are reported as known warnings, not errors.
+- [x] Row counts in every enriched file exactly match its raw original
+- [x] Special aggregate FIPS codes (96, 97, 98) are present in every enriched file
+- [x] All state FIPS are 2-digit zero-padded strings; all county FIPS are 3-digit zero-padded strings
+- [x] Connecticut county rows all resolve to a non-empty county/planning-region name.
+  Confirmed by validation: 2020–21 IRS files use traditional county FIPS (001–015);
+  2021–22 and 2022–23 IRS files use planning-region FIPS (110–190). Both resolve correctly
+  against the unified `county_fips.csv`.
 
 **Deliverables for Phase 1:**
 ```
-state_fips.csv
-county_fips.csv
-stateinflow2122_enriched.csv
-stateinflow2223_enriched.csv
-stateoutflow2122_enriched.csv
-stateoutflow2223_enriched.csv
-countyinflow2122_enriched.csv
-countyinflow2223_enriched.csv
-countyoutflow2122_enriched.csv
-countyoutflow2223_enriched.csv
-validate_data.py
+scripts/validate_data.py
+data/fips/state_fips.csv
+data/fips/county_fips.csv
+data/enriched/state_inflow/stateinflow2021_enriched.csv
+data/enriched/state_inflow/stateinflow2122_enriched.csv
+data/enriched/state_inflow/stateinflow2223_enriched.csv
+data/enriched/state_outflow/stateoutflow2021_enriched.csv
+data/enriched/state_outflow/stateoutflow2122_enriched.csv
+data/enriched/state_outflow/stateoutflow2223_enriched.csv
+data/enriched/county_inflow/countyinflow2021_enriched.csv
+data/enriched/county_inflow/countyinflow2122_enriched.csv
+data/enriched/county_inflow/countyinflow2223_enriched.csv
+data/enriched/county_outflow/countyoutflow2021_enriched.csv
+data/enriched/county_outflow/countyoutflow2122_enriched.csv
+data/enriched/county_outflow/countyoutflow2223_enriched.csv
 ```
 
 ---

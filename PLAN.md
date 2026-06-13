@@ -20,7 +20,8 @@ map, examine pairwise migration flows, and trace trends across all available yea
 | `countyinflow2223.csv` | ~92,000 | County-to-county inflow, 2022–23 |
 | `countyoutflow2122.csv` | ~90,400 | County-to-county outflow, 2021–22 |
 | `countyoutflow2223.csv` | ~93,000 | County-to-county outflow, 2022–23 |
-| `fips.txt` | — | State + county FIPS lookup table |
+| `all-geocodes-v2021.csv` | ~38,000 | U.S. Census geocode lookup (pre-2022 county definitions) |
+| `all-geocodes-v2025.csv` | ~38,000 | U.S. Census geocode lookup (2022+ definitions, incl. CT planning regions) |
 
 **Key data notes:**
 - `y1` = receiving geography (inflow files) / origin geography (outflow files)
@@ -28,6 +29,11 @@ map, examine pairwise migration flows, and trace trends across all available yea
 - `n1` = households, `n2` = individuals, `AGI` = adjusted gross income (thousands of dollars)
 - Special `y1_statefips` codes: `96` = US+Foreign total, `97` = US total, `98` = Foreign total
 - County files use an additional `y1_countyfips` / `y2_countyfips` column
+- **Connecticut geography change (2022):** The U.S. Census replaced Connecticut's 8 traditional
+  counties with 9 planning regions. Both the 2021–22 and 2022–23 IRS county files use the
+  planning-region FIPS codes (09110–09190). `all-geocodes-v2021.csv` has only the traditional
+  counties; `all-geocodes-v2025.csv` adds the 9 planning regions. The unified `county_fips.csv`
+  includes both sets so all IRS rows can be resolved.
 
 ---
 
@@ -35,18 +41,27 @@ map, examine pairwise migration flows, and trace trends across all available yea
 
 **Goal:** Produce clean, enriched CSV files ready for ingestion by the front-end.
 
-### Milestone 1.1 — Parse FIPS Lookup (`parse_fips.py`)
+### Milestone 1.1 — Parse FIPS Lookups (`parse_fips.py`)
 
-Write a Python script that reads `fips.txt` and outputs two CSV files:
+Rewrite `parse_fips.py` to read **both** Census geocode CSVs and produce **two unified** CSV files:
 
 - [x] `state_fips.csv` — columns: `fips_code`, `state_name`, `state_postal`
+  (states are identical between both vintages; 2021 rows are used)
 - [x] `county_fips.csv` — columns: `state_fips`, `county_fips`, `county_name`, `state_name`, `state_postal`
+  Contains **all** counties from `all-geocodes-v2021.csv` **plus** the Connecticut planning-region
+  rows from `all-geocodes-v2025.csv`. This means the single file covers both the 2021–22 IRS files
+  (which reference Connecticut's traditional county FIPS) and the 2022–23 files (which reference
+  planning-region FIPS), with no ambiguity because the old and new CT codes are disjoint.
 
 Implementation notes:
-- [x] The file mixes state-level blocks and county sub-entries with fixed-width formatting; parse both in
-  one pass using indentation/column-position heuristics.
-- [x] Derive `state_postal` by mapping state names to the standard two-letter abbreviation using a
-  hard-coded lookup dictionary (all 50 states + DC).
+- [x] Filter the geocode CSVs by Summary Level: `040` → state rows; `050` → county/planning-region rows.
+- [x] Derive `state_postal` from a hard-coded name → abbreviation dictionary (all 50 states + DC).
+- [x] For county rows, carry forward the state context from the `040` row with the matching `State FIPS Code`.
+- [x] Merge step: start with all 2021 county rows, then append only the Connecticut rows from 2025
+  (FIPS 09110–09190, 9 planning regions). Deduplicate on `(state_fips, county_fips)` so 2021 wins
+  on any overlap.
+- [x] Sanity-check: warn if any state rows have no postal code; confirm both old and new CT
+  geographies are present in `county_fips.csv`.
 
 **Output:** `state_fips.csv`, `county_fips.csv`
 
@@ -54,7 +69,7 @@ Implementation notes:
 
 ### Milestone 1.2 — Enrich State CSV Files (`enrich_state_data.py`)
 
-Write a general-purpose Python script that accepts any state inflow **or** outflow CSV and joins it
+General-purpose Python script that accepts any state inflow **or** outflow CSV and joins it
 with `state_fips.csv` to add:
 
 - [x] `y2_state_postal` — postal abbreviation of the receiving/destination state (`y2_statefips`)
@@ -75,12 +90,14 @@ Batch-produce the four enriched files:
 
 ### Milestone 1.3 — Enrich County CSV Files (`enrich_county_data.py`)
 
-Write a general-purpose Python script that accepts any county inflow **or** outflow CSV and joins it
-with `county_fips.csv` to add:
+General-purpose Python script that accepts any county inflow **or** outflow CSV and joins it
+with the unified `county_fips.csv` (which contains both pre-2022 CT county codes and 2022+
+CT planning-region codes) to add:
 
-- [ ] `y2_state_postal` — postal abbreviation for the `y2` state
-- [ ] `y2_state_name` — full name of the `y2` state
-- [ ] `y2_county_name` — county name for the `y2` county (joined on `y2_statefips` + `y2_countyfips`)
+- [x] `y2_state_postal` — postal abbreviation for the `y2` state
+- [x] `y2_state_name` — full name of the `y2` state
+- [x] `y2_county_name` — county or planning-region name for the `y2` geography (joined on
+  `y2_statefips` + `y2_countyfips`)
 
 The script should be callable as:
 ```
@@ -88,10 +105,10 @@ python enrich_county_data.py <input_csv> <output_csv>
 ```
 
 Batch-produce the four enriched files:
-- [ ] `countyinflow2122_enriched.csv`
-- [ ] `countyinflow2223_enriched.csv`
-- [ ] `countyoutflow2122_enriched.csv`
-- [ ] `countyoutflow2223_enriched.csv`
+- [x] `countyinflow2122_enriched.csv`
+- [x] `countyinflow2223_enriched.csv`
+- [x] `countyoutflow2122_enriched.csv`
+- [x] `countyoutflow2223_enriched.csv`
 
 ---
 
@@ -101,6 +118,8 @@ After generating all enriched files, run a quick validation script (`validate_da
 - [ ] No null values in key join columns (`state_postal`, `state_name`, `county_name`)
 - [ ] Row counts match raw originals
 - [ ] Special FIPS codes (96, 97, 98) are preserved without dropping
+- [ ] Connecticut 2021–22 county rows resolve to traditional county names (FIPS < 100)
+- [ ] Connecticut 2022–23 county rows resolve to planning-region names (FIPS ≥ 100)
 
 **Deliverables for Phase 1:**
 ```
@@ -312,23 +331,54 @@ and the line chart based on current state.
 
 ```
 IRSMigrationDataProject/
-├── parse_fips.py                   # Phase 1.1
-├── enrich_state_data.py            # Phase 1.2
-├── enrich_county_data.py           # Phase 1.3
-├── validate_data.py                # Phase 1.4
-├── state_fips.csv                  # output of parse_fips.py
-├── county_fips.csv                 # output of parse_fips.py
-├── stateinflow2122_enriched.csv    # output of enrich_state_data.py
-├── stateinflow2223_enriched.csv
-├── stateoutflow2122_enriched.csv
-├── stateoutflow2223_enriched.csv
-├── countyinflow2122_enriched.csv   # output of enrich_county_data.py
-├── countyinflow2223_enriched.csv
-├── countyoutflow2122_enriched.csv
-├── countyoutflow2223_enriched.csv
-├── index.html                      # Phase 2.1
-├── styles.css                      # Phase 2.2
-└── script.js                       # Phases 3–5
+├── scripts/
+│   ├── parse_fips.py                           # Phase 1.1
+│   ├── enrich_state_data.py                    # Phase 1.2
+│   ├── enrich_county_data.py                   # Phase 1.3
+│   └── validate_data.py                        # Phase 1.4
+├── data/
+│   ├── fips/
+│   │   ├── all-geocodes-v2021.csv              # Census source (pre-2022 county definitions)
+│   │   ├── all-geocodes-v2025.csv              # Census source (2022+ CT planning regions)
+│   │   ├── state_fips.csv                      # output of parse_fips.py
+│   │   └── county_fips.csv                     # output of parse_fips.py (unified: old CT + new CT)
+│   ├── original/
+│   │   ├── state_inflow/
+│   │   │   ├── stateinflow2021.csv
+│   │   │   ├── stateinflow2122.csv
+│   │   │   └── stateinflow2223.csv
+│   │   ├── state_outflow/
+│   │   │   ├── stateoutflow2021.csv
+│   │   │   ├── stateoutflow2122.csv
+│   │   │   └── stateoutflow2223.csv
+│   │   ├── county_inflow/
+│   │   │   ├── countyinflow2021.csv
+│   │   │   ├── countyinflow2122.csv
+│   │   │   └── countyinflow2223.csv
+│   │   └── county_outflow/
+│   │       ├── countyoutflow2021.csv
+│   │       ├── countyoutflow2122.csv
+│   │       └── countyoutflow2223.csv
+│   └── enriched/
+│       ├── state_inflow/
+│       │   ├── stateinflow2021_enriched.csv    # output of enrich_state_data.py
+│       │   ├── stateinflow2122_enriched.csv
+│       │   └── stateinflow2223_enriched.csv
+│       ├── state_outflow/
+│       │   ├── stateoutflow2021_enriched.csv   # output of enrich_state_data.py
+│       │   ├── stateoutflow2122_enriched.csv
+│       │   └── stateoutflow2223_enriched.csv
+│       ├── county_inflow/
+│       │   ├── countyinflow2021_enriched.csv   # output of enrich_county_data.py
+│       │   ├── countyinflow2122_enriched.csv
+│       │   └── countyinflow2223_enriched.csv
+│       └── county_outflow/
+│           ├── countyoutflow2021_enriched.csv  # output of enrich_county_data.py
+│           ├── countyoutflow2122_enriched.csv
+│           └── countyoutflow2223_enriched.csv
+├── index.html                                  # Phase 2.1
+├── styles.css                                  # Phase 2.2
+└── script.js                                   # Phases 3–5
 ```
 
 ---

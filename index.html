@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>U.S. Migration Explorer — IRS SOI Data</title>
+  <meta name="description" content="Interactive visualization of U.S. domestic migration patterns using IRS
+                 Statistics of Income (SOI) tax data from 2020 to 2023. Explore population,
+                 household, and income flows at the state and county level." />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- D3.js — visualisation library -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7" defer></script>
+  <!-- topojson-client — converts TopoJSON → GeoJSON for the choropleth map -->
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js" defer></script>
+
+  <!-- App styles and logic -->
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <div class="header-title-group">
+        <h1 id="site-title">U.S. Migration Explorer</h1>
+        <p id="site-subtitle">
+          IRS SOI tax data · domestic migration flows · 2020 – 2023
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TOP CONTROL BAR
+  ════════════════════════════════════════════════════════════════════════ -->
+  <nav id="control-bar" aria-label="Visualization controls">
+    <div class="controls-inner">
+
+      <!-- Granularity toggle: State / County -->
+      <fieldset id="granularity-fieldset" class="control-group">
+        <legend class="control-label">Level</legend>
+        <div class="radio-group">
+          <label id="label-level-state" class="radio-label">
+            <input type="radio" id="radio-level-state" name="granularity" value="state" checked />
+            <span class="radio-custom"></span>
+            State
+          </label>
+          <label id="label-level-county" class="radio-label">
+            <input type="radio" id="radio-level-county" name="granularity" value="county" />
+            <span class="radio-custom"></span>
+            County
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Year slider -->
+      <div id="year-control" class="control-group">
+        <label class="control-label" for="year-slider">
+          Year: <span id="year-display">2022–23</span>
+        </label>
+        <input type="range" id="year-slider" name="year" min="0" max="2" step="1" value="2" aria-valuemin="0"
+          aria-valuemax="2" aria-valuenow="2" aria-valuetext="2022–23" />
+        <div class="slider-tick-labels" aria-hidden="true">
+          <span>2020–21</span>
+          <span>2021–22</span>
+          <span>2022–23</span>
+        </div>
+      </div>
+
+      <!-- Metric dropdown -->
+      <div id="metric-control" class="control-group">
+        <label class="control-label" for="metric-select">Metric</label>
+        <select id="metric-select" name="metric">
+          <optgroup label="Population">
+            <option value="pop_inflow">Population inflow</option>
+            <option value="pop_outflow">Population outflow</option>
+            <option value="pop_net">Net population flow</option>
+            <option value="pop_inflow_share">Population inflow as share of population</option>
+            <option value="pop_outflow_share">Population outflow as share of population</option>
+            <option value="pop_net_share">Net population flow as share of population</option>
+          </optgroup>
+          <optgroup label="Households">
+            <option value="hh_inflow">Households inflow</option>
+            <option value="hh_outflow">Households outflow</option>
+            <option value="hh_net">Net household flow</option>
+            <option value="hh_inflow_share">Households inflow as share of households</option>
+            <option value="hh_outflow_share">Households outflow as share of households</option>
+            <option value="hh_net_share">Net household flow as share of households</option>
+          </optgroup>
+          <optgroup label="AGI">
+            <option value="agi_inflow">AGI inflow</option>
+            <option value="agi_outflow">AGI outflow</option>
+            <option value="agi_net">Net AGI flow</option>
+            <option value="agi_inflow_share">AGI inflow as share of AGI</option>
+            <option value="agi_outflow_share">AGI outflow as share of AGI</option>
+            <option value="agi_net_share">Net AGI flow as share of AGI</option>
+          </optgroup>
+          <optgroup label="Average AGI">
+            <option value="avg_agi_in_individual">Avg AGI of individual moving in</option>
+            <option value="avg_agi_in_household">Avg AGI of household moving in</option>
+            <option value="avg_agi_out_individual">Avg AGI of individual moving out</option>
+            <option value="avg_agi_out_household">Avg AGI of household moving out</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Map zoom slider -->
+      <div id="zoom-control" class="control-group">
+        <label class="control-label" for="zoom-slider">
+          Zoom: <span id="zoom-display">1×</span>
+        </label>
+        <input type="range" id="zoom-slider" name="zoom"
+               min="1" max="5" step="0.25" value="1"
+               aria-label="Map zoom level"
+               aria-valuemin="1" aria-valuemax="5"
+               aria-valuenow="1" aria-valuetext="1×" />
+        <div class="slider-tick-labels" aria-hidden="true">
+          <span>1×</span>
+          <span>2×</span>
+          <span>3×</span>
+          <span>4×</span>
+          <span>5×</span>
+        </div>
+      </div>
+
+    </div><!-- /.controls-inner -->
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAIN LAYOUT — map (left) + sidebar (right)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <main id="main-layout" role="main">
+
+    <!-- Left panel: choropleth map -->
+    <section id="map-panel" aria-label="Choropleth map">
+
+      <!-- Map SVG is injected here by D3 -->
+      <div id="map" role="img" aria-label="U.S. choropleth migration map"></div>
+
+      <!-- Hover / selection status bar -->
+      <div id="map-status-bar" role="status" aria-live="polite" aria-atomic="true">
+        <span id="map-status-text">Hover over a state, county, or county equivalent to see details</span>
+      </div>
+
+      <!-- Color-scale legend -->
+      <div id="map-legend" aria-label="Color scale legend">
+        <span id="legend-min" class="legend-bound"></span>
+        <div id="legend-gradient"></div>
+        <span id="legend-max" class="legend-bound"></span>
+      </div>
+
+    </section>
+
+    <!-- Right panel: line chart + flow-type selector -->
+    <aside id="sidebar-panel" aria-label="Time-series sidebar">
+
+      <!-- Selection summary (shown when a primary region is active) -->
+      <div id="selection-summary" hidden>
+        <p id="primary-label" class="selection-region primary-region"></p>
+        <p id="secondary-label" class="selection-region secondary-region"></p>
+        <button id="clear-selection-btn" type="button">
+          Clear selection
+        </button>
+      </div>
+
+      <!-- Flow-type dropdown (shown only when primary is selected, no secondary) -->
+      <div id="flow-type-control" class="control-group" hidden>
+        <label class="control-label" for="flow-type-select">Show</label>
+        <select id="flow-type-select" name="flow-type">
+          <option value="total">Total flow</option>
+          <option value="us_total">Total U.S. flow</option>
+          <option value="foreign_total">Total foreign flow</option>
+          <option value="same_state">Total same-state flow</option>
+          <option value="diff_state">Total different-state flow (county only)</option>
+          <option value="non_movers">Total non-movers</option>
+        </select>
+      </div>
+
+      <!-- Line-chart container -->
+      <div id="linechart" role="img" aria-label="Time-series line chart" aria-live="polite">
+        <!-- Placeholder message shown before any selection -->
+        <div id="linechart-placeholder" class="chart-placeholder">
+          <p>Select a state, county,<br />or county equivalent on the map<br />to view its migration trend</p>
+        </div>
+        <!-- D3 SVG injected here -->
+      </div>
+
+    </aside>
+
+  </main><!-- /#main-layout -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCREEN-READER-ONLY LIVE REGION for dynamic updates
+  ════════════════════════════════════════════════════════════════════════ -->
+  <div id="sr-announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+</body>
+
+</html>

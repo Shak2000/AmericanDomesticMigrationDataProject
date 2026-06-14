@@ -154,30 +154,30 @@ data/enriched/county_outflow/countyoutflow2223_enriched.csv
 ### Milestone 2.1 — HTML Structure (`index.html`)
 
 Create `index.html` containing:
-- [ ] A `<header>` with the project title and subtitle
-- [ ] A top control bar containing:
-  - [ ] Radio button pair: **State** / **County** (granularity toggle)
-  - [ ] Year slider (range input, min/max set dynamically from available years)
-  - [ ] Metric dropdown (all 22 metrics listed in SPECS.md)
-- [ ] A two-panel main layout:
-  - [ ] **Left panel (large):** map container `<div id="map">`
-  - [ ] **Right panel (narrow):** line graph container `<div id="linechart">` + its own secondary dropdown
+- [x] A `<header>` with the project title and subtitle
+- [x] A top control bar containing:
+  - [x] Radio button pair: **State** / **County** (granularity toggle)
+  - [x] Year slider (range input, min/max set dynamically from available years)
+  - [x] Metric dropdown (all 22 metrics listed in SPECS.md)
+- [x] A two-panel main layout:
+  - [x] **Left panel (large):** map container `<div id="map">`
+  - [x] **Right panel (narrow):** line graph container `<div id="linechart">` + its own secondary dropdown
     for flow-type selection (shown only when a primary region is selected but no secondary is selected)
-- [ ] A status/tooltip bar at the bottom of the map for hover feedback
-- [ ] Semantic HTML5 elements throughout; unique IDs on all interactive controls
+- [x] A status/tooltip bar at the bottom of the map for hover feedback
+- [x] Semantic HTML5 elements throughout; unique IDs on all interactive controls
 
 ### Milestone 2.2 — Design System (`styles.css`)
 
 Implement a readable light-mode aesthetic:
-- [ ] Color palette: snowy white background (`#fffafa`), accent very light bluish-green (`#e2f2f0`), dark goldenrod highlights
+- [x] Color palette: snowy white background (`#fffafa`), accent very light bluish-green (`#e2f2f0`), dark goldenrod highlights
   (`#b8860b`), soft black text (`#2a2f36`)
-- [ ] Typography: **Inter** (or **Outfit**) from Google Fonts for all body text; a slightly heavier
+- [x] Typography: **Inter** from Google Fonts for all body text; a slightly heavier
   weight for headings
-- [ ] Clean card styling for control panels and the line graph panel
-- [ ] Smooth CSS transitions on all interactive elements (hover, select, slider thumb)
-- [ ] Fully responsive layout using CSS Grid (map + sidebar), collapsing gracefully on narrow viewports
-- [ ] Custom-styled range slider and radio buttons using CSS pseudo-elements
-- [ ] Color scale legend strip positioned at the bottom of the map panel
+- [x] Clean card styling for control panels and the line graph panel
+- [x] Smooth CSS transitions on all interactive elements (hover, select, slider thumb)
+- [x] Fully responsive layout using CSS Grid (map + sidebar), collapsing gracefully on narrow viewports
+- [x] Custom-styled range slider and radio buttons using CSS pseudo-elements
+- [x] Color scale legend strip positioned at the bottom of the map panel
 
 ---
 
@@ -188,20 +188,37 @@ any visuals.
 
 ### Milestone 3.1 — Data Loading & Preprocessing
 
-- [ ] Use `d3.csv()` to load all enriched state and county files, keyed by `{level, year, direction}`.
-- [ ] Parse all numeric columns (`n1`, `n2`, `AGI`) to numbers.
-- [ ] Build two in-memory lookup structures:
-  - [ ] **State flow map:** `stateFlows[year][direction][y1_fips][y2_fips]` → `{n1, n2, AGI}`
-  - [ ] **County flow map:** `countyFlows[year][direction][y1_key][y2_key]` → `{n1, n2, AGI}` where
+- [x] Use `d3.csv()` to load all enriched state and county files, keyed by `{level, year, direction}`.
+  State files are loaded **eagerly** at startup (~200 KB each × 6 = fast).
+  County files are loaded **lazily** the first time the user switches to county view (~7–8 MB each × 6 ≈ 45 MB total).
+- [x] Parse all numeric columns (`n1`, `n2`, `AGI`) to numbers.
+- [x] Build two in-memory lookup structures:
+  - [x] **State flow map:** `stateFlows[year][direction][y1_fips][y2_fips]` → `{n1, n2, AGI}`
+  - [x] **County flow map:** `countyFlows[year][direction][y1_key][y2_key]` → `{n1, n2, AGI}` where
     `key = statefips_countyfips`
-- [ ] Precompute "total" aggregates (summing across all origins/destinations) per region per year.
+- [x] Precompute "total" aggregates per region per year, extracted from IRS aggregate rows:
+  - [x] `stateTotals[year][fips]` → `{ inflow: {n1,n2,AGI}, outflow: {n1,n2,AGI} }`
+  - [x] `countyTotals[year][key]` → `{ inflow: {n1,n2,AGI}, outflow: {n1,n2,AGI} }`
+  - [x] Inflow total = row where `y1_statefips = "96"` (US+Foreign aggregate)
+  - [x] Outflow total = row where `y2_statefips = "96"`
 
 ### Milestone 3.2 — Derived Metric Computation
 
-- [ ] Implement a `computeMetric(flowRecord, metricKey)` function that returns the correct value for the
-selected metric given a raw flow record. Metrics requiring a denominator (e.g., "as a share of
-population") should use the region's total (code `96`) row as the denominator. Cover all 22 metrics
-from SPECS.md:
+- [x] Implement `computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow })` — a pure
+  function that returns the correct value for the selected metric, or `null` when required data is
+  missing or a denominator is zero.
+- [x] `METRIC_META` registry maps every key to `{ label, direction, format }`.
+- [x] `getMapValue(regionKey, year, metricKey, level, primaryRegion)` — high-level dispatcher that
+  assembles the correct records (totals vs. pair flows) and calls `computeMetric`.
+  - Default view (no selection): uses `stateTotals` / `nationalTotals` as denominator so share
+    metrics show each region's fraction of **national** migration.
+  - Primary-selected view: uses the specific origin→destination flow and the primary's totals as
+    denominator, so share metrics show each region's fraction of the primary's total flow.
+- [x] `formatMetricValue(value, metricKey)` — formatter (integer, currency $K, percent).
+- [x] `getMetricLabel(metricKey)` — returns the human-readable label.
+- [x] `computeNationalTotals()` — sums all state totals after state files load; result stored in
+  `nationalTotals[year]`.
+- [x] All 22 metrics covered:
 
 | Group | Metrics |
 |---|---|
@@ -212,20 +229,31 @@ from SPECS.md:
 
 ### Milestone 3.3 — Application State & Event Wiring
 
-- [ ] Maintain a central `appState` object:
-```js
-{
-  level: 'state' | 'county',
-  year: Number,
-  metric: String,
-  primaryRegion: String | null,   // FIPS key
-  secondaryRegion: String | null, // FIPS key
-  flowType: String                // for line chart secondary dropdown
-}
-```
-
-- [ ] Wire all controls to update `appState` and call a `render()` function that re-renders both the map
-and the line chart based on current state.
+- [x] Central `appState` object maintained at module scope:
+  ```js
+  {
+    level:           'state' | 'county',
+    yearIndex:       0 | 1 | 2,          // maps to YEARS[yearIndex]
+    metric:          String,              // one of the 22 METRIC_META keys
+    primaryRegion:   String | null,       // FIPS key of clicked region
+    secondaryRegion: String | null,       // FIPS key of second clicked region
+    flowType:        String               // line-chart flow-type dropdown value
+  }
+  ```
+- [x] All five controls wired to `appState` + `render()`:
+  - Granularity radio → sets `appState.level`, clears selections, triggers lazy county load
+  - Year slider → sets `appState.yearIndex`, updates label text and filled-track CSS
+  - Metric dropdown → sets `appState.metric`
+  - Flow-type dropdown (sidebar) → sets `appState.flowType`, calls `renderChart()` only
+  - Clear-selection button → nulls both region keys, updates sidebar
+- [x] `render()` always calls `updateSelectionUI()` then `renderMap()` then `renderChart()`,
+  guaranteeing the sidebar stays in sync on every state transition.
+- [x] `initUI()` — syncs all HTML controls **from** `appState` on first load, ensuring a
+  consistent initial display even if `appState` defaults are changed programmatically.
+- [x] `updateSelectionUI()` — drives the selection-summary panel and flow-type dropdown
+  visibility; builds display labels from `stateMeta` / `countyMeta`.
+- [x] `setLoadingState(loading, msg)` — injects/hides the golden spinner overlay over `#map`
+  during lazy county-data loading.
 
 ---
 
@@ -235,9 +263,30 @@ and the line chart based on current state.
 
 ### Milestone 4.1 — GeoJSON Integration
 
-- [ ] Fetch U.S. state TopoJSON from the `topojson-us` CDN (`us-10m.json`).
-- [ ] For county mode, fetch the county-level TopoJSON (also from CDN).
-- [ ] Use `topojson.feature()` to convert to GeoJSON; project with `d3.geoAlbersUsa()`.
+- [x] Fetch U.S. state TopoJSON from `us-atlas@3` CDN → `states-10m.json`
+  - `loadGeoData('state')` fetches eagerly on first `renderMap()` call; result is cached.
+- [x] Fetch county-level TopoJSON from `us-atlas@3` CDN → `counties-10m.json`
+  - `loadGeoData('county')` fetches lazily on first county-mode render; result is cached.
+  - Both loads show the spinner overlay so the user always gets feedback.
+- [x] `topojson.feature()` converts each TopoJSON object to a GeoJSON FeatureCollection.
+  - `.fipsKey` is attached to every feature: `"01"` for states, `"01_073"` for counties —
+    matching the keys used in `stateTotals` and `countyTotals`.
+- [x] Three border meshes built via `topojson.mesh()`:
+  - `stateMesh`  — internal state boundaries (adjacent pairs only)
+  - `countyMesh` — internal county boundaries (county mode only)
+  - `nationMesh` — outer U.S. boundary
+- [x] `d3.geoAlbersUsa().fitExtent()` projection recalculated on every render to fit the
+  current container dimensions (supports responsive resize via `ResizeObserver`).
+- [x] `setupMapSvg()` creates the SVG + two `<g>` layers (base fills, border meshes) on
+  first call; updates the `viewBox` on subsequent calls.
+- [x] `renderMap()` draws:
+  - Base layer: one `<path class="region">` per feature with placeholder fill `--accent-bg`
+    (M4.2 will apply the D3 colour scale over this).
+  - Border layer: county mesh (county mode), state mesh, nation outline.
+- [x] Render-generation counter guards against stale paints during rapid state changes.
+- [x] `ResizeObserver` on `#map` container triggers `renderMap()` on window resize.
+- [x] `topojson-client@3` CDN script added to `index.html` (before `script.js`).
+
 
 ### Milestone 4.2 — Choropleth Rendering
 

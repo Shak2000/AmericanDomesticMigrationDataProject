@@ -1,0 +1,823 @@
+/* ============================================================
+   styles.css — Milestone 2.2
+   Design system for the U.S. Migration Explorer.
+
+   Color palette:
+     --bg          #fffafa  Snowy white page background
+     --surface     #ffffff  Card / panel surfaces
+     --accent-bg   #e2f2f0  Very light bluish-green accent fills
+     --accent      #b8860b  Dark goldenrod — interactive highlights
+     --accent-dark #8a6408  Hover / active state for goldenrod elements
+     --text        #2a2f36  Soft black body text
+     --text-muted  #6b7280  Secondary / caption text
+     --border      #dde3e9  Subtle borders between panels
+     --shadow      rgba(42,47,54,0.08)  Drop-shadow base
+
+   Typography: Inter (Google Fonts)
+   ============================================================ */
+
+/* ────────────────────────────────────────────────────────────
+   1. DESIGN TOKENS
+──────────────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --bg:           #fffafa;
+  --surface:      #ffffff;
+  --accent-bg:    #e2f2f0;
+  --accent:       #b8860b;
+  --accent-dark:  #8a6408;
+  --accent-light: #f5e9c8;
+  --text:         #2a2f36;
+  --text-muted:   #6b7280;
+  --border:       #dde3e9;
+  --shadow-sm:    0 1px 3px rgba(42,47,54,0.08);
+  --shadow-md:    0 4px 12px rgba(42,47,54,0.10);
+
+  /* Map interactive states */
+  --region-hover:     rgba(184,134,11,0.15);
+  --region-primary:   rgba(184,134,11,0.55);
+  --region-secondary: rgba(184,134,11,0.30);
+
+  /* Spacing scale */
+  --sp-xs:  4px;
+  --sp-sm:  8px;
+  --sp-md:  16px;
+  --sp-lg:  24px;
+  --sp-xl:  36px;
+
+  /* Layout */
+  --header-h:    64px;
+  --controls-h:  72px;
+  --sidebar-w:   320px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+
+  /* Transitions */
+  --t-fast:   120ms ease;
+  --t-normal: 220ms ease;
+  --t-slow:   360ms ease;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   2. RESET & BASE
+──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: var(--header-h) var(--controls-h) 1fr;
+  grid-template-areas:
+    "header"
+    "controls"
+    "main";
+}
+
+/* Screen-reader utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   3. HEADER
+──────────────────────────────────────────────────────────── */
+#site-header {
+  grid-area: header;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 1800px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--sp-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+}
+
+#site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+/* Goldenrod accent bar before the title */
+#site-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.1em;
+  background: var(--accent);
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: var(--sp-sm);
+  margin-bottom: 2px;
+}
+
+#site-subtitle {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   4. CONTROL BAR
+──────────────────────────────────────────────────────────── */
+#control-bar {
+  grid-area: controls;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  z-index: 9;
+}
+
+.controls-inner {
+  max-width: 1800px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--sp-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xl);
+  flex-wrap: wrap;
+}
+
+/* Generic control group */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  border: none;         /* reset <fieldset> */
+  padding: 0;           /* reset <fieldset> */
+  min-width: 0;
+}
+
+.control-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── 4a. Radio buttons ───────────────────────────────────── */
+.radio-group {
+  display: flex;
+  gap: 2px;
+  background: var(--accent-bg);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  padding: 4px 12px;
+  border-radius: calc(var(--radius-sm) - 2px);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+  user-select: none;
+}
+
+/* Hide native radio */
+.radio-label input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Custom dot */
+.radio-custom {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  transition: border-color var(--t-fast), background var(--t-fast);
+  flex-shrink: 0;
+}
+
+/* Checked state — pill highlight */
+.radio-label:has(input:checked) {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio-label:has(input:checked) .radio-custom {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.radio-label:hover:not(:has(input:checked)) {
+  background: rgba(255,255,255,0.6);
+  color: var(--text);
+}
+
+/* Focus-visible ring for keyboard navigation */
+.radio-label:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── 4b. Year slider ─────────────────────────────────────── */
+#year-control {
+  min-width: 200px;
+}
+
+#year-display {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+#year-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  margin-top: 6px;          /* extra gap below the label */
+  transition: background var(--t-fast);
+}
+
+/* Filled track uses a CSS gradient updated via JS (--slider-pct custom property) */
+#year-slider {
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) var(--slider-pct, 0%),
+    var(--border) var(--slider-pct, 0%),
+    var(--border) 100%
+  );
+}
+
+/* Thumb — Webkit */
+#year-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(184,134,11,0.25);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+#year-slider::-webkit-slider-thumb:hover,
+#year-slider:focus::-webkit-slider-thumb {
+  transform: scale(1.25);
+  box-shadow: 0 2px 6px rgba(184,134,11,0.40);
+}
+
+/* Thumb — Firefox */
+#year-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(184,134,11,0.25);
+  cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+#year-slider::-moz-range-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* Tick labels */
+.slider-tick-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  padding: 0 2px;
+}
+
+/* ── 4c. Metric select ───────────────────────────────────── */
+#metric-control {
+  min-width: 260px;
+  flex: 1;
+  max-width: 380px;
+}
+
+/* ── 4d. Zoom slider ─────────────────────────────────────── */
+#zoom-control {
+  min-width: 150px;
+  max-width: 200px;
+}
+
+#zoom-display {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Track */
+#zoom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background var(--t-fast);
+  background: linear-gradient(
+    to right,
+    var(--text-muted) 0%,
+    var(--text-muted) var(--zoom-pct, 0%),
+    var(--border)     var(--zoom-pct, 0%),
+    var(--border)     100%
+  );
+}
+
+/* Thumb — Webkit */
+#zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--text-muted);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+#zoom-slider::-webkit-slider-thumb:hover,
+#zoom-slider:focus::-webkit-slider-thumb {
+  transform: scale(1.25);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* Thumb — Firefox */
+#zoom-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--text-muted);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+#zoom-slider::-moz-range-thumb:hover {
+  transform: scale(1.25);
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  padding: 6px 32px 6px 10px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+select:hover {
+  border-color: var(--accent);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   5. MAIN LAYOUT — CSS Grid (map | sidebar)
+──────────────────────────────────────────────────────────── */
+#main-layout {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr var(--sidebar-w);
+  grid-template-areas: "map sidebar";
+  overflow: hidden;
+  height: 100%;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   6. MAP PANEL (left)
+──────────────────────────────────────────────────────────── */
+#map-panel {
+  grid-area: map;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+  position: relative;
+}
+
+/* SVG map fills the available space */
+#map {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* D3 injects an <svg> here — make it fill the container */
+#map svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* D3-rendered region fill paths */
+#map path.region {
+  stroke: none;                          /* borders handled by the border layer */
+  transition: fill var(--t-normal);
+  cursor: pointer;
+}
+
+/* Hover state — medium neutral gray, scoped to regions only */
+#map path.region:hover {
+  fill: #9eaab5 !important;
+}
+
+/* Border-layer paths are decorative overlays — never intercept pointer events */
+#map .layer-borders path {
+  pointer-events: none;
+}
+
+#map path.region--primary {
+  stroke: var(--accent);
+  stroke-width: 2px;
+}
+
+#map path.region--secondary {
+  stroke: var(--accent);
+  stroke-width: 1.5px;
+  stroke-dasharray: 4 2;
+}
+
+/* ── Status bar ─────────────────────────────────────────── */
+#map-status-bar {
+  padding: 6px var(--sp-md);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Color-scale legend ─────────────────────────────────── */
+#map-legend {
+  display: none;           /* hidden until D3 sets the gradient & bounds */
+  align-items: center;
+  gap: var(--sp-sm);
+  padding: 6px var(--sp-md) 8px;
+  background: var(--surface);
+}
+
+.legend-bound {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 36px;
+}
+
+#legend-min { text-align: right; }
+#legend-max { text-align: left; }
+
+#legend-gradient {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  /* D3 will replace this with the actual color-scale gradient */
+  background: linear-gradient(
+    to right,
+    #d4e9f0, #b8d9e8, #7ab7d4, #3d8bbf, #1a5e9e, #b8860b
+  );
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   7. SIDEBAR PANEL (right)
+──────────────────────────────────────────────────────────── */
+#sidebar-panel {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+  padding: var(--sp-md);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  box-shadow: -2px 0 8px rgba(42,47,54,0.04);
+}
+
+/* ── Selection summary ──────────────────────────────────── */
+#selection-summary {
+  background: var(--accent-bg);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: var(--radius-md);
+  padding: var(--sp-sm) var(--sp-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.selection-region {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+}
+
+.selection-region::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.primary-region::before   { background: var(--accent); }
+.secondary-region::before { background: var(--accent-dark); opacity: 0.6; }
+
+#clear-selection-btn {
+  align-self: flex-end;
+  margin-top: var(--sp-xs);
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+
+#clear-selection-btn:hover {
+  background: var(--accent);
+  color: var(--surface);
+}
+
+#clear-selection-btn:active {
+  transform: scale(0.97);
+}
+
+#clear-selection-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Flow-type control ──────────────────────────────────── */
+#flow-type-control {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-sm) var(--sp-md);
+}
+
+/* ── Line chart container ───────────────────────────────── */
+#linechart {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  min-height: 220px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* D3 chart SVG */
+#linechart svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Placeholder */
+.chart-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.chart-placeholder p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding: var(--sp-md);
+  background: var(--accent-bg);
+  border-radius: var(--radius-md);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   8. TOOLTIP (injected by D3 into <body>)
+──────────────────────────────────────────────────────────── */
+.map-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-sm) var(--sp-md);
+  box-shadow: var(--shadow-md);
+  font-size: 0.8125rem;
+  color: var(--text);
+  max-width: 220px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--t-fast), transform var(--t-fast);
+  z-index: 100;
+}
+
+.map-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.map-tooltip strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.map-tooltip .tooltip-value {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   9. RESPONSIVE — collapse sidebar below map on narrow screens
+──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  body {
+    grid-template-rows: var(--header-h) auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "controls"
+      "main"
+      "main";
+  }
+
+  #main-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60vh auto;
+    grid-template-areas:
+      "map"
+      "sidebar";
+    overflow-y: auto;
+  }
+
+  #sidebar-panel {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -2px 8px rgba(42,47,54,0.04);
+  }
+
+  .controls-inner {
+    gap: var(--sp-md);
+    padding: var(--sp-sm) var(--sp-md);
+  }
+
+  #metric-control {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  #site-subtitle { display: none; }
+
+  .controls-inner {
+    flex-wrap: wrap;
+  }
+
+  #year-control {
+    min-width: 160px;
+  }
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   10. SCROLLBAR STYLING (WebKit)
+──────────────────────────────────────────────────────────── */
+#sidebar-panel::-webkit-scrollbar {
+  width: 5px;
+}
+#sidebar-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+#sidebar-panel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+#sidebar-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   11. LOADING OVERLAY (injected by script.js)
+──────────────────────────────────────────────────────────── */
+#loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,250,250,0.82);
+  backdrop-filter: blur(3px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-md);
+  z-index: 50;
+}
+
+#loading-overlay[hidden] { display: none; }
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--accent-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-msg {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}

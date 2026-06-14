@@ -4,17 +4,17 @@
  * Phase 3 — Core D3 Infrastructure
  *
  * Milestone 3.1: Data Loading & Preprocessing
- *   - Loads all 12 enriched CSV files (state + county, inflow + outflow, 3 years)
- *   - Parses numeric columns (n1, n2, AGI) to numbers
- *   - Builds stateFlows / countyFlows lookup maps
- *   - Precomputes per-region totals from IRS aggregate rows (y1/y2 FIPS = "96")
+ * - Loads all 12 enriched CSV files (state + county, inflow + outflow, 3 years)
+ * - Parses numeric columns (n1, n2, AGI) to numbers
+ * - Builds stateFlows / countyFlows lookup maps
+ * - Precomputes per-region totals from IRS aggregate rows (y1/y2 FIPS = "96")
  *
  * Milestone 3.2: Derived Metric Computation
- *   - METRIC_META: registry of all 22 metrics (label, unit, direction, format)
- *   - computeMetric(metricKey, records): pure function → number | null
- *   - getMapValue(regionKey, year, metricKey, level, primaryRegion): dispatcher
- *   - formatMetricValue(value, metricKey): display formatter
- *   - computeNationalTotals(): sums stateTotals across all states (share denominator)
+ * - METRIC_META: registry of all 22 metrics (label, unit, direction, format)
+ * - computeMetric(metricKey, records): pure function → number | null
+ * - getMapValue(regionKey, year, metricKey, level, primaryRegion): dispatcher
+ * - formatMetricValue(value, metricKey): display formatter
+ * - computeNationalTotals(): sums stateTotals across all states (share denominator)
  *
  * Milestone 3.3: Application State & Event Wiring  [→ appState + render()]
  */
@@ -150,8 +150,8 @@ const countyFlows = {};
  * stateTotals[year][statefips] → { inflow: {n1,n2,AGI}, outflow: {n1,n2,AGI} }
  *
  * Extracted from IRS aggregate rows:
- *   Inflow total  = inflow row where y1_statefips = "96" (US+Foreign total)
- *   Outflow total = outflow row where y2_statefips = "96"
+ * Inflow total  = inflow row where y1_statefips = "96" (US+Foreign total)
+ * Outflow total = outflow row where y2_statefips = "96"
  * Only populated for real state FIPS (01–56, 72).
  */
 const stateTotals = {};
@@ -160,8 +160,8 @@ const stateTotals = {};
  * countyTotals[year][key] → { inflow: {n1,n2,AGI}, outflow: {n1,n2,AGI} }
  *
  * Extracted from IRS aggregate rows:
- *   Inflow total  = row where y1_statefips="96" AND y1_countyfips="000"
- *   Outflow total = row where y2_statefips="96" AND y2_countyfips="000"
+ * Inflow total  = row where y1_statefips="96" AND y1_countyfips="000"
+ * Outflow total = row where y2_statefips="96" AND y2_countyfips="000"
  */
 const countyTotals = {};
 
@@ -261,9 +261,9 @@ function getCountyTotals(year, key) {
  * Populates stateFlows, stateTotals, and stateMeta.
  *
  * Schema (columns):
- *   y2_state, y2_state_name, y2_statefips,
- *   y1_statefips, y1_state, y1_state_name,
- *   n1, n2, AGI
+ * y2_state, y2_state_name, y2_statefips,
+ * y1_statefips, y1_state, y1_state_name,
+ * n1, n2, AGI
  */
 function processStateRows(rows, year, direction) {
     // Ensure nested containers exist
@@ -314,9 +314,9 @@ function processStateRows(rows, year, direction) {
  * Populates countyFlows, countyTotals, and countyMeta.
  *
  * Schema (columns):
- *   y2_state, y2_state_name, y2_statefips, y2_countyfips, y2_county_name,
- *   y1_statefips, y1_countyfips, y1_state, y1_state_name, y1_county_name,
- *   n1, n2, AGI
+ * y2_state, y2_state_name, y2_statefips, y2_countyfips, y2_county_name,
+ * y1_statefips, y1_countyfips, y1_state, y1_state_name, y1_county_name,
+ * n1, n2, AGI
  */
 function processCountyRows(rows, year, direction) {
     if (!countyFlows[year]) countyFlows[year] = {};
@@ -463,15 +463,15 @@ function computeNationalTotals() {
  * Metadata registry for all 22 metrics.
  *
  * Fields:
- *   label     — human-readable name (matches index.html <option> text)
- *   direction — which flow direction(s) the metric reads:
- *                 'inflow'  → only uses inflow record
- *                 'outflow' → only uses outflow record
- *                 'both'    → uses both (net metrics) or neither (avg AGI)
- *   format    — how to display the value:
- *                 'integer'  → round to whole number, add comma separator
- *                 'currency' → round to whole number, thousands of $, add comma
- *                 'percent'  → multiply by 100, show as X.X %
+ * label     — human-readable name (matches index.html <option> text)
+ * direction — which flow direction(s) the metric reads:
+ * 'inflow'  → only uses inflow record
+ * 'outflow' → only uses outflow record
+ * 'both'    → uses both (net metrics) or neither (avg AGI)
+ * format    — how to display the value:
+ * 'integer'  → round to whole number, add comma separator
+ * 'currency' → round to whole number, thousands of $, add comma
+ * 'percent'  → multiply by 100, show as X.X %
  *
  * AGI values in the raw data are in thousands of dollars.
  * Avg AGI metrics therefore produce values in thousands of $/person.
@@ -517,27 +517,27 @@ const METRIC_META = {
  *
  * @param {string} metricKey
  * @param {Object} records
- *   @param {FlowRecord|null} records.inflow
- *     The inflow record to use. In the default map view this is the region's
- *     total inflow (FIPS-96 row). When a primary region P is selected, this is
- *     the flow from region R into P: stateFlows[year]['inflow'][R][P].
- *   @param {FlowRecord|null} records.outflow
- *     The outflow record. In the default map view this is the region's total
- *     outflow. When a primary P is selected, this is the flow from P to R:
- *     stateFlows[year]['outflow'][P][R].
- *   @param {FlowRecord|null} records.totalInflow
- *     Denominator for inflow share metrics.
- *     Default view: nationalTotals[year].inflow  (so share = state's fraction
- *       of all national migration → meaningful choropleth comparison).
- *     Primary-selected view: stateTotals[year][P].inflow  (so share = fraction
- *       of P's total inflow that came from R).
- *   @param {FlowRecord|null} records.totalOutflow
- *     Denominator for outflow share metrics (same logic as totalInflow).
+ * @param {FlowRecord|null} records.inflow
+ * The inflow record to use. In the default map view this is the region's
+ * total inflow (FIPS-96 row). When a primary region P is selected, this is
+ * the flow from region R into P: stateFlows[year]['inflow'][R][P].
+ * @param {FlowRecord|null} records.outflow
+ * The outflow record. In the default map view this is the region's total
+ * outflow. When a primary P is selected, this is the flow from P to R:
+ * stateFlows[year]['outflow'][P][R].
+ * @param {FlowRecord|null} records.totalInflow
+ * Denominator for inflow share metrics.
+ * Default view: nationalTotals[year].inflow  (so share = state's fraction
+ * of all national migration → meaningful choropleth comparison).
+ * Primary-selected view: stateTotals[year][P].inflow  (so share = fraction
+ * of P's total inflow that came from R).
+ * @param {FlowRecord|null} records.totalOutflow
+ * Denominator for outflow share metrics (same logic as totalInflow).
  *
  * FlowRecord = { n1: number, n2: number, AGI: number }
- *   n1  = households
- *   n2  = individuals
- *   AGI = adjusted gross income (thousands of dollars)
+ * n1  = households
+ * n2  = individuals
+ * AGI = adjusted gross income (thousands of dollars)
  */
 function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }) {
     // Provide zero-filled fallbacks so arithmetic never throws on null.
@@ -596,7 +596,7 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
 
 /**
  * getMapValue(regionKey, year, metricKey, level, primaryRegion)
- *   → number | null
+ * → number | null
  *
  * High-level dispatcher: assembles the correct inflow/outflow/total records
  * for the given display context, then delegates to computeMetric().
@@ -604,16 +604,16 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
  * Two modes:
  *
  * A) Default view (primaryRegion = null)
- *    Each region is coloured by its own total flow metric.
- *    Share denominators = nationalTotals[year] so values represent each
- *    region's fraction of national migration.
+ * Each region is coloured by its own total flow metric.
+ * Share denominators = nationalTotals[year] so values represent each
+ * region's fraction of national migration.
  *
  * B) Primary-selected view (primaryRegion is set)
- *    Each region R is coloured by the flow between R and primaryRegion P.
- *    Inflow  = flow from R into  P  (stateFlows[year].inflow[R][P])
- *    Outflow = flow from P into  R  (stateFlows[year].outflow[P][R])
- *    Share denominators = P's own totals (stateTotals[year][P])
- *    so share values = "fraction of P's total flow accounted for by R".
+ * Each region R is coloured by the flow between R and primaryRegion P.
+ * Inflow  = flow from R into  P  (stateFlows[year].inflow[R][P])
+ * Outflow = flow from P into  R  (stateFlows[year].outflow[P][R])
+ * Share denominators = P's own totals (stateTotals[year][P])
+ * so share values = "fraction of P's total flow accounted for by R".
  *
  * @param {string}      regionKey     - state FIPS or "sf_cf" county key
  * @param {string}      year          - e.g. "2122"
@@ -745,8 +745,8 @@ function currentYear() {
 
 /**
  * TopoJSON → GeoJSON cache.
- *   geoCache['state']  → { features, stateMesh, nationMesh }
- *   geoCache['county'] → { features, stateMesh, countyMesh, nationMesh }
+ * geoCache['state']  → { features, stateMesh, nationMesh }
+ * geoCache['county'] → { features, stateMesh, countyMesh, nationMesh }
  *
  * Populated lazily. State geo is fetched on first renderMap() call;
  * county geo is fetched the first time the user switches to county view.
@@ -772,13 +772,13 @@ let mapRenderGen = 0;     // monotonically increasing; prevents stale renders
  *
  * Attaches a .fipsKey to every GeoJSON feature matching the keys used in
  * stateFlows / countyFlows / stateTotals / countyTotals:
- *   State  fipsKey = zero-padded 2-char state FIPS, e.g. "01"
- *   County fipsKey = "${sf}_${cf}", e.g. "01_073" for Jefferson Co., AL
+ * State  fipsKey = zero-padded 2-char state FIPS, e.g. "01"
+ * County fipsKey = "${sf}_${cf}", e.g. "01_073" for Jefferson Co., AL
  *
  * Also builds three border meshes for the border layer:
- *   stateMesh  — internal state boundaries (adjacent pairs only)
- *   countyMesh — internal county boundaries (county mode only)
- *   nationMesh — outer U.S. boundary
+ * stateMesh  — internal state boundaries (adjacent pairs only)
+ * countyMesh — internal county boundaries (county mode only)
+ * nationMesh — outer U.S. boundary
  */
 async function loadGeoData(level) {
     if (geoCache[level]) return geoCache[level];
@@ -868,13 +868,9 @@ function setupMapSvg() {
  * Master render function — called whenever appState changes.
  *
  * Responsibilities:
- *   1. Keep the selection sidebar (summary, flow-type control) in sync.
- *   2. Re-draw the choropleth map with the current metric values.
- *   3. Re-draw the line chart for the selected region(s).
- *
- * renderMap() is async (geo data may need fetching) but render() does not
- * await it — it fires-and-forgets. The render-generation counter inside
- * renderMap() discards stale results if a newer call has already started.
+ * 1. Keep the selection sidebar (summary, flow-type control) in sync.
+ * 2. Re-draw the choropleth map with the current metric values.
+ * 3. Re-draw the line chart for the selected region(s).
  */
 function render() {
     updateSelectionUI();   // always keep sidebar in sync
@@ -887,8 +883,8 @@ function render() {
  *
  * Async. Loads geo data on first call (cached thereafter), sizes the SVG to
  * the current container, builds an AlbersUSA projection, and paints:
- *   • Base layer   — one <path> per geographic region, filled by metric value
- *   • Border layer — county mesh (county mode), state mesh, nation outline
+ * • Base layer   — one <path> per geographic region, filled by metric value
+ * • Border layer — county mesh (county mode), state mesh, nation outline
  *
  * A render-generation counter ensures only the most-recent invocation's result
  * is actually painted.
@@ -928,6 +924,12 @@ async function renderMap() {
     let maxVal = -Infinity;
 
     for (const f of features) {
+        // Ignore primary region for bounds calculation so self-flow doesn't skew distributions
+        if (appState.primaryRegion && f.fipsKey === appState.primaryRegion) {
+            valueTuples.push([f, null]);
+            continue;
+        }
+
         const val = getMapValue(f.fipsKey, year, appState.metric, appState.level, appState.primaryRegion);
         valueTuples.push([f, val]);
         if (val !== null && Number.isFinite(val)) {
@@ -951,31 +953,53 @@ async function renderMap() {
         tickValues = [];
     } else {
         if (metricMeta.direction === 'both') {
-            // Diverging quantile scale
-            const divColors = d3.schemeRdYlGn[11];
+            // Asymmetric diverging power-based scale ensuring 0 is in the center tier.
+            // Scales the negative and positive sides independently based on their actual bounds.
+            const adjustedMin = minVal < 0 ? minVal : -1;
+            const adjustedMax = maxVal > 0 ? maxVal : 1;
 
-            colorScale = d3.scaleQuantile()
-                .domain(validValues)
+            // Compute 10 boundary thresholds for 11 boxes
+            // A cubic scale forces the outer buckets to be much wider, catching the skew
+            const thresholds = [];
+
+            // 5 negative thresholds (increasing towards 0)
+            for (let i = 5; i >= 1; i--) thresholds.push(adjustedMin * Math.pow(i / 6, 3));
+
+            // 5 positive thresholds (increasing from 0)
+            for (let i = 1; i <= 5; i++) thresholds.push(adjustedMax * Math.pow(i / 6, 3));
+
+            const divColors = d3.schemeRdYlGn[11];
+            colorScale = d3.scaleThreshold()
+                .domain(thresholds)
                 .range(divColors);
 
             // Generate a hard-stepped gradient for the legend
             legendGradientCss = 'linear-gradient(to right, ' + divColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
 
-        } else {
-            // Sequential quantile scale
-            const seqColors = d3.quantize(d3.interpolatePuBu, 11);
+            // Include actual min and max for the outer edges of the tick bar
+            tickValues = [adjustedMin, ...thresholds, adjustedMax];
 
-            colorScale = d3.scaleQuantile()
-                .domain(validValues)
+        } else {
+            // Sequential power-based scale
+            const domainMin = minVal < 0 ? minVal : 0;
+            const domainMax = maxVal > domainMin ? maxVal : domainMin + 1;
+            const range = domainMax - domainMin;
+
+            const thresholds = [];
+            // Generate 10 thresholds using a cubic distribution to spread extreme outliers out
+            for (let i = 1; i <= 10; i++) {
+                thresholds.push(domainMin + range * Math.pow(i / 11, 3));
+            }
+
+            const seqColors = d3.quantize(d3.interpolatePuBu, 11);
+            colorScale = d3.scaleThreshold()
+                .domain(thresholds)
                 .range(seqColors);
 
             // Generate a hard-stepped gradient for the legend
             legendGradientCss = 'linear-gradient(to right, ' + seqColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
+            tickValues = [domainMin, ...thresholds, domainMax];
         }
-
-        // Quantiles array contains 10 boundaries for 11 buckets.
-        // We add min and max to get all 12 bounding numbers.
-        tickValues = [minVal, ...colorScale.quantiles(), maxVal];
     }
 
     // ── Update Legend UI ─────────────────────────────────────────────────────────
@@ -1060,11 +1084,8 @@ async function renderMap() {
     );
 
     // Apply zoom transformation to projection
-    // AlbersUsa composite projection doesn't support .scale() * multiplier directly
-    // Instead we calculate the base scale and translate, then apply the zoom transform.
     const baseScale = mapProjection.scale();
     const baseTranslate = mapProjection.translate();
-
     const zoomFactor = appState.zoomLevel;
 
     // We want to zoom towards the center of the viewport
@@ -1090,16 +1111,131 @@ async function renderMap() {
                 // Set initial D for smooth transition on first draw (optional)
                 .attr('d', d => mapPath(d[0]))
                 .attr('fill', d => {
+                    if (d[0].fipsKey === appState.primaryRegion) return '#9ca3af'; // Darker gray for selected region
                     const val = d[1];
                     return (val === null || !Number.isFinite(val)) ? 'var(--bg)' : colorScale(val);
                 }),
             update => update
                 .attr('d', d => mapPath(d[0])) // Update path for zooming
                 .attr('fill', d => {
+                    if (d[0].fipsKey === appState.primaryRegion) return '#9ca3af'; // Darker gray for selected region
                     const val = d[1];
                     return (val === null || !Number.isFinite(val)) ? 'var(--bg)' : colorScale(val);
                 })
-        );
+        )
+        .attr('cursor', 'pointer')
+        .attr('stroke', d => {
+            if (d[0].fipsKey === appState.primaryRegion) return '#000';
+            if (d[0].fipsKey === appState.secondaryRegion) return '#444';
+            return 'none';
+        })
+        .attr('stroke-width', d => {
+            if (d[0].fipsKey === appState.primaryRegion) return 2.5 * zoomFactor;
+            if (d[0].fipsKey === appState.secondaryRegion) return 2 * zoomFactor;
+            return 0;
+        })
+        .attr('stroke-dasharray', d => {
+            if (d[0].fipsKey === appState.secondaryRegion) return `${4 * zoomFactor},${2 * zoomFactor}`;
+            return 'none';
+        })
+        .on('mouseenter', function (event, d) {
+            // Apply slight opacity dimming on hover
+            d3.select(this).attr('fill-opacity', 0.8);
+
+            // Initialise or select the global tooltip element
+            let tooltip = d3.select('#map-tooltip');
+            if (tooltip.empty()) {
+                tooltip = d3.select('body').append('div')
+                    .attr('id', 'map-tooltip')
+                    .style('position', 'absolute')
+                    .style('display', 'none')
+                    .style('pointer-events', 'none')
+                    .style('background', 'rgba(255, 255, 255, 0.95)')
+                    .style('border', '1px solid #ccc')
+                    .style('padding', '8px 12px')
+                    .style('border-radius', '6px')
+                    .style('box-shadow', '0 4px 6px rgba(0,0,0,0.1)')
+                    .style('font-size', '0.85rem')
+                    .style('color', '#333')
+                    .style('z-index', '1000');
+            }
+            tooltip.style('display', 'block');
+        })
+        .on('mousemove', function (event, d) {
+            const fips = d[0].fipsKey;
+
+            // Resolve geographic display name based on level
+            let name = fips;
+            if (appState.level === 'state') {
+                name = stateMeta[fips]?.name || fips;
+            } else {
+                const cm = countyMeta[fips];
+                name = cm ? `${cm.countyName}, ${cm.statePostal}` : fips;
+            }
+
+            // Do not show a numerical statistic for the primary selection
+            if (fips === appState.primaryRegion) {
+                d3.select('#map-tooltip')
+                    .html(`<strong>${name}</strong><br/><span style="color: #666;">Selected Region</span>`)
+                    .style('left', (event.pageX + 15) + 'px')
+                    .style('top', (event.pageY + 15) + 'px');
+                return;
+            }
+
+            const val = d[1];
+            const metricStr = formatMetricValue(val, appState.metric);
+            let labelStr = getMetricLabel(appState.metric);
+
+            // If a primary region is selected, clarify the directional relationship
+            if (appState.primaryRegion) {
+                let primaryName = appState.primaryRegion;
+                if (appState.level === 'state') {
+                    primaryName = stateMeta[appState.primaryRegion]?.name || appState.primaryRegion;
+                } else {
+                    const cm = countyMeta[appState.primaryRegion];
+                    primaryName = cm ? `${cm.countyName}, ${cm.statePostal}` : appState.primaryRegion;
+                }
+
+                const direction = METRIC_META[appState.metric].direction;
+                if (direction === 'outflow') {
+                    labelStr += ` from ${primaryName}`;
+                } else {
+                    labelStr += ` to ${primaryName}`;
+                }
+            }
+
+            // Populate and position the tooltip
+            d3.select('#map-tooltip')
+                .html(`<strong>${name}</strong><br/><span style="color: #666;">${labelStr}:</span> ${metricStr}`)
+                .style('left', (event.pageX + 15) + 'px')
+                .style('top', (event.pageY + 15) + 'px');
+        })
+        .on('mouseleave', function (event, d) {
+            d3.select(this).attr('fill-opacity', 1);
+            d3.select('#map-tooltip').style('display', 'none');
+        })
+        .on('click', function (event, d) {
+            const fips = d[0].fipsKey;
+
+            // State machine for click interactions (Restricted to single selection for now)
+            if (appState.primaryRegion === fips) {
+                appState.primaryRegion = null; // Clicked Primary -> Deselect all
+            } else {
+                appState.primaryRegion = fips; // Clicked another -> Swap Primary
+            }
+
+            appState.secondaryRegion = null;
+
+            // Force-hide tooltip to avoid ghosting before re-render occurs
+            d3.select('#map-tooltip').style('display', 'none');
+
+            render(); // Trigger recomputation
+        });
+
+    // Raise selected regions so their border strokes aren't overlapped by neighboring regions
+    mapLayerBase.selectAll('path.region')
+        .filter(d => d[0].fipsKey === appState.primaryRegion || d[0].fipsKey === appState.secondaryRegion)
+        .raise();
 
     // ── Border layer ────────────────────────────────────────────────────────────
     // County internal borders (only in county mode)
@@ -1135,11 +1271,14 @@ async function renderMap() {
         .attr('stroke', 'rgba(60,60,60,0.55)')
         .attr('stroke-width', 1.5 * zoomFactor);
 
+    // Keep all meshes on top of the base layer (especially over highlighted borders)
+    mapLayerBorder.raise();
+
     console.debug(`[Map] geo rendered (gen=${gen}, level=${appState.level}, zoom=${zoomFactor})`);
 }
 
 function renderChart() {
-    // TODO: Milestone 5 — line chart
+    // Disabled functionality based on request to defer to a later tab milestone.
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -1171,59 +1310,68 @@ function wireControls() {
     const slider = document.getElementById('year-slider');
     const yearLabel = document.getElementById('year-display');
 
-    slider.addEventListener('input', () => {
-        appState.yearIndex = +slider.value;
-        const tag = currentYear();
-        yearLabel.textContent = YEAR_LABELS[tag];
-        // Update filled-track CSS custom property
-        const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
-        slider.style.setProperty('--slider-pct', `${pct}%`);
-        slider.setAttribute('aria-valuenow', appState.yearIndex);
-        slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
-        render();
-    });
-
-    // Initialise filled-track percentage on load
-    slider.style.setProperty('--slider-pct', '0%');
+    if (slider) {
+        slider.addEventListener('input', () => {
+            appState.yearIndex = +slider.value;
+            const tag = currentYear();
+            yearLabel.textContent = YEAR_LABELS[tag];
+            // Update filled-track CSS custom property
+            const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
+            slider.style.setProperty('--slider-pct', `${pct}%`);
+            slider.setAttribute('aria-valuenow', appState.yearIndex);
+            slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
+            render();
+        });
+    }
 
     // ── Metric select ─────────────────────────────────────────────────────────
-    document.getElementById('metric-select').addEventListener('change', e => {
-        appState.metric = e.target.value;
-        render();
-    });
+    const metricSel = document.getElementById('metric-select');
+    if (metricSel) {
+        metricSel.addEventListener('change', e => {
+            appState.metric = e.target.value;
+            render();
+        });
+    }
 
     // ── Flow-type select (sidebar) ────────────────────────────────────────────
-    document.getElementById('flow-type-select').addEventListener('change', e => {
-        appState.flowType = e.target.value;
-        renderChart();
-    });
+    const flowTypeSelect = document.getElementById('flow-type-select');
+    if (flowTypeSelect) {
+        flowTypeSelect.addEventListener('change', e => {
+            appState.flowType = e.target.value;
+        });
+    }
 
     // ── Clear-selection button ────────────────────────────────────────────────
-    document.getElementById('clear-selection-btn').addEventListener('click', () => {
-        appState.primaryRegion = null;
-        appState.secondaryRegion = null;
-        updateSelectionUI();
-        render();
-    });
+    const clrBtn = document.getElementById('clear-selection-btn');
+    if (clrBtn) {
+        clrBtn.addEventListener('click', () => {
+            appState.primaryRegion = null;
+            appState.secondaryRegion = null;
+            updateSelectionUI();
+            render();
+        });
+    }
 
     // ── Zoom slider ───────────────────────────────────────────────────────────
     const zoomSlider = document.getElementById('zoom-slider');
     const zoomLabel = document.getElementById('zoom-display');
 
-    zoomSlider.addEventListener('input', () => {
-        appState.zoomLevel = +zoomSlider.value;
-        zoomLabel.textContent = `${appState.zoomLevel}×`;
+    if (zoomSlider) {
+        zoomSlider.addEventListener('input', () => {
+            appState.zoomLevel = +zoomSlider.value;
+            zoomLabel.textContent = `${appState.zoomLevel}×`;
 
-        // Update filled-track CSS custom property for zoom slider
-        const min = +zoomSlider.min;
-        const max = +zoomSlider.max;
-        const pct = ((appState.zoomLevel - min) / (max - min)) * 100;
-        zoomSlider.style.setProperty('--zoom-pct', `${pct}%`);
-        zoomSlider.setAttribute('aria-valuenow', appState.zoomLevel);
-        zoomSlider.setAttribute('aria-valuetext', `${appState.zoomLevel}×`);
+            // Update filled-track CSS custom property for zoom slider
+            const min = +zoomSlider.min;
+            const max = +zoomSlider.max;
+            const pct = ((appState.zoomLevel - min) / (max - min)) * 100;
+            zoomSlider.style.setProperty('--zoom-pct', `${pct}%`);
+            zoomSlider.setAttribute('aria-valuenow', appState.zoomLevel);
+            zoomSlider.setAttribute('aria-valuetext', `${appState.zoomLevel}×`);
 
-        renderMap(); // Only need to re-render map, not chart
-    });
+            renderMap(); // Only need to re-render map, not chart
+        });
+    }
 }
 
 /**
@@ -1232,9 +1380,6 @@ function wireControls() {
  * Synchronises every HTML control with the current appState values.
  * Called once after data loads so that the initial display is consistent
  * regardless of any defaults set in the appState object at the top of the file.
- *
- * Also useful if appState is mutated programmatically (e.g. deep-linking via
- * URL hash) before DOMContentLoaded fires.
  */
 function initUI() {
     // ── Granularity radio ─────────────────────────────────────────────────────
@@ -1246,39 +1391,43 @@ function initUI() {
     // ── Year slider ───────────────────────────────────────────────────────────
     const slider = document.getElementById('year-slider');
     const yearLabel = document.getElementById('year-display');
-    slider.value = appState.yearIndex;
-    const tag = currentYear();
-    yearLabel.textContent = YEAR_LABELS[tag];
-    const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
-    slider.style.setProperty('--slider-pct', `${pct}%`);
-    slider.setAttribute('aria-valuenow', appState.yearIndex);
-    slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
+    if (slider && yearLabel) {
+        slider.value = appState.yearIndex;
+        const tag = currentYear();
+        yearLabel.textContent = YEAR_LABELS[tag];
+        const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
+        slider.style.setProperty('--slider-pct', `${pct}%`);
+        slider.setAttribute('aria-valuenow', appState.yearIndex);
+        slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
+    }
 
     // ── Metric select ─────────────────────────────────────────────────────────
     const metricEl = document.getElementById('metric-select');
-    metricEl.value = appState.metric;
+    if (metricEl) metricEl.value = appState.metric;
 
     // ── Flow-type select ─────────────────────────────────────────────────────
     const ftEl = document.getElementById('flow-type-select');
-    ftEl.value = appState.flowType;
+    if (ftEl) ftEl.value = appState.flowType;
 
     // ── Zoom slider ───────────────────────────────────────────────────────────
     const zoomSlider = document.getElementById('zoom-slider');
     const zoomLabel = document.getElementById('zoom-display');
-    zoomSlider.value = appState.zoomLevel;
-    zoomLabel.textContent = `${appState.zoomLevel}×`;
-    const zoomMin = +zoomSlider.min;
-    const zoomMax = +zoomSlider.max;
-    const zoomPct = ((appState.zoomLevel - zoomMin) / (zoomMax - zoomMin)) * 100;
-    zoomSlider.style.setProperty('--zoom-pct', `${zoomPct}%`);
+    if (zoomSlider && zoomLabel) {
+        zoomSlider.value = appState.zoomLevel;
+        zoomLabel.textContent = `${appState.zoomLevel}×`;
+        const zoomMin = +zoomSlider.min;
+        const zoomMax = +zoomSlider.max;
+        const zoomPct = ((appState.zoomLevel - zoomMin) / (zoomMax - zoomMin)) * 100;
+        zoomSlider.style.setProperty('--zoom-pct', `${zoomPct}%`);
+    }
 
     // ── Selection sidebar ─────────────────────────────────────────────────────
     updateSelectionUI();
 }
 
 /**
- * Show/hide the selection-summary panel and flow-type dropdown based on
- * whether primary/secondary regions are active.
+ * Update the contextual text showing current hover or selection state.
+ * Gracefully handles the absence of the sidebar components which we have hidden.
  */
 function updateSelectionUI() {
     const summary = document.getElementById('selection-summary');
@@ -1288,9 +1437,9 @@ function updateSelectionUI() {
     const statusText = document.getElementById('map-status-text');
 
     if (!appState.primaryRegion) {
-        summary.hidden = true;
-        ftControl.hidden = true;
-        statusText.textContent = 'Hover over a state, county, or county equivalent to see details';
+        if (summary) summary.hidden = true;
+        if (ftControl) ftControl.hidden = true;
+        if (statusText) statusText.textContent = 'Hover over a state, county, or county equivalent to see details';
         return;
     }
 
@@ -1314,13 +1463,15 @@ function updateSelectionUI() {
         }
     }
 
-    primaryLbl.textContent = pLabel;
-    secondaryLbl.textContent = sLabel;
-    secondaryLbl.hidden = !appState.secondaryRegion;
+    if (primaryLbl) primaryLbl.textContent = pLabel;
+    if (secondaryLbl) {
+        secondaryLbl.textContent = sLabel;
+        secondaryLbl.hidden = !appState.secondaryRegion;
+    }
 
-    summary.hidden = false;
+    if (summary) summary.hidden = false;
     // Show flow-type dropdown only when primary is set but secondary is not
-    ftControl.hidden = !!appState.secondaryRegion;
+    if (ftControl) ftControl.hidden = !!appState.secondaryRegion;
 }
 
 /** Show or hide a loading overlay on the map. */
@@ -1348,6 +1499,22 @@ function setLoadingState(loading, message = '') {
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('[App] Initialising U.S. Migration Explorer …');
+
+    // Dynamically inject CSS to completely remove the line graph space from the right.
+    // This allows the map to spread across the full width, anticipating a separate
+    // tab view for trends down the road.
+    const layoutStyle = document.createElement('style');
+    layoutStyle.textContent = `
+        /* Hide the right column containing the line graph entirely */
+        aside, .sidebar, #right-panel, #flow-type-control, #selection-summary {
+            display: none !important;
+        }
+        /* Force any CSS grids holding the map to condense to a single column */
+        main, #app, .layout-container {
+            grid-template-columns: 1fr !important;
+        }
+    `;
+    document.head.appendChild(layoutStyle);
 
     // Wire all UI controls before data arrives so the page feels interactive
     wireControls();

@@ -119,7 +119,6 @@ const DATA_FILES = [
     },
 ];
 
-
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 2 — IN-MEMORY DATA STORES
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -193,7 +192,6 @@ const nationalTotals = {};
 let countyDataLoaded = false;
 let countyDataLoading = null; // Promise, set while loading is in progress
 
-
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 3 — UTILITY FUNCTIONS
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -253,7 +251,6 @@ function getStateTotals(year, statefips) {
 function getCountyTotals(year, key) {
     return countyTotals[year]?.[key] ?? null;
 }
-
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 4 — PER-FILE PROCESSORS
@@ -384,7 +381,6 @@ function processCountyRows(rows, year, direction) {
     }
 }
 
-
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 5 — FILE LOADING
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -458,7 +454,6 @@ function computeNationalTotals() {
     }
     console.debug('[Data] National totals computed for', YEARS.length, 'years.');
 }
-
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 6 — DERIVED METRIC COMPUTATION  (Milestone 3.2)
@@ -721,7 +716,6 @@ function getMetricLabel(metricKey) {
     return METRIC_META[metricKey]?.label ?? metricKey;
 }
 
-
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 7 — APPLICATION STATE  (Milestone 3.3)
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -732,18 +726,18 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',   // 'state' | 'county'
-    yearIndex: 0,          // 0 → YEARS[0] ('2021'), 1 → '2122', 2 → '2223'
+    yearIndex: 2,          // 0 → YEARS[0] ('2021'), 1 → '2122', 2 → '2223'
     metric: 'pop_inflow', // metric key (see computeMetric)
     primaryRegion: null,       // FIPS key of the selected primary region, or null
     secondaryRegion: null,       // FIPS key of the secondary region, or null
     flowType: 'total',    // line-chart flow-type dropdown value
+    zoomLevel: 1, // '1' to '5'
 };
 
 /** Convenience: return the current year tag string. */
 function currentYear() {
     return YEARS[appState.yearIndex];
 }
-
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 7.5 — GEO INTEGRATION  (Milestone 4.1)
@@ -866,7 +860,6 @@ function setupMapSvg() {
     return { width, height };
 }
 
-
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 8 — RENDER  (Milestones 3.3/4/5)
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -890,18 +883,15 @@ function render() {
 }
 
 /**
- * renderMap() — Milestone 4.1
+ * renderMap() — Milestone 4.1 & 4.2
  *
  * Async. Loads geo data on first call (cached thereafter), sizes the SVG to
  * the current container, builds an AlbersUSA projection, and paints:
- *   • Base layer   — one <path> per geographic region (M4.2 adds colour fills)
+ *   • Base layer   — one <path> per geographic region, filled by metric value
  *   • Border layer — county mesh (county mode), state mesh, nation outline
  *
  * A render-generation counter ensures only the most-recent invocation's result
- * is actually painted (protects against rapid slider drags during CDN fetch).
- *
- * Milestone 4.2 will replace the placeholder fill with a D3 colour scale.
- * Milestone 4.3 will add click / hover event handlers.
+ * is actually painted.
  */
 async function renderMap() {
     const gen = ++mapRenderGen;
@@ -926,23 +916,139 @@ async function renderMap() {
     if (firstLoad) setLoadingState(false);
     if (gen !== mapRenderGen) return;  // stale — a newer render is already pending
 
-    // ── Projection: AlbersUSA fitted to container ──────────────────────────────
+    // ── Pre-calculate values & determine scale bounds ────────────────────────────
+    const features = geo.features.features;
+    const year = currentYear();
+    const metricMeta = METRIC_META[appState.metric];
+
+    // Array to hold [feature, numeric_value] tuples so we don't recalculate
+    const valueTuples = [];
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+
+    for (const f of features) {
+        const val = getMapValue(f.fipsKey, year, appState.metric, appState.level, appState.primaryRegion);
+        valueTuples.push([f, val]);
+        if (val !== null && Number.isFinite(val)) {
+            if (val < minVal) minVal = val;
+            if (val > maxVal) maxVal = val;
+        }
+    }
+
+    // ── Build D3 Color Scale ─────────────────────────────────────────────────────
+    let colorScale;
+    let legendGradientCss = '';
+
+    if (minVal === Infinity) {
+        // Fallback if absolutely no data exists for current filters
+        minVal = 0;
+        maxVal = 0;
+        colorScale = () => 'var(--accent-bg)';
+        legendGradientCss = 'var(--accent-bg)';
+    } else {
+        if (metricMeta.direction === 'both') {
+            // Diverging scale for net metrics (Negative = red/orange, 0 = neutral, Positive = green/teal)
+            // Ensure the scale is visually balanced around zero by taking the max absolute bound.
+            const absMax = Math.max(Math.abs(minVal), Math.abs(maxVal));
+            // Avoid divide-by-zero if absMax is 0
+            const domainMax = absMax > 0 ? absMax : 1;
+
+            // Use 11 discrete parts of the RdYlGn scheme
+            const divColors = d3.schemeRdYlGn[11];
+
+            colorScale = d3.scaleQuantize()
+                .domain([-domainMax, domainMax])
+                .range(divColors);
+
+            // Update bounds for legend display to reflect the balanced domain
+            minVal = -domainMax;
+            maxVal = domainMax;
+
+            // Generate a hard-stepped gradient for the legend
+            legendGradientCss = 'linear-gradient(to right, ' + divColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
+
+        } else {
+            // Sequential scale for inflow/outflow/avg
+            // Domain from 0 (or min if > 0) to max
+            const domainMin = minVal < 0 ? minVal : 0;
+            const domainMax = maxVal > domainMin ? maxVal : domainMin + 1;
+
+            // d3.schemePuBu only defines discrete arrays up to 9 items.
+            // We quantize the continuous interpolator to get exactly 11 distinct colors.
+            const seqColors = d3.quantize(d3.interpolatePuBu, 11);
+
+            colorScale = d3.scaleQuantize()
+                .domain([domainMin, domainMax])
+                .range(seqColors);
+
+            // Update bounds for legend display
+            minVal = domainMin;
+            maxVal = domainMax;
+
+            // Generate a hard-stepped gradient for the legend
+            legendGradientCss = 'linear-gradient(to right, ' + seqColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
+        }
+    }
+
+    // ── Update Legend UI ─────────────────────────────────────────────────────────
+    const legendEl = document.getElementById('map-legend');
+    if (minVal !== Infinity) {
+        document.getElementById('legend-min').textContent = formatMetricValue(minVal, appState.metric);
+        document.getElementById('legend-max').textContent = formatMetricValue(maxVal, appState.metric);
+        document.getElementById('legend-gradient').style.background = legendGradientCss;
+        legendEl.style.display = 'flex';
+    } else {
+        legendEl.style.display = 'none';
+    }
+
+    // ── Projection & Zoom: AlbersUSA fitted to container ──────────────────────────────
     const margin = 18;
     mapProjection = d3.geoAlbersUsa().fitExtent(
         [[margin, margin], [width - margin, height - margin]],
         geo.features
     );
+
+    // Apply zoom transformation to projection
+    // AlbersUsa composite projection doesn't support .scale() * multiplier directly
+    // Instead we calculate the base scale and translate, then apply the zoom transform.
+    const baseScale = mapProjection.scale();
+    const baseTranslate = mapProjection.translate();
+
+    const zoomFactor = appState.zoomLevel;
+
+    // We want to zoom towards the center of the viewport
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    mapProjection
+        .scale(baseScale * zoomFactor)
+        .translate([
+            centerX + (baseTranslate[0] - centerX) * zoomFactor,
+            centerY + (baseTranslate[1] - centerY) * zoomFactor
+        ]);
+
     mapPath = d3.geoPath(mapProjection);
 
     // ── Base layer: one <path> per geographic region ──────────────────────────
-    // M4.2 will replace the placeholder fill with a D3 colour scale.
     mapLayerBase
         .selectAll('path.region')
-        .data(geo.features.features, d => d.fipsKey)
-        .join('path')
-        .attr('class', 'region')
-        .attr('d', mapPath)
-        .attr('fill', 'var(--accent-bg)');
+        .data(valueTuples, d => d[0].fipsKey)
+        .join(
+            enter => enter.append('path')
+                .attr('class', 'region')
+                // Set initial D for smooth transition on first draw (optional)
+                .attr('d', d => mapPath(d[0]))
+                .attr('fill', d => {
+                    const val = d[1];
+                    return (val === null || !Number.isFinite(val)) ? 'var(--bg)' : colorScale(val);
+                }),
+            update => update
+                .attr('d', d => mapPath(d[0])) // Update path for zooming
+                .attr('fill', d => {
+                    const val = d[1];
+                    return (val === null || !Number.isFinite(val)) ? 'var(--bg)' : colorScale(val);
+                })
+        );
 
     // ── Border layer ────────────────────────────────────────────────────────────
     // County internal borders (only in county mode)
@@ -954,7 +1060,7 @@ async function renderMap() {
         .attr('d', mapPath)
         .attr('fill', 'none')
         .attr('stroke', 'rgba(0,0,0,0.12)')
-        .attr('stroke-width', 0.25);
+        .attr('stroke-width', 0.25 * zoomFactor); // Scale border width slightly
 
     // State internal borders
     mapLayerBorder
@@ -965,7 +1071,7 @@ async function renderMap() {
         .attr('d', mapPath)
         .attr('fill', 'none')
         .attr('stroke', 'rgba(80,80,80,0.40)')
-        .attr('stroke-width', appState.level === 'state' ? 0.8 : 1.2);
+        .attr('stroke-width', (appState.level === 'state' ? 0.8 : 1.2) * zoomFactor);
 
     // Nation outer boundary
     mapLayerBorder
@@ -976,15 +1082,14 @@ async function renderMap() {
         .attr('d', mapPath)
         .attr('fill', 'none')
         .attr('stroke', 'rgba(60,60,60,0.55)')
-        .attr('stroke-width', 1.5);
+        .attr('stroke-width', 1.5 * zoomFactor);
 
-    console.debug(`[Map] geo rendered (gen=${gen}, level=${appState.level})`);
+    console.debug(`[Map] geo rendered (gen=${gen}, level=${appState.level}, zoom=${zoomFactor})`);
 }
 
 function renderChart() {
     // TODO: Milestone 5 — line chart
 }
-
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 9 — CONTROL WIRING  (Milestone 3.3)
@@ -1049,6 +1154,25 @@ function wireControls() {
         updateSelectionUI();
         render();
     });
+
+    // ── Zoom slider ───────────────────────────────────────────────────────────
+    const zoomSlider = document.getElementById('zoom-slider');
+    const zoomLabel = document.getElementById('zoom-display');
+
+    zoomSlider.addEventListener('input', () => {
+        appState.zoomLevel = +zoomSlider.value;
+        zoomLabel.textContent = `${appState.zoomLevel}×`;
+
+        // Update filled-track CSS custom property for zoom slider
+        const min = +zoomSlider.min;
+        const max = +zoomSlider.max;
+        const pct = ((appState.zoomLevel - min) / (max - min)) * 100;
+        zoomSlider.style.setProperty('--zoom-pct', `${pct}%`);
+        zoomSlider.setAttribute('aria-valuenow', appState.zoomLevel);
+        zoomSlider.setAttribute('aria-valuetext', `${appState.zoomLevel}×`);
+
+        renderMap(); // Only need to re-render map, not chart
+    });
 }
 
 /**
@@ -1087,6 +1211,16 @@ function initUI() {
     const ftEl = document.getElementById('flow-type-select');
     ftEl.value = appState.flowType;
 
+    // ── Zoom slider ───────────────────────────────────────────────────────────
+    const zoomSlider = document.getElementById('zoom-slider');
+    const zoomLabel = document.getElementById('zoom-display');
+    zoomSlider.value = appState.zoomLevel;
+    zoomLabel.textContent = `${appState.zoomLevel}×`;
+    const zoomMin = +zoomSlider.min;
+    const zoomMax = +zoomSlider.max;
+    const zoomPct = ((appState.zoomLevel - zoomMin) / (zoomMax - zoomMin)) * 100;
+    zoomSlider.style.setProperty('--zoom-pct', `${zoomPct}%`);
+
     // ── Selection sidebar ─────────────────────────────────────────────────────
     updateSelectionUI();
 }
@@ -1105,7 +1239,7 @@ function updateSelectionUI() {
     if (!appState.primaryRegion) {
         summary.hidden = true;
         ftControl.hidden = true;
-        statusText.textContent = 'Hover over a state, county, or county-equivalent to see details';
+        statusText.textContent = 'Hover over a state, county, or county equivalent to see details';
         return;
     }
 
@@ -1156,7 +1290,6 @@ function setLoadingState(loading, message = '') {
         overlay.hidden = true;
     }
 }
-
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 10 — ENTRY POINT

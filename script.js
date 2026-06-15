@@ -1022,22 +1022,24 @@ async function renderMap() {
         tickValues = [];
     } else {
         if (metricMeta.direction === 'both') {
-            // Asymmetric diverging power-based scale ensuring 0 is in the center tier.
-            // Scales the negative and positive sides independently based on their actual bounds.
-            const adjustedMin = minVal < 0 ? minVal : -1;
-            const adjustedMax = maxVal > 0 ? maxVal : 1;
+            // Diverging scale: Split the data to ensure 0 remains the true center of the legend.
+            const negVals = validValues.filter(v => v < 0);
+            const posVals = validValues.filter(v => v >= 0);
 
-            // Compute 10 boundary thresholds for 11 boxes
-            // A cubic scale forces the outer buckets to be much wider, catching the skew
-            const thresholds = [];
+            // d3.scaleQuantile with a range of length N yields N-1 thresholds.
+            // We need 10 boundaries total for 11 diverging colors. We allocate 5 
+            // thresholds to the negative side and 5 to the positive side.
+            const negQuantiles = negVals.length > 0
+                ? d3.scaleQuantile().domain(negVals).range(new Array(6)).quantiles()
+                : [-5, -4, -3, -2, -0.1]; // Fallback if no negative flow exists
 
-            // 5 negative thresholds (increasing towards 0)
-            for (let i = 5; i >= 1; i--) thresholds.push(adjustedMin * Math.pow(i / 6, 3));
+            const posQuantiles = posVals.length > 0
+                ? d3.scaleQuantile().domain(posVals).range(new Array(6)).quantiles()
+                : [0.1, 2, 3, 4, 5];      // Fallback if no positive flow exists
 
-            // 5 positive thresholds (increasing from 0)
-            for (let i = 1; i <= 5; i++) thresholds.push(adjustedMax * Math.pow(i / 6, 3));
-
+            const thresholds = [...negQuantiles, ...posQuantiles];
             const divColors = d3.schemeRdYlGn[11];
+
             colorScale = d3.scaleThreshold()
                 .domain(thresholds)
                 .range(divColors);
@@ -1046,28 +1048,26 @@ async function renderMap() {
             legendGradientCss = 'linear-gradient(to right, ' + divColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
 
             // Include actual min and max for the outer edges of the tick bar
-            tickValues = [adjustedMin, ...thresholds, adjustedMax];
+            tickValues = [minVal, ...thresholds, maxVal];
 
         } else {
-            // Sequential power-based scale
-            const domainMin = minVal < 0 ? minVal : 0;
-            const domainMax = maxVal > domainMin ? maxVal : domainMin + 1;
-            const range = domainMax - domainMin;
-
-            const thresholds = [];
-            // Generate 10 thresholds using a cubic distribution to spread extreme outliers out
-            for (let i = 1; i <= 10; i++) {
-                thresholds.push(domainMin + range * Math.pow(i / 11, 3));
-            }
-
+            // Sequential scale: direct quantile calculation over all data
             const seqColors = d3.quantize(d3.interpolatePuBu, 11);
+
+            const qScale = d3.scaleQuantile()
+                .domain(validValues)
+                .range(seqColors);
+
+            // Automatically yields exactly 10 thresholds for the 11 sequential colors
+            const thresholds = qScale.quantiles();
+
             colorScale = d3.scaleThreshold()
                 .domain(thresholds)
                 .range(seqColors);
 
             // Generate a hard-stepped gradient for the legend
             legendGradientCss = 'linear-gradient(to right, ' + seqColors.map((c, i) => `${c} ${(i / 11) * 100}%, ${c} ${((i + 1) / 11) * 100}%`).join(', ') + ')';
-            tickValues = [domainMin, ...thresholds, domainMax];
+            tickValues = [minVal, ...thresholds, maxVal];
         }
     }
 

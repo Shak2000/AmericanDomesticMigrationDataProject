@@ -29,14 +29,16 @@
  * Available year-range tags.
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
-const YEARS = ['1920', '2021', '2122', '2223'];
+const YEARS = [
+    '1112', '1213', '1314', '1415', '1516', '1617',
+    '1718', '1819', '1920', '2021', '2122', '2223'
+];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '1920': '2019–20',
-    '2021': '2020–21',
-    '2122': '2021–22',
-    '2223': '2022–23',
+    '1112': '2011–12', '1213': '2012–13', '1314': '2013–14', '1415': '2014–15',
+    '1516': '2015–16', '1617': '2016–17', '1718': '2017–18', '1819': '2018–19',
+    '1920': '2019–20', '2021': '2020–21', '2122': '2021–22', '2223': '2022–23',
 };
 
 /** IRS aggregate FIPS — total U.S.+Foreign migration. */
@@ -65,76 +67,29 @@ const SPECIAL_COUNTY_FIPS = new Set(['000']);
  * County files are loaded lazily the first time the user switches to county
  * view (large, ~7–8 MB each × 6 files ≈ 45 MB total).
  */
-const DATA_FILES = [
-    // ── State inflow ──────────────────────────────────────────────────────────
-    {
-        level: 'state', year: '1920', direction: 'inflow',
-        path: 'data/enriched/state_inflow/stateinflow1920_enriched.csv'
-    },
-    {
-        level: 'state', year: '2021', direction: 'inflow',
-        path: 'data/enriched/state_inflow/stateinflow2021_enriched.csv'
-    },
-    {
-        level: 'state', year: '2122', direction: 'inflow',
-        path: 'data/enriched/state_inflow/stateinflow2122_enriched.csv'
-    },
-    {
-        level: 'state', year: '2223', direction: 'inflow',
-        path: 'data/enriched/state_inflow/stateinflow2223_enriched.csv'
-    },
-    // ── State outflow ─────────────────────────────────────────────────────────
-    {
-        level: 'state', year: '1920', direction: 'outflow',
-        path: 'data/enriched/state_outflow/stateoutflow1920_enriched.csv'
-    },
-    {
-        level: 'state', year: '2021', direction: 'outflow',
-        path: 'data/enriched/state_outflow/stateoutflow2021_enriched.csv'
-    },
-    {
-        level: 'state', year: '2122', direction: 'outflow',
-        path: 'data/enriched/state_outflow/stateoutflow2122_enriched.csv'
-    },
-    {
-        level: 'state', year: '2223', direction: 'outflow',
-        path: 'data/enriched/state_outflow/stateoutflow2223_enriched.csv'
-    },
-    // ── County inflow ─────────────────────────────────────────────────────────
-    {
-        level: 'county', year: '1920', direction: 'inflow',
-        path: 'data/enriched/county_inflow/countyinflow1920_enriched.csv'
-    },
-    {
-        level: 'county', year: '2021', direction: 'inflow',
-        path: 'data/enriched/county_inflow/countyinflow2021_enriched.csv'
-    },
-    {
-        level: 'county', year: '2122', direction: 'inflow',
-        path: 'data/enriched/county_inflow/countyinflow2122_enriched.csv'
-    },
-    {
-        level: 'county', year: '2223', direction: 'inflow',
-        path: 'data/enriched/county_inflow/countyinflow2223_enriched.csv'
-    },
-    // ── County outflow ────────────────────────────────────────────────────────
-    {
-        level: 'county', year: '1920', direction: 'outflow',
-        path: 'data/enriched/county_outflow/countyoutflow1920_enriched.csv'
-    },
-    {
-        level: 'county', year: '2021', direction: 'outflow',
-        path: 'data/enriched/county_outflow/countyoutflow2021_enriched.csv'
-    },
-    {
-        level: 'county', year: '2122', direction: 'outflow',
-        path: 'data/enriched/county_outflow/countyoutflow2122_enriched.csv'
-    },
-    {
-        level: 'county', year: '2223', direction: 'outflow',
-        path: 'data/enriched/county_outflow/countyoutflow2223_enriched.csv'
-    },
-];
+const DATA_FILES = [];
+
+for (const year of YEARS) {
+    // ── State files ─────────────────────────────────────────────────────────
+    DATA_FILES.push({
+        level: 'state', year: year, direction: 'inflow',
+        path: `data/enriched/state_inflow/stateinflow${year}_enriched.csv`
+    });
+    DATA_FILES.push({
+        level: 'state', year: year, direction: 'outflow',
+        path: `data/enriched/state_outflow/stateoutflow${year}_enriched.csv`
+    });
+
+    // ── County files ────────────────────────────────────────────────────────
+    DATA_FILES.push({
+        level: 'county', year: year, direction: 'inflow',
+        path: `data/enriched/county_inflow/countyinflow${year}_enriched.csv`
+    });
+    DATA_FILES.push({
+        level: 'county', year: year, direction: 'outflow',
+        path: `data/enriched/county_outflow/countyoutflow${year}_enriched.csv`
+    });
+}
 
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 2 — IN-MEMORY DATA STORES
@@ -810,7 +765,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 3,
+    yearIndex: 11,
     metric: 'pop_inflow',
     primaryRegion: null,
     secondaryRegion: null,

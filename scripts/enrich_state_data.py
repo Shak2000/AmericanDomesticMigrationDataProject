@@ -39,10 +39,28 @@ from pathlib import Path
 STATE_FIPS_CSV = Path("data/fips/state_fips.csv")
 
 BATCH_FILES: list[tuple[str, str]] = [
+    # Inflow
+    ("data/original/state_inflow/stateinflow1112.csv",    "data/enriched/state_inflow/stateinflow1112_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1213.csv",    "data/enriched/state_inflow/stateinflow1213_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1314.csv",    "data/enriched/state_inflow/stateinflow1314_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1415.csv",    "data/enriched/state_inflow/stateinflow1415_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1516.csv",    "data/enriched/state_inflow/stateinflow1516_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1617.csv",    "data/enriched/state_inflow/stateinflow1617_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1718.csv",    "data/enriched/state_inflow/stateinflow1718_enriched.csv"),
+    ("data/original/state_inflow/stateinflow1819.csv",    "data/enriched/state_inflow/stateinflow1819_enriched.csv"),
     ("data/original/state_inflow/stateinflow1920.csv",    "data/enriched/state_inflow/stateinflow1920_enriched.csv"),
     ("data/original/state_inflow/stateinflow2021.csv",    "data/enriched/state_inflow/stateinflow2021_enriched.csv"),
     ("data/original/state_inflow/stateinflow2122.csv",    "data/enriched/state_inflow/stateinflow2122_enriched.csv"),
     ("data/original/state_inflow/stateinflow2223.csv",    "data/enriched/state_inflow/stateinflow2223_enriched.csv"),
+    # Outflow
+    ("data/original/state_outflow/stateoutflow1112.csv",  "data/enriched/state_outflow/stateoutflow1112_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1213.csv",  "data/enriched/state_outflow/stateoutflow1213_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1314.csv",  "data/enriched/state_outflow/stateoutflow1314_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1415.csv",  "data/enriched/state_outflow/stateoutflow1415_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1516.csv",  "data/enriched/state_outflow/stateoutflow1516_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1617.csv",  "data/enriched/state_outflow/stateoutflow1617_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1718.csv",  "data/enriched/state_outflow/stateoutflow1718_enriched.csv"),
+    ("data/original/state_outflow/stateoutflow1819.csv",  "data/enriched/state_outflow/stateoutflow1819_enriched.csv"),
     ("data/original/state_outflow/stateoutflow1920.csv",  "data/enriched/state_outflow/stateoutflow1920_enriched.csv"),
     ("data/original/state_outflow/stateoutflow2021.csv",  "data/enriched/state_outflow/stateoutflow2021_enriched.csv"),
     ("data/original/state_outflow/stateoutflow2122.csv",  "data/enriched/state_outflow/stateoutflow2122_enriched.csv"),

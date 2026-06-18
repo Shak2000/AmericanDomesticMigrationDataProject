@@ -51,10 +51,28 @@ from pathlib import Path
 COUNTY_FIPS_CSV = Path("data/fips/county_fips.csv")
 
 BATCH_FILES: list[tuple[str, str]] = [
+    # Inflow
+    ("data/original/county_inflow/countyinflow1112.csv",    "data/enriched/county_inflow/countyinflow1112_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1213.csv",    "data/enriched/county_inflow/countyinflow1213_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1314.csv",    "data/enriched/county_inflow/countyinflow1314_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1415.csv",    "data/enriched/county_inflow/countyinflow1415_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1516.csv",    "data/enriched/county_inflow/countyinflow1516_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1617.csv",    "data/enriched/county_inflow/countyinflow1617_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1718.csv",    "data/enriched/county_inflow/countyinflow1718_enriched.csv"),
+    ("data/original/county_inflow/countyinflow1819.csv",    "data/enriched/county_inflow/countyinflow1819_enriched.csv"),
     ("data/original/county_inflow/countyinflow1920.csv",    "data/enriched/county_inflow/countyinflow1920_enriched.csv"),
     ("data/original/county_inflow/countyinflow2021.csv",    "data/enriched/county_inflow/countyinflow2021_enriched.csv"),
     ("data/original/county_inflow/countyinflow2122.csv",    "data/enriched/county_inflow/countyinflow2122_enriched.csv"),
     ("data/original/county_inflow/countyinflow2223.csv",    "data/enriched/county_inflow/countyinflow2223_enriched.csv"),
+    # Outflow
+    ("data/original/county_outflow/countyoutflow1112.csv",  "data/enriched/county_outflow/countyoutflow1112_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1213.csv",  "data/enriched/county_outflow/countyoutflow1213_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1314.csv",  "data/enriched/county_outflow/countyoutflow1314_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1415.csv",  "data/enriched/county_outflow/countyoutflow1415_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1516.csv",  "data/enriched/county_outflow/countyoutflow1516_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1617.csv",  "data/enriched/county_outflow/countyoutflow1617_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1718.csv",  "data/enriched/county_outflow/countyoutflow1718_enriched.csv"),
+    ("data/original/county_outflow/countyoutflow1819.csv",  "data/enriched/county_outflow/countyoutflow1819_enriched.csv"),
     ("data/original/county_outflow/countyoutflow1920.csv",  "data/enriched/county_outflow/countyoutflow1920_enriched.csv"),
     ("data/original/county_outflow/countyoutflow2021.csv",  "data/enriched/county_outflow/countyoutflow2021_enriched.csv"),
     ("data/original/county_outflow/countyoutflow2122.csv",  "data/enriched/county_outflow/countyoutflow2122_enriched.csv"),

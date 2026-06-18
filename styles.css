@@ -267,7 +267,9 @@ body {
 
 /* ── 4b. Year slider ─────────────────────────────────────── */
 #year-control {
-  min-width: 200px;
+  flex: 1;
+  /* Forces the slider to expand and push following elements to the right */
+  min-width: 320px;
 }
 
 #year-display {
@@ -346,8 +348,53 @@ body {
 /* ── 4c. Metric select ───────────────────────────────────── */
 #metric-control {
   min-width: 260px;
-  flex: 1;
-  max-width: 380px;
+}
+
+/* ── Slider Layout & Tick Marks ── */
+.slider-track-container {
+  position: relative;
+  padding-bottom: 24px;
+  /* Provides vertical space for the stacked text */
+}
+
+#year-slider {
+  position: relative;
+  z-index: 2;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.slider-ticks {
+  position: absolute;
+  top: 15px;
+  /* Aligns visually below the slider track */
+  left: 6.5px;
+  /* Inset by half the thumb width (13px/2) for perfect alignment */
+  right: 6.5px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tick {
+  position: relative;
+  width: 2px;
+  height: 6px;
+  background: var(--text-muted);
+}
+
+.tick-label {
+  position: absolute;
+  top: 8px;
+  /* Drops the text below the tick mark */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 /* ── 4d. Zoom slider ─────────────────────────────────────── */

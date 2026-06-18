@@ -67,16 +67,23 @@
 
       <!-- Year slider -->
       <div id="year-control" class="control-group">
-        <label class="control-label" for="year-slider">
-          Year: <span id="year-display">2022–23</span>
-        </label>
-        <input type="range" id="year-slider" name="year" min="0" max="3" step="1" value="2" aria-valuemin="0"
-          aria-valuemax="2" aria-valuenow="2" aria-valuetext="2022–23" />
-        <div class="slider-tick-labels" aria-hidden="true">
-          <span>2019–20</span>
-          <span>2020–21</span>
-          <span>2021–22</span>
-          <span>2022–23</span>
+        <label for="year-slider" class="control-label">Year: <span id="year-display"></span></label>
+        <div class="slider-track-container">
+          <input type="range" id="year-slider" min="0" max="11" value="11" aria-label="Select migration year">
+          <div class="slider-ticks" aria-hidden="true">
+            <div class="tick"><span class="tick-label">2011-<br>2012</span></div>
+            <div class="tick"><span class="tick-label">2012-<br>2013</span></div>
+            <div class="tick"><span class="tick-label">2013-<br>2014</span></div>
+            <div class="tick"><span class="tick-label">2014-<br>2015</span></div>
+            <div class="tick"><span class="tick-label">2015-<br>2016</span></div>
+            <div class="tick"><span class="tick-label">2016-<br>2017</span></div>
+            <div class="tick"><span class="tick-label">2017-<br>2018</span></div>
+            <div class="tick"><span class="tick-label">2018-<br>2019</span></div>
+            <div class="tick"><span class="tick-label">2019-<br>2020</span></div>
+            <div class="tick"><span class="tick-label">2020-<br>2021</span></div>
+            <div class="tick"><span class="tick-label">2021-<br>2022</span></div>
+            <div class="tick"><span class="tick-label">2022-<br>2023</span></div>
+          </div>
         </div>
       </div>
 

@@ -320,11 +320,17 @@ any visuals.
 
 ### Milestone 5.1 – Extend Data Back to 2011-12
 
-- [ ] Collect IRS data on migration dating as far back as 2011-12
-- [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
-- [ ] Expand the YEAR_LABELS and YEARS constants in script.js to include the additional years
+- [x] Collect IRS data on migration dating as far back as 2011-12
+- [x] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
+- [x] Expand the YEAR_LABELS and YEARS constants in script.js to include the additional years
 
-### Milestone 5.2 – Extend Data Back to 1990-91 for States and 1991-92 for Counties
+### Milestone 5.2 – Make Sure Counties with Missing Data for a Certain Year Are Not Enabled
+
+- [ ] If the level is set to county and, for a particular year and metric, the county is missing data, then instead of setting that county to 0, the county should be colored a light gray (lighter than the gray of a selected county) and not be enabled in the first place.
+- [ ] If the level is set to county, a county is selected, and for a particular year and metric, there is another county for which there is no data with the selected county, then that other county should be colored a light gray and not be enabled in the first place.
+- [ ] Please make sure that the top two bullet points apply to a "net" statistic when the inflow or outflow data (or both) are missing for a county.
+
+### Milestone 5.3 – Extend Data Back to 1990-91 for States and 1991-92 for Counties
 
 - [ ] Collect IRS data on migration dating as far back as 1990-91 for states and 1991-92 for counties
 - [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too

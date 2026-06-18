@@ -30,15 +30,15 @@
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '1112', '1213', '1314', '1415', '1516', '1617',
-    '1718', '1819', '1920', '2021', '2122', '2223'
+    '1011', '1112', '1213', '1314', '1415', '1516',
+    '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '1112': '2011–12', '1213': '2012–13', '1314': '2013–14', '1415': '2014–15',
-    '1516': '2015–16', '1617': '2016–17', '1718': '2017–18', '1819': '2018–19',
-    '1920': '2019–20', '2021': '2020–21', '2122': '2021–22', '2223': '2022–23',
+    '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013', '1314': '2013–2014',
+    '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
+    '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
 
 /** IRS aggregate FIPS — total U.S.+Foreign migration. */
@@ -351,19 +351,17 @@ function processCountyRows(rows, year, direction) {
         if (isRealCounty(y2sf, y2cf)) countyMeta[y2Key] = { statefips: y2sf, countyfips: y2cf, countyName: row.y2_county_name, stateName: row.y2_state_name, statePostal: row.y2_state };
         if (isRealCounty(y1sf, y1cf)) countyMeta[y1Key] = { statefips: y1sf, countyfips: y1cf, countyName: row.y1_county_name, stateName: row.y1_state_name, statePostal: row.y1_state };
 
-        const y1Name = row.y1_county_name || row.y1_countyname || '';
-        const y2Name = row.y2_county_name || row.y2_countyname || '';
-        const isNonMigrant = y1Name.includes('Non-migrants') || y2Name.includes('Non-migrants');
+        // Robust FIPS-based checks instead of fragile string matching
+        const isNonMigrant = (y1sf === y2sf && y1cf === y2cf);
 
         if (direction === 'inflow') {
             let refKey = null;
             let isTotal = false;
 
-            // Agnostic check using 'Total Migration' to bypass 30-char IRS truncation limits
-            if (isRealCounty(y2sf, y2cf) && y1Name.includes('Total Migration')) {
+            if (isRealCounty(y2sf, y2cf) && y1sf === '96') {
                 refKey = y2Key;
                 isTotal = true;
-            } else if (isRealCounty(y1sf, y1cf) && y2Name.includes('Total Migration')) {
+            } else if (isRealCounty(y1sf, y1cf) && y2sf === '96') {
                 refKey = y1Key;
                 isTotal = true;
             } else if (isRealCounty(y1sf, y1cf) && isNonMigrant) {
@@ -375,13 +373,11 @@ function processCountyRows(rows, year, direction) {
             if (refKey) {
                 if (!countyTotals[year][refKey]) countyTotals[year][refKey] = {};
 
-                // base_inflow: Includes everything for share denominators
                 if (!countyTotals[year][refKey].base_inflow) countyTotals[year][refKey].base_inflow = { n1: 0, n2: 0, AGI: 0 };
                 countyTotals[year][refKey].base_inflow.n1 += rec.n1;
                 countyTotals[year][refKey].base_inflow.n2 += rec.n2;
                 countyTotals[year][refKey].base_inflow.AGI += rec.AGI;
 
-                // inflow: Purely migration from US/Foreign
                 if (isTotal) {
                     if (!countyTotals[year][refKey].inflow) countyTotals[year][refKey].inflow = { n1: 0, n2: 0, AGI: 0 };
                     countyTotals[year][refKey].inflow.n1 += rec.n1;
@@ -395,10 +391,10 @@ function processCountyRows(rows, year, direction) {
             let refKey = null;
             let isTotal = false;
 
-            if (isRealCounty(y1sf, y1cf) && y2Name.includes('Total Migration')) {
+            if (isRealCounty(y1sf, y1cf) && y2sf === '96') {
                 refKey = y1Key;
                 isTotal = true;
-            } else if (isRealCounty(y2sf, y2cf) && y1Name.includes('Total Migration')) {
+            } else if (isRealCounty(y2sf, y2cf) && y1sf === '96') {
                 refKey = y2Key;
                 isTotal = true;
             } else if (isRealCounty(y1sf, y1cf) && isNonMigrant) {
@@ -777,7 +773,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 11,
+    yearIndex: 12,
     metric: 'pop_inflow',
     primaryRegion: null,
     secondaryRegion: null,

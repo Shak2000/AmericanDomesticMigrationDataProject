@@ -287,7 +287,6 @@ any visuals.
 - [x] `ResizeObserver` on `#map` container triggers `renderMap()` on window resize.
 - [x] `topojson-client@3` CDN script added to `index.html` (before `script.js`).
 
-
 ### Milestone 4.2 — Choropleth Rendering
 
 - [x] Bind the current year's metric values to each geographic region.
@@ -331,7 +330,6 @@ any visuals.
 - [x] Please make sure that the top two bullet points apply to a "net" statistic when the inflow or outflow data (or both) are missing for a county.
 
 ---
-
 
 ## Phase 6 — Line Graph: Individual Region Trend
 

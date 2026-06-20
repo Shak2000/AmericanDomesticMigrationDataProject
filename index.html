@@ -195,6 +195,9 @@
         <span id="legend-max" class="legend-bound"></span>
       </div>
 
+      <button id="scroll-down-btn" class="nav-arrow" aria-label="Scroll to line graph"
+        title="Go to Line Graph">↓</button>
+
     </section>
 
     <!-- Right panel: line chart + flow-type selector -->
@@ -251,79 +254,74 @@
       </div>
     </div>
 
-    <!-- Controls row -->
-    <div class="chart-controls-row" role="group" aria-label="Individual chart controls">
+    <div class="chart-controls-wrapper">
+      <div class="chart-controls-row" role="group" aria-label="Individual chart controls">
 
-      <!-- Region selector (custom searchable combobox) -->
-      <div class="chart-control-group">
-        <label class="control-label" for="ind-region-input">State or County</label>
-        <div class="region-combobox" id="ind-region-combobox">
-          <input type="text" id="ind-region-input" class="region-combobox-input"
-            placeholder="Search states and counties…" autocomplete="off" spellcheck="false" role="combobox"
-            aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list" aria-controls="ind-region-listbox" />
-          <div id="ind-region-listbox" class="region-combobox-listbox" role="listbox" aria-label="Region options"
-            hidden></div>
+        <div class="chart-control-group">
+          <label class="control-label" for="ind-region-input">State or County</label>
+          <div class="region-combobox" id="ind-region-combobox">
+            <input type="text" id="ind-region-input" class="region-combobox-input"
+              placeholder="Search states and counties…" autocomplete="off" spellcheck="false" role="combobox"
+              aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list"
+              aria-controls="ind-region-listbox" />
+            <div id="ind-region-listbox" class="region-combobox-listbox" role="listbox" aria-label="Region options"
+              hidden></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Metric selector (mirrors map metric dropdown) -->
-      <div class="chart-control-group">
-        <label class="control-label" for="ind-metric-select">Metric</label>
-        <select id="ind-metric-select" aria-label="Select metric for individual trend chart">
-          <optgroup label="Population">
-            <option value="pop_inflow">Population inflow</option>
-            <option value="pop_outflow">Population outflow</option>
-            <option value="pop_net">Net population flow</option>
-            <option value="pop_inflow_share">Population inflow as share of population</option>
-            <option value="pop_outflow_share">Population outflow as share of population</option>
-            <option value="pop_net_share">Net population flow as share of population</option>
-          </optgroup>
-          <optgroup label="Households">
-            <option value="hh_inflow">Households inflow</option>
-            <option value="hh_outflow">Households outflow</option>
-            <option value="hh_net">Net household flow</option>
-            <option value="hh_inflow_share">Households inflow as share of households</option>
-            <option value="hh_outflow_share">Households outflow as share of households</option>
-            <option value="hh_net_share">Net household flow as share of households</option>
-          </optgroup>
-          <optgroup label="AGI">
-            <option value="agi_inflow">AGI inflow</option>
-            <option value="agi_outflow">AGI outflow</option>
-            <option value="agi_net">Net AGI flow</option>
-            <option value="agi_inflow_share">AGI inflow as share of AGI</option>
-            <option value="agi_outflow_share">AGI outflow as share of AGI</option>
-            <option value="agi_net_share">Net AGI flow as share of AGI</option>
-          </optgroup>
-          <optgroup label="Average AGI">
-            <option value="avg_agi_in_individual">Avg AGI of individual moving in</option>
-            <option value="avg_agi_in_household">Avg AGI of household moving in</option>
-            <option value="avg_agi_out_individual">Avg AGI of individual moving out</option>
-            <option value="avg_agi_out_household">Avg AGI of household moving out</option>
-          </optgroup>
-        </select>
-      </div>
+        <div class="chart-control-group">
+          <label class="control-label" for="ind-metric-select">Metric</label>
+          <select id="ind-metric-select" aria-label="Select metric for individual trend chart">
+            <optgroup label="Population">
+              <option value="pop_inflow">Population inflow</option>
+              <option value="pop_outflow">Population outflow</option>
+              <option value="pop_net">Net population flow</option>
+              <option value="pop_inflow_share">Population inflow as share of population</option>
+              <option value="pop_outflow_share">Population outflow as share of population</option>
+              <option value="pop_net_share">Net population flow as share of population</option>
+            </optgroup>
+            <optgroup label="Households">
+              <option value="hh_inflow">Households inflow</option>
+              <option value="hh_outflow">Households outflow</option>
+              <option value="hh_net">Net household flow</option>
+              <option value="hh_inflow_share">Households inflow as share of households</option>
+              <option value="hh_outflow_share">Households outflow as share of households</option>
+              <option value="hh_net_share">Net household flow as share of households</option>
+            </optgroup>
+            <optgroup label="AGI">
+              <option value="agi_inflow">AGI inflow</option>
+              <option value="agi_outflow">AGI outflow</option>
+              <option value="agi_net">Net AGI flow</option>
+              <option value="agi_inflow_share">AGI inflow as share of AGI</option>
+              <option value="agi_outflow_share">AGI outflow as share of AGI</option>
+              <option value="agi_net_share">Net AGI flow as share of AGI</option>
+            </optgroup>
+            <optgroup label="Average AGI">
+              <option value="avg_agi_in_individual">Avg AGI of individual moving in</option>
+              <option value="avg_agi_in_household">Avg AGI of household moving in</option>
+              <option value="avg_agi_out_individual">Avg AGI of individual moving out</option>
+              <option value="avg_agi_out_household">Avg AGI of household moving out</option>
+            </optgroup>
+          </select>
+        </div>
 
-      <!-- Clear button -->
-      <button id="ind-clear-btn" type="button" class="chart-clear-btn" aria-label="Clear individual chart selection">
-        Clear
-      </button>
+        <button id="ind-clear-btn" type="button" class="chart-clear-btn" aria-label="Clear individual chart selection">
+          Clear
+        </button>
 
-    </div><!-- /.chart-controls-row -->
+      </div><button id="scroll-up-btn" class="nav-arrow" aria-label="Scroll to map" title="Back to Map">↑</button>
 
-    <!-- Chart area: placeholder OR SVG container -->
+    </div>
     <div id="chart-individual-area">
 
-      <!-- Placeholder — visible when no region is selected -->
       <div id="chart-individual-placeholder" class="chart-placeholder" role="status" aria-live="polite">
         <p>Select a state or county above to view its migration trend over time.</p>
       </div>
 
-      <!-- SVG container — hidden until a region is chosen; D3 injects SVG here -->
       <div id="chart-individual-svg-container" aria-label="Individual region migration trend chart" hidden></div>
 
-    </div><!-- /#chart-individual-area -->
-
-  </section><!-- /#chart-individual -->
+    </div>
+  </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
        SCREEN-READER-ONLY LIVE REGION for dynamic updates

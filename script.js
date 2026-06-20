@@ -1439,7 +1439,7 @@ function _appendRegionOption(listbox, entry, showLevelBadge) {
     const isActive = entry.key === indChartState.regionKey;
     opt.className = 'region-option' + (isActive ? ' region-option--active' : '');
     opt.textContent = showLevelBadge ? `${entry.label}\u2002(${entry.level})` : entry.label;
-    opt.dataset.key   = entry.key;
+    opt.dataset.key = entry.key;
     opt.dataset.level = entry.level;
     opt.dataset.label = entry.label;
     opt.setAttribute('role', 'option');
@@ -1477,7 +1477,7 @@ function _renderIndComboboxListbox(filterText) {
             ? indComboboxEntries.find(e => e.key === indChartState.regionKey)
             : null;
 
-        const states   = filtered.filter(e => e.level === 'state'  && e.key !== selectedEntry?.key);
+        const states = filtered.filter(e => e.level === 'state' && e.key !== selectedEntry?.key);
         const counties = filtered.filter(e => e.level === 'county' && e.key !== selectedEntry?.key);
 
         if (selectedEntry) {
@@ -1516,7 +1516,7 @@ function _renderIndComboboxListbox(filterText) {
 
 function _openIndCombobox() {
     const listbox = document.getElementById('ind-region-listbox');
-    const input   = document.getElementById('ind-region-input');
+    const input = document.getElementById('ind-region-input');
     if (!listbox || !input || indComboboxOpen) return;
     listbox.removeAttribute('hidden');
     input.setAttribute('aria-expanded', 'true');
@@ -1529,7 +1529,7 @@ function _openIndCombobox() {
 
 function _closeIndCombobox() {
     const listbox = document.getElementById('ind-region-listbox');
-    const input   = document.getElementById('ind-region-input');
+    const input = document.getElementById('ind-region-input');
     if (!listbox || !input) return;
     listbox.setAttribute('hidden', '');
     input.setAttribute('aria-expanded', 'false');
@@ -1543,7 +1543,7 @@ function _closeIndCombobox() {
 }
 
 function _selectIndComboboxEntry(key, level, label) {
-    indChartState.regionKey   = key   || null;
+    indChartState.regionKey = key || null;
     indChartState.regionLevel = level || null;
     const input = document.getElementById('ind-region-input');
     if (input) input.value = key ? label : '';
@@ -1567,8 +1567,8 @@ function _updateComboboxHighlight(options) {
  * Call after the DOM is ready and initial data has loaded.
  */
 function initIndividualCombobox() {
-    const input    = document.getElementById('ind-region-input');
-    const listbox  = document.getElementById('ind-region-listbox');
+    const input = document.getElementById('ind-region-input');
+    const listbox = document.getElementById('ind-region-listbox');
     const combobox = document.getElementById('ind-region-combobox');
     if (!input || !listbox || !combobox) return;
 
@@ -2019,12 +2019,29 @@ function wireControls() {
     const indClearBtn = document.getElementById('ind-clear-btn');
     if (indClearBtn) {
         indClearBtn.addEventListener('click', () => {
-            indChartState.regionKey   = null;
+            indChartState.regionKey = null;
             indChartState.regionLevel = null;
             const input = document.getElementById('ind-region-input');
             if (input) input.value = '';
             _closeIndCombobox();
             renderIndividualChart();
+        });
+    }
+
+    // ── Navigation arrows ─────────────────────────────────────────────────────
+    const scrollDownBtn = document.getElementById('scroll-down-btn');
+    if (scrollDownBtn) {
+        scrollDownBtn.addEventListener('click', () => {
+            // Instantly jump to the individual chart section
+            document.getElementById('chart-individual').scrollIntoView({ behavior: 'instant' });
+        });
+    }
+
+    const scrollUpBtn = document.getElementById('scroll-up-btn');
+    if (scrollUpBtn) {
+        scrollUpBtn.addEventListener('click', () => {
+            // Instantly jump back to the top of the map interface
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         });
     }
 }

@@ -904,9 +904,9 @@ select:focus {
  */
 body {
   min-height: 100dvh;
-  height: auto;           /* allow content taller than viewport */
-  overflow-y: auto;       /* enable scrolling */
-  grid-template-rows: var(--header-h) var(--controls-h) minmax(520px, 70vh) auto;
+  height: auto;
+  overflow-y: auto;
+  grid-template-rows: var(--header-h) var(--controls-h) calc(100dvh - var(--header-h) - var(--controls-h)) 100dvh;
   grid-template-areas:
     "header"
     "controls"
@@ -919,10 +919,15 @@ body {
   grid-area: charts;
   background: var(--bg);
   border-top: 2px solid var(--border);
-  padding: var(--sp-xl) var(--sp-lg) var(--sp-xl);
+  padding: var(--sp-md) var(--sp-lg);
+  /* Reduced padding to maximize chart size */
   display: flex;
   flex-direction: column;
-  gap: var(--sp-lg);
+  gap: var(--sp-md);
+  /* Reduced gap */
+  height: 100dvh;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 /* ── Section header ──────────────────────────────────────── */
@@ -963,7 +968,8 @@ body {
 .chart-section-subtitle {
   font-size: 0.8125rem;
   color: var(--text-muted);
-  margin-left: calc(4px + var(--sp-sm)); /* align under heading text after accent bar */
+  margin-left: calc(4px + var(--sp-sm));
+  /* align under heading text after accent bar */
 }
 
 /* ── Controls row ────────────────────────────────────────── */
@@ -1011,7 +1017,8 @@ body {
   cursor: pointer;
   transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
   white-space: nowrap;
-  align-self: flex-end;  /* bottom-align with the selects */
+  align-self: flex-end;
+  /* bottom-align with the selects */
 }
 
 .chart-clear-btn:hover {
@@ -1028,7 +1035,11 @@ body {
 /* ── Chart area ──────────────────────────────────────────── */
 #chart-individual-area {
   position: relative;
-  min-height: 340px;
+  flex: 1;
+  /* Forces the box to stretch */
+  min-height: 0;
+  /* CRITICAL: Prevents the chart from overflowing the viewport height */
+  width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -1187,9 +1198,7 @@ body {
   font-weight: 500;
   color: var(--text);
   /* Arrow icon — same SVG used by the native <select> override above */
-  background: var(--surface)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
-    no-repeat right 10px center;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: text;
@@ -1237,9 +1246,11 @@ body {
 .region-combobox-listbox::-webkit-scrollbar {
   width: 6px;
 }
+
 .region-combobox-listbox::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .region-combobox-listbox::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 3px;
@@ -1301,4 +1312,54 @@ body {
 
 .region-option--no-results:hover {
   background: none;
+}
+
+/* ── Navigation Arrows & Wrappers ────────────────────────── */
+.chart-controls-wrapper {
+  display: flex;
+  align-items: flex-end;
+  /* Keeps the arrow bottom-aligned with the inputs */
+  gap: var(--sp-md);
+  width: 100%;
+}
+
+.chart-controls-wrapper .chart-controls-row {
+  flex: 1;
+  /* Shorten control panel to make space for the up arrow */
+}
+
+.nav-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+
+.nav-arrow:hover {
+  background: var(--accent);
+  color: var(--surface);
+  transform: scale(1.1);
+}
+
+#scroll-down-btn {
+  position: absolute;
+  right: var(--sp-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+#scroll-down-btn:hover {
+  transform: translateY(-50%) scale(1.1);
 }

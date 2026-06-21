@@ -455,7 +455,6 @@ them across all available years.
   regions."*
 - [ ] Years with suppressed/null data are rendered as hollow markers (same convention as Phase 6).
 
-
 ---
 
 ## Phase 8 – Further Data Extensions

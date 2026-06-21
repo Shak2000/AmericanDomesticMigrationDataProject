@@ -580,15 +580,14 @@ const METRIC_META = {
  * n2  = individuals
  * AGI = adjusted gross income (thousands of dollars)
  */
-function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }, isRelative = false) {
+function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }, isRelative = false, level = appState.level) {
     // ── Milestone 5.2: Check for missing data in county level ──
-    if (appState.level === 'county') {
+    // Check the passed `level` parameter instead of the global map state
+    if (level === 'county') {
         const meta = METRIC_META[metricKey];
         if (meta) {
-            // If the required directional data is missing, immediately return null
             if (meta.direction === 'inflow' && !inflow) return null;
             if (meta.direction === 'outflow' && !outflow) return null;
-            // For net statistics, if EITHER inflow or outflow is missing, return null
             if (meta.direction === 'both' && (!inflow || !outflow)) return null;
         }
     }
@@ -694,7 +693,7 @@ function _getStateMapValue(fips, year, metricKey, primaryFips) {
             outflow: t?.outflow ?? null,
             totalInflow: t?.base_outflow ?? null,
             totalOutflow: t?.base_outflow ?? null,
-        }, false); // <--- National mode: inflow - outflow
+        }, false, 'state'); // Explicitly pass 'state'
     } else {
         const inflow = getStateFlow(year, 'inflow', fips, primaryFips);
         const outflow = getStateFlow(year, 'outflow', primaryFips, fips);
@@ -704,7 +703,7 @@ function _getStateMapValue(fips, year, metricKey, primaryFips) {
             outflow,
             totalInflow: pt?.base_outflow ?? null,
             totalOutflow: pt?.base_outflow ?? null,
-        }, true); // <--- Relative mode: outflow - inflow
+        }, true, 'state'); // Explicitly pass 'state'
     }
 }
 
@@ -716,7 +715,7 @@ function _getCountyMapValue(countyKey, year, metricKey, primaryCountyKey) {
             outflow: t?.outflow ?? null,
             totalInflow: t?.base_outflow ?? null,
             totalOutflow: t?.base_outflow ?? null,
-        }, false); // <--- National mode: inflow - outflow
+        }, false, 'county'); // Explicitly pass 'county'
     } else {
         const inflow = getCountyFlow(year, 'inflow', countyKey, primaryCountyKey);
         const outflow = getCountyFlow(year, 'outflow', primaryCountyKey, countyKey);
@@ -726,7 +725,7 @@ function _getCountyMapValue(countyKey, year, metricKey, primaryCountyKey) {
             outflow,
             totalInflow: pt?.base_outflow ?? null,
             totalOutflow: pt?.base_outflow ?? null,
-        }, true); // <--- Relative mode: outflow - inflow
+        }, true, 'county'); // Explicitly pass 'county'
     }
 }
 
@@ -1830,8 +1829,6 @@ function renderIndividualChart() {
         .attr('d', lineGen);
 
     // ── Circle markers ────────────────────────────────────────────────────────
-    // Create / update a shared floating tooltip div (body-level, so it isn't
-    // clipped by the overflow:hidden card).
     let tooltip = d3.select('body').select('#chart-tooltip');
     if (tooltip.empty()) {
         tooltip = d3.select('body').append('div').attr('id', 'chart-tooltip');
@@ -1845,29 +1842,29 @@ function renderIndividualChart() {
         enter => enter.append('circle')
             .attr('r', 4)
             .attr('cx', d => indChartXScale(d.year))
-            .attr('cy', d => defined(d) ? indChartYScale(d.value) : indChartYScale(yMin))
-            .attr('fill', d => defined(d) ? 'var(--surface)' : 'none')
-            .attr('stroke', d => defined(d) ? 'var(--accent)' : 'var(--text-muted)')
+            // The cy value doesn't matter for hidden dots, but we provide 0 to prevent SVG errors
+            .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
+            .attr('fill', 'var(--surface)')
+            .attr('stroke', 'var(--accent)')
             .attr('stroke-width', 2)
-            .style('cursor', d => defined(d) ? 'pointer' : 'default'),
+            .style('cursor', 'pointer')
+            // NEW: Hides the dot completely if data is missing
+            .style('display', d => defined(d) ? null : 'none'),
 
         update => update
             .attr('cx', d => indChartXScale(d.year))
-            .attr('cy', d => defined(d) ? indChartYScale(d.value) : indChartYScale(yMin))
-            .attr('fill', d => defined(d) ? 'var(--surface)' : 'none')
-            .attr('stroke', d => defined(d) ? 'var(--accent)' : 'var(--text-muted)')
+            .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
+            // NEW: Hides the dot completely if data is missing
+            .style('display', d => defined(d) ? null : 'none')
     )
         .on('mouseenter', function (event, d) {
             d3.select(this).attr('r', 6);
-            const valStr = defined(d)
-                ? formatMetricValue(d.value, metricKey)
-                : 'No data';
+            const valStr = formatMetricValue(d.value, metricKey);
             tooltip
                 .style('display', 'block')
                 .html(`<strong>${d.label}</strong><br>${getMetricLabel(metricKey)}: ${valStr}`);
         })
         .on('mousemove', function (event) {
-            // Flip tooltip to the left if it would overflow the right side of the viewport
             const tipNode = tooltip.node();
             const tipW = tipNode ? tipNode.offsetWidth : 180;
             const rightOverflow = event.pageX + 14 + tipW > window.innerWidth - 16;

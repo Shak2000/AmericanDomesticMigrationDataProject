@@ -170,9 +170,11 @@ def enrich(
             # Derive both sides from lookup (clean, consistent values)
             y2_state, y2_state_name = get_state_info(y2_sf, lookup)
             y1_state, y1_state_name = get_state_info(y1_sf, lookup)
+            
+            # MATHEMATICAL IDENTIFIER FOR NON-MIGRANTS
+            is_non_migrant = (y1_sf == y2_sf and y1_sf not in SPECIAL_FIPS)
 
             # Fallback to raw file values only for the side that already had data
-            # (guards against lookup gaps for edge-case FIPS codes)
             if not y2_state and direction == "outflow":
                 y2_state = row.get("y2_state", "")
                 y2_state_name = row.get("y2_state_name", "")
@@ -180,15 +182,19 @@ def enrich(
                 y1_state = row.get("y1_state", "")
                 y1_state_name = row.get("y1_state_name", "")
 
-            # If the raw data contained "Non-migrants", "Total Migration-Same State", 
-            # or "Total Migration-US and Foreign", ensure it is NOT overwritten by the lookup.
+            # If it's a non-migrant row, FORCE the label so script.js can find it.
+            # Otherwise, preserve other special totals.
             if direction == "inflow":
                 raw_y1_name = row.get("y1_state_name", "")
-                if any(sub in raw_y1_name for sub in ["Non-migrants", "Total Migration-Same State", "Total Migration-US and Foreign"]):
+                if is_non_migrant:
+                    y1_state_name = f"{y1_state} Non-migrants" if y1_state else "Non-migrants"
+                elif any(sub in raw_y1_name for sub in ["Total Migration-Same State", "Total Migration-US and Foreign"]):
                     y1_state_name = raw_y1_name
             elif direction == "outflow":
                 raw_y2_name = row.get("y2_state_name", "")
-                if any(sub in raw_y2_name for sub in ["Non-migrants", "Total Migration-Same State", "Total Migration-US and Foreign"]):
+                if is_non_migrant:
+                    y2_state_name = f"{y2_state} Non-migrants" if y2_state else "Non-migrants"
+                elif any(sub in raw_y2_name for sub in ["Total Migration-Same State", "Total Migration-US and Foreign"]):
                     y2_state_name = raw_y2_name
 
             writer.writerow({

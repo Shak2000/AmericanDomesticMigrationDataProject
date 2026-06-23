@@ -97,32 +97,32 @@
           <optgroup label="Population">
             <option value="pop_inflow">Population inflow</option>
             <option value="pop_outflow">Population outflow</option>
-            <option value="pop_net">Net population flow</option>
+            <option value="pop_net_inflow">Net population inflow</option>
+            <option value="pop_net_outflow">Net population outflow</option>
             <option value="pop_inflow_share">Population inflow as share of population</option>
             <option value="pop_outflow_share">Population outflow as share of population</option>
-            <option value="pop_net_share">Net population flow as share of population</option>
+            <option value="pop_net_inflow_share">Net population inflow as share of population</option>
+            <option value="pop_net_outflow_share">Net population outflow as share of population</option>
           </optgroup>
           <optgroup label="Households">
             <option value="hh_inflow">Households inflow</option>
             <option value="hh_outflow">Households outflow</option>
-            <option value="hh_net">Net household flow</option>
+            <option value="hh_net_inflow">Net household inflow</option>
+            <option value="hh_net_outflow">Net household outflow</option>
             <option value="hh_inflow_share">Households inflow as share of households</option>
             <option value="hh_outflow_share">Households outflow as share of households</option>
-            <option value="hh_net_share">Net household flow as share of households</option>
+            <option value="hh_net_inflow_share">Net household inflow as share of households</option>
+            <option value="hh_net_outflow_share">Net household outflow as share of households</option>
           </optgroup>
           <optgroup label="AGI">
             <option value="agi_inflow">AGI inflow</option>
             <option value="agi_outflow">AGI outflow</option>
-            <option value="agi_net">Net AGI flow</option>
+            <option value="agi_net_inflow">Net AGI inflow</option>
+            <option value="agi_net_outflow">Net AGI outflow</option>
             <option value="agi_inflow_share">AGI inflow as share of AGI</option>
             <option value="agi_outflow_share">AGI outflow as share of AGI</option>
-            <option value="agi_net_share">Net AGI flow as share of AGI</option>
-          </optgroup>
-          <optgroup label="Average AGI">
-            <option value="avg_agi_in_individual">Avg AGI of individual moving in</option>
-            <option value="avg_agi_in_household">Avg AGI of household moving in</option>
-            <option value="avg_agi_out_individual">Avg AGI of individual moving out</option>
-            <option value="avg_agi_out_household">Avg AGI of household moving out</option>
+            <option value="agi_net_inflow_share">Net AGI inflow as share of AGI</option>
+            <option value="agi_net_outflow_share">Net AGI outflow as share of AGI</option>
           </optgroup>
         </select>
       </div>
@@ -275,32 +275,32 @@
             <optgroup label="Population">
               <option value="pop_inflow">Population inflow</option>
               <option value="pop_outflow">Population outflow</option>
-              <option value="pop_net">Net population flow</option>
+              <option value="pop_net_inflow">Net population inflow</option>
+              <option value="pop_net_outflow">Net population outflow</option>
               <option value="pop_inflow_share">Population inflow as share of population</option>
               <option value="pop_outflow_share">Population outflow as share of population</option>
-              <option value="pop_net_share">Net population flow as share of population</option>
+              <option value="pop_net_inflow_share">Net population inflow as share of population</option>
+              <option value="pop_net_outflow_share">Net population outflow as share of population</option>
             </optgroup>
             <optgroup label="Households">
               <option value="hh_inflow">Households inflow</option>
               <option value="hh_outflow">Households outflow</option>
-              <option value="hh_net">Net household flow</option>
+              <option value="hh_net_inflow">Net household inflow</option>
+              <option value="hh_net_outflow">Net household outflow</option>
               <option value="hh_inflow_share">Households inflow as share of households</option>
               <option value="hh_outflow_share">Households outflow as share of households</option>
-              <option value="hh_net_share">Net household flow as share of households</option>
+              <option value="hh_net_inflow_share">Net household inflow as share of households</option>
+              <option value="hh_net_outflow_share">Net household outflow as share of households</option>
             </optgroup>
             <optgroup label="AGI">
               <option value="agi_inflow">AGI inflow</option>
               <option value="agi_outflow">AGI outflow</option>
-              <option value="agi_net">Net AGI flow</option>
+              <option value="agi_net_inflow">Net AGI inflow</option>
+              <option value="agi_net_outflow">Net AGI outflow</option>
               <option value="agi_inflow_share">AGI inflow as share of AGI</option>
               <option value="agi_outflow_share">AGI outflow as share of AGI</option>
-              <option value="agi_net_share">Net AGI flow as share of AGI</option>
-            </optgroup>
-            <optgroup label="Average AGI">
-              <option value="avg_agi_in_individual">Avg AGI of individual moving in</option>
-              <option value="avg_agi_in_household">Avg AGI of household moving in</option>
-              <option value="avg_agi_out_individual">Avg AGI of individual moving out</option>
-              <option value="avg_agi_out_household">Avg AGI of household moving out</option>
+              <option value="agi_net_inflow_share">Net AGI inflow as share of AGI</option>
+              <option value="agi_net_outflow_share">Net AGI outflow as share of AGI</option>
             </optgroup>
           </select>
         </div>
@@ -373,23 +373,28 @@
             <optgroup label="Population">
               <option value="pop_inflow">Population inflow (B → A)</option>
               <option value="pop_outflow" selected>Population outflow (A → B)</option>
-              <option value="pop_net">Net population flow (A → B)</option>
+              <option value="pop_net_inflow">Net population inflow (B → A)</option>
+              <option value="pop_net_outflow">Net population outflow (A → B)</option>
               <option value="pop_inflow_share">Population inflow as share of population (B → A)</option>
               <option value="pop_outflow_share">Population outflow as share of population (A → B)</option>
-              <option value="pop_net_share">Net population flow as share of population (A → B)</option>
+              <option value="pop_net_inflow_share">Net population inflow as share of population (B → A)</option>
+              <option value="pop_net_outflow_share">Net population outflow as share of population (A → B)</option>
             </optgroup>
             <optgroup label="Households">
               <option value="hh_inflow">Households inflow (B → A)</option>
               <option value="hh_outflow">Households outflow (A → B)</option>
-              <option value="hh_net">Net household flow (A → B)</option>
+              <option value="hh_net_inflow">Net household inflow (B → A)</option>
+              <option value="hh_net_outflow">Net household outflow (A → B)</option>
               <option value="hh_inflow_share">Households inflow as share of households (B → A)</option>
               <option value="hh_outflow_share">Households outflow as share of households (A → B)</option>
-              <option value="hh_net_share">Net household flow as share of households (A → B)</option>
+              <option value="hh_net_inflow_share">Net household inflow as share of households (B → A)</option>
+              <option value="hh_net_outflow_share">Net household outflow as share of households (A → B)</option>
             </optgroup>
             <optgroup label="AGI">
               <option value="agi_inflow">AGI inflow (B → A)</option>
               <option value="agi_outflow">AGI outflow (A → B)</option>
-              <option value="agi_net">Net AGI flow (A → B)</option>
+              <option value="agi_net_inflow">Net AGI inflow (B → A)</option>
+              <option value="agi_net_outflow">Net AGI outflow (A → B)</option>
               <option value="agi_inflow_share">AGI inflow as share of AGI (B → A)</option>
               <option value="agi_outflow_share">AGI outflow as share of AGI (A → B)</option>
               <option value="agi_net_share">Net AGI flow as share of AGI (A → B)</option>

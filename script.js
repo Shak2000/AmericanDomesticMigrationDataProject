@@ -521,26 +521,32 @@ const METRIC_META = {
     // ── Population ──────────────────────────────────────────────────────────
     pop_inflow: { label: 'Population inflow', direction: 'inflow', format: 'integer' },
     pop_outflow: { label: 'Population outflow', direction: 'outflow', format: 'integer' },
-    pop_net: { label: 'Net population flow', direction: 'both', format: 'integer' },
+    pop_net_inflow: { label: 'Net population inflow', direction: 'both', format: 'integer' },
+    pop_net_outflow: { label: 'Net population outflow', direction: 'both', format: 'integer' },
     pop_inflow_share: { label: 'Population inflow as share of population', direction: 'inflow', format: 'percent' },
     pop_outflow_share: { label: 'Population outflow as share of population', direction: 'outflow', format: 'percent' },
-    pop_net_share: { label: 'Net population flow as share of population', direction: 'both', format: 'percent' },
+    pop_net_inflow_share: { label: 'Net population inflow as share of population', direction: 'both', format: 'percent' },
+    pop_net_outflow_share: { label: 'Net population outflow as share of population', direction: 'both', format: 'percent' },
 
     // ── Households ──────────────────────────────────────────────────────────
     hh_inflow: { label: 'Household inflow', direction: 'inflow', format: 'integer' },
     hh_outflow: { label: 'Household outflow', direction: 'outflow', format: 'integer' },
-    hh_net: { label: 'Net household flow', direction: 'both', format: 'integer' },
+    hh_net_inflow: { label: 'Net household inflow', direction: 'both', format: 'integer' },
+    hh_net_outflow: { label: 'Net household outflow', direction: 'both', format: 'integer' },
     hh_inflow_share: { label: 'Household inflow as share of households', direction: 'inflow', format: 'percent' },
     hh_outflow_share: { label: 'Household outflow as share of households', direction: 'outflow', format: 'percent' },
-    hh_net_share: { label: 'Net household flow as share of households', direction: 'both', format: 'percent' },
+    hh_net_inflow_share: { label: 'Net household inflow as share of households', direction: 'both', format: 'percent' },
+    hh_net_outflow_share: { label: 'Net household outflow as share of households', direction: 'both', format: 'percent' },
 
     // ── AGI ─────────────────────────────────────────────────────────────────
     agi_inflow: { label: 'AGI inflow ($K)', direction: 'inflow', format: 'currency' },
     agi_outflow: { label: 'AGI outflow ($K)', direction: 'outflow', format: 'currency' },
-    agi_net: { label: 'Net AGI flow ($K)', direction: 'both', format: 'currency' },
+    agi_net_inflow: { label: 'Net AGI inflow ($K)', direction: 'both', format: 'currency' },
+    agi_net_outflow: { label: 'Net AGI outflow ($K)', direction: 'both', format: 'currency' },
     agi_inflow_share: { label: 'AGI inflow as share of AGI', direction: 'inflow', format: 'percent' },
     agi_outflow_share: { label: 'AGI outflow as share of AGI', direction: 'outflow', format: 'percent' },
-    agi_net_share: { label: 'Net AGI flow as share of AGI', direction: 'both', format: 'percent' },
+    agi_net_inflow_share: { label: 'Net AGI inflow as share of AGI', direction: 'both', format: 'percent' },
+    agi_net_outflow_share: { label: 'Net AGI outflow as share of AGI', direction: 'both', format: 'percent' },
 
     // ── Average AGI ─────────────────────────────────────────────────────────
     avg_agi_in_individual: { label: 'Avg AGI per individual moving in ($K)', direction: 'inflow', format: 'currency' },
@@ -582,7 +588,6 @@ const METRIC_META = {
  */
 function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }, isRelative = false, level = appState.level) {
     // ── Milestone 5.2: Check for missing data in county level ──
-    // Check the passed `level` parameter instead of the global map state
     if (level === 'county') {
         const meta = METRIC_META[metricKey];
         if (meta) {
@@ -592,53 +597,71 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
         }
     }
 
-    // Provide zero-filled fallbacks so arithmetic never throws on null.
     const i = inflow ?? { n1: 0, n2: 0, AGI: 0 };
     const o = outflow ?? { n1: 0, n2: 0, AGI: 0 };
-    const ti = totalInflow ?? i;   // fallback: self (gives share = 1)
+    const ti = totalInflow ?? i;
     const to = totalOutflow ?? o;
 
-    // Dynamic net calculation based on whether a primary region is selected
-    const netN2 = isRelative ? o.n2 - i.n2 : i.n2 - o.n2;
-    const netN1 = isRelative ? o.n1 - i.n1 : i.n1 - o.n1;
-    const netAGI = isRelative ? o.AGI - i.AGI : i.AGI - o.AGI;
+    // Explicit net calculations replacing the former isRelative flip
+    const netInflowN2 = i.n2 - o.n2;
+    const netOutflowN2 = o.n2 - i.n2;
+
+    const netInflowN1 = i.n1 - o.n1;
+    const netOutflowN1 = o.n1 - i.n1;
+
+    const netInflowAGI = i.AGI - o.AGI;
+    const netOutflowAGI = o.AGI - i.AGI;
 
     switch (metricKey) {
-
         // ── Population ──────────────────────────────────────────────────────────
         case 'pop_inflow': return i.n2;
         case 'pop_outflow': return o.n2;
-        case 'pop_net': return netN2;
+        case 'pop_net_inflow': return netInflowN2;
+        case 'pop_net_outflow': return netOutflowN2;
         case 'pop_inflow_share': return ti.n2 > 0 ? i.n2 / ti.n2 : null;
         case 'pop_outflow_share': return to.n2 > 0 ? o.n2 / to.n2 : null;
-        case 'pop_net_share': {
+        case 'pop_net_inflow_share': {
             const denom = Math.max(ti.n2, to.n2);
-            return denom > 0 ? netN2 / denom : null;
+            return denom > 0 ? netInflowN2 / denom : null;
+        }
+        case 'pop_net_outflow_share': {
+            const denom = Math.max(ti.n2, to.n2);
+            return denom > 0 ? netOutflowN2 / denom : null;
         }
 
         // ── Households ──────────────────────────────────────────────────────────
         case 'hh_inflow': return i.n1;
         case 'hh_outflow': return o.n1;
-        case 'hh_net': return netN1;
+        case 'hh_net_inflow': return netInflowN1;
+        case 'hh_net_outflow': return netOutflowN1;
         case 'hh_inflow_share': return ti.n1 > 0 ? i.n1 / ti.n1 : null;
         case 'hh_outflow_share': return to.n1 > 0 ? o.n1 / to.n1 : null;
-        case 'hh_net_share': {
+        case 'hh_net_inflow_share': {
             const denom = Math.max(ti.n1, to.n1);
-            return denom > 0 ? netN1 / denom : null;
+            return denom > 0 ? netInflowN1 / denom : null;
+        }
+        case 'hh_net_outflow_share': {
+            const denom = Math.max(ti.n1, to.n1);
+            return denom > 0 ? netOutflowN1 / denom : null;
         }
 
         // ── AGI ─────────────────────────────────────────────────────────────────
         case 'agi_inflow': return i.AGI;
         case 'agi_outflow': return o.AGI;
-        case 'agi_net': return netAGI;
+        case 'agi_net_inflow': return netInflowAGI;
+        case 'agi_net_outflow': return netOutflowAGI;
         case 'agi_inflow_share': return ti.AGI > 0 ? i.AGI / ti.AGI : null;
         case 'agi_outflow_share': return to.AGI > 0 ? o.AGI / to.AGI : null;
-        case 'agi_net_share': {
+        case 'agi_net_inflow_share': {
             const denom = Math.max(ti.AGI, to.AGI);
-            return denom > 0 ? netAGI / denom : null;
+            return denom > 0 ? netInflowAGI / denom : null;
+        }
+        case 'agi_net_outflow_share': {
+            const denom = Math.max(ti.AGI, to.AGI);
+            return denom > 0 ? netOutflowAGI / denom : null;
         }
 
-        // ── Average AGI (AGI in $K per migrant) ─────────────────────────────────
+        // ── Average AGI ─────────────────────────────────────────────────────────
         case 'avg_agi_in_individual': return i.n2 > 0 ? i.AGI / i.n2 : null;
         case 'avg_agi_in_household': return i.n1 > 0 ? i.AGI / i.n1 : null;
         case 'avg_agi_out_individual': return o.n2 > 0 ? o.AGI / o.n2 : null;
@@ -1279,10 +1302,10 @@ async function renderMap() {
                     primaryName = cm ? `${cm.countyName}, ${cm.statePostal}` : appState.primaryRegion;
                 }
 
-                const direction = METRIC_META[appState.metric].direction;
-                if (direction === 'outflow' || direction === 'both') {
+                // Explicitly check the metric key to handle "net_inflow" and "net_outflow" correctly
+                if (appState.metric.includes('outflow') || appState.metric.includes('_out_')) {
                     labelStr += ` from ${primaryName}`;
-                } else {
+                } else if (appState.metric.includes('inflow') || appState.metric.includes('_in_')) {
                     labelStr += ` to ${primaryName}`;
                 }
             }

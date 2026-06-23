@@ -522,25 +522,25 @@ const METRIC_META = {
     pop_inflow: { label: 'Population inflow', direction: 'inflow', format: 'integer' },
     pop_outflow: { label: 'Population outflow', direction: 'outflow', format: 'integer' },
     pop_net: { label: 'Net population flow', direction: 'both', format: 'integer' },
-    pop_inflow_share: { label: 'Population inflow as share of total', direction: 'inflow', format: 'percent' },
-    pop_outflow_share: { label: 'Population outflow as share of total', direction: 'outflow', format: 'percent' },
-    pop_net_share: { label: 'Net population flow as share of total', direction: 'both', format: 'percent' },
+    pop_inflow_share: { label: 'Population inflow as share of population', direction: 'inflow', format: 'percent' },
+    pop_outflow_share: { label: 'Population outflow as share of population', direction: 'outflow', format: 'percent' },
+    pop_net_share: { label: 'Net population flow as share of population', direction: 'both', format: 'percent' },
 
     // ── Households ──────────────────────────────────────────────────────────
     hh_inflow: { label: 'Household inflow', direction: 'inflow', format: 'integer' },
     hh_outflow: { label: 'Household outflow', direction: 'outflow', format: 'integer' },
     hh_net: { label: 'Net household flow', direction: 'both', format: 'integer' },
-    hh_inflow_share: { label: 'Household inflow as share of total', direction: 'inflow', format: 'percent' },
-    hh_outflow_share: { label: 'Household outflow as share of total', direction: 'outflow', format: 'percent' },
-    hh_net_share: { label: 'Net household flow as share of total', direction: 'both', format: 'percent' },
+    hh_inflow_share: { label: 'Household inflow as share of households', direction: 'inflow', format: 'percent' },
+    hh_outflow_share: { label: 'Household outflow as share of households', direction: 'outflow', format: 'percent' },
+    hh_net_share: { label: 'Net household flow as share of households', direction: 'both', format: 'percent' },
 
     // ── AGI ─────────────────────────────────────────────────────────────────
     agi_inflow: { label: 'AGI inflow ($K)', direction: 'inflow', format: 'currency' },
     agi_outflow: { label: 'AGI outflow ($K)', direction: 'outflow', format: 'currency' },
     agi_net: { label: 'Net AGI flow ($K)', direction: 'both', format: 'currency' },
-    agi_inflow_share: { label: 'AGI inflow as share of total', direction: 'inflow', format: 'percent' },
-    agi_outflow_share: { label: 'AGI outflow as share of total', direction: 'outflow', format: 'percent' },
-    agi_net_share: { label: 'Net AGI flow as share of total', direction: 'both', format: 'percent' },
+    agi_inflow_share: { label: 'AGI inflow as share of AGI', direction: 'inflow', format: 'percent' },
+    agi_outflow_share: { label: 'AGI outflow as share of AGI', direction: 'outflow', format: 'percent' },
+    agi_net_share: { label: 'Net AGI flow as share of AGI', direction: 'both', format: 'percent' },
 
     // ── Average AGI ─────────────────────────────────────────────────────────
     avg_agi_in_individual: { label: 'Avg AGI per individual moving in ($K)', direction: 'inflow', format: 'currency' },

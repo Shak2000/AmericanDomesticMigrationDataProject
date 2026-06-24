@@ -459,9 +459,14 @@ them across all available years.
 
 ## Phase 8 – Further Data Extensions
 
-### Milestone 8.1 – Extend Data Back to 1990-91 for States and 1991-92 for Counties
+### Milestone 8.1 – Rearrange Map Control Panel
 
-- [ ] Collect IRS data on migration dating as far back as 1990-91 for states and 1991-92 for counties
+- [ ] Move every component of the map control panel to the left side of the map instead of the top, where it is now
+- [ ] Extend the year slider's length so that it would be long enough to go as far back as 1990-91
+
+### Milestone 8.2 – Extend Data Back to 1990-91
+
+- [ ] Collect IRS data on migration dating as far back as 1990-91
 - [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
 - [ ] Note that the format of this data may be slightly different from the data from 2011-12 onwards, so the Python programs may need to be modified to handle this
 - [ ] Expand the YEAR_LABELS and YEARS constants in script.js to include the additional years

@@ -2451,6 +2451,22 @@ function wireControls() {
         });
     }
 
+    // Scroll down to Pairwise Chart
+    const scrollDownIndBtn = document.getElementById('scroll-down-ind-btn');
+    if (scrollDownIndBtn) {
+        scrollDownIndBtn.addEventListener('click', () => {
+            document.getElementById('chart-pair').scrollIntoView({ behavior: 'instant' });
+        });
+    }
+
+    // Scroll up to Individual Chart
+    const scrollUpPairBtn = document.getElementById('scroll-up-pair-btn');
+    if (scrollUpPairBtn) {
+        scrollUpPairBtn.addEventListener('click', () => {
+            document.getElementById('chart-individual').scrollIntoView({ behavior: 'instant' });
+        });
+    }
+
     // ── Pairwise chart: metric selector ────────────────────────────────────
     const pairMetricSel = document.getElementById('pair-metric-select');
     if (pairMetricSel) {

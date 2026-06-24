@@ -457,14 +457,30 @@ them across all available years.
 
 ---
 
-## Phase 8 – Further Data Extensions
+## Phase 8 – Enable Each Line Graph to Select Up to 12 Regions or Pairs
 
-### Milestone 8.1 – Rearrange Map Control Panel
+### Milestone 8.1 – Individual Region Selector
+
+- [ ] Introduce an "Add" button to add a state or county to a graph.
+- [ ] Create bubbles for individual states or counties that have been selected and "X" buttons in those bubbles to remove the state or county from the graph.
+- [ ] Enable the graph to plot data for up to 12 states or counties, with the lines incorporating the schemePaired D3 schema.
+
+### Milestone 8.2 - Pairwise Region Selector
+
+- [ ] Introduce an "Add" button to add a pair of states or counties to a graph.
+- [ ] Create bubbles for pairs of states or counties that have been selected and "X" buttons in those bubbles to remove the state or county from the graph.
+- [ ] Enable the graph to plot data for up to 12 pairs of states or counties, with the lines incorporating the schemePaired D3 schema.
+
+---
+
+## Phase 9 – Further Data Extensions
+
+### Milestone 9.1 – Rearrange Map Control Panel
 
 - [ ] Move every component of the map control panel to the left side of the map instead of the top, where it is now
 - [ ] Extend the year slider's length so that it would be long enough to go as far back as 1990-91
 
-### Milestone 8.2 – Extend Data Back to 1990-91
+### Milestone 9.2 – Extend Data Back to 1990-91
 
 - [ ] Collect IRS data on migration dating as far back as 1990-91
 - [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
@@ -473,31 +489,31 @@ them across all available years.
 
 ---
 
-## Phase 9 — Polish, Accessibility & Validation
+## Phase 10 — Polish, Accessibility & Validation
 
 **Goal:** Final pass for quality, performance, and usability.
 
-### Milestone 9.1 — Micro-Animations & UX Polish
+### Milestone 10.1 — Micro-Animations & UX Polish
 
 - [ ] Animated map load: regions fade in with a staggered `delay` on first render.
 - [ ] Line chart path draws itself in on appearance.
 - [ ] Slider year indicator updates a visible numeric label in real time.
 - [ ] Metric dropdown uses a custom-styled `<select>` grouped by metric category.
 
-### Milestone 9.2 — Accessibility
+### Milestone 10.2 — Accessibility
 
 - [ ] All interactive elements have `aria-label` attributes.
 - [ ] Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
 - [ ] Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
 
-### Milestone 9.3 — Performance
+### Milestone 10.3 — Performance
 
 - [ ] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
   - [ ] Load county data lazily (only when the user switches to County mode).
   - [ ] Precompute and cache aggregated totals per county on load.
   - [ ] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
 
-### Milestone 9.4 — Final Validation Checklist
+### Milestone 10.4 — Final Validation Checklist
 
 - [ ] All 22 metrics render correctly for both state and county modes
 - [ ] Selection states (none / primary / primary+secondary) all work as specified
@@ -568,9 +584,8 @@ IRSMigrationDataProject/
 ## Execution Order
 
 ```
-Phase 1  →  Phase 2  →  Phase 3  →  Phase 4  →  Phase 5  →  Phase 6    →  Phase 7  →  Phase 8  →  Phase 9
-(Data)      (Scaffold)  (D3 Core)   (Map)       (Data)      (Individual)  (Pair)      (More Data) (Polish)
+Phase 1  →  Phase 2  →  Phase 3  →  Phase 4  →  Phase 5  →  Phase 6    →  Phase 7  →  Phase 8  →  Phase 9      →  Phase 10
+(Data)      (Scaffold)  (D3 Core)   (Map)       (Data)      (Individual)  (Pair)      (Multi)  →  (More Data)  →  (Polish)
 ```
 
-Phases 2 and 3 can be developed in parallel once Phase 1 is complete. Phases 5, 6, and 7 depend on
-Phase 3 being complete.
+Phases 2 and 3 can be developed in parallel once Phase 1 is complete. Phases 5, 6, and 7 depend on Phase 3 being complete. Phases 8 and 9 should be developed after Phase 7 is complete. Phase 10 should be developed after Phase 9 is complete.

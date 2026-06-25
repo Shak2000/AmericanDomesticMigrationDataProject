@@ -1625,8 +1625,21 @@ function renderIndRegionBubbles() {
 
     container.innerHTML = '';
 
-    indChartState.regions.forEach((region, i) => {
-        if (!region) return; // Skip empty slots
+    // 1. Extract active regions and attach their original slot index
+    const activeRegions = indChartState.regions
+        .map((region, i) => region ? { ...region, slotIndex: i } : null)
+        .filter(r => r !== null);
+
+    // 2. Sort the list: States first, then Counties, then alphabetically
+    activeRegions.sort((a, b) => {
+        if (a.level === 'state' && b.level === 'county') return -1;
+        if (a.level === 'county' && b.level === 'state') return 1;
+        return a.label.localeCompare(b.label);
+    });
+
+    // 3. Render the sorted bubbles
+    activeRegions.forEach((region) => {
+        const i = region.slotIndex; // Use original index for color and removal logic
 
         const bubble = document.createElement('div');
         bubble.className = 'region-bubble';
@@ -1642,7 +1655,7 @@ function renderIndRegionBubbles() {
         removeBtn.setAttribute('aria-label', `Remove ${region.label}`);
 
         removeBtn.addEventListener('click', () => {
-            // Nullify the specific slot instead of filtering the array
+            // Nullify the specific slot in the original array
             indChartState.regions[i] = null;
 
             // Re-evaluate Add button state
@@ -1653,7 +1666,10 @@ function renderIndRegionBubbles() {
                 addBtn.disabled = isAlreadyAdded || activeCount >= 12;
             }
 
-            _updateIndRegionInputState();
+            if (typeof _updateIndRegionInputState === 'function') {
+                _updateIndRegionInputState();
+            }
+
             renderIndRegionBubbles();
             renderIndividualChart();
         });

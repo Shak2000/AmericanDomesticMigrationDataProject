@@ -1402,10 +1402,9 @@ function renderChart() {
  * selection and does not interfere with the map's primary/secondary selection.
  */
 const indChartState = {
-    // Array of objects: { key, level, label }
-    regions: [],
+    // Array of exactly 12 slots. Each is either null or { key, level, label }
+    regions: new Array(12).fill(null),
     metric: 'pop_inflow',
-    // Temporarily hold the combobox selection before "Add" is clicked
     stagedKey: null,
     stagedLevel: null,
     stagedLabel: null
@@ -1484,8 +1483,10 @@ function _renderIndComboboxListbox(filterText) {
     const lower = (filterText || '').toLowerCase().trim();
     indComboboxHighlightIdx = -1;
 
-    // NEW: Filter out any regions that are already plotted in the chart
-    const plottedKeys = new Set(indChartState.regions.map(r => r.key));
+    // Filter out nulls before extracting plotted keys
+    const plottedKeys = new Set(
+        indChartState.regions.filter(r => r !== null).map(r => r.key)
+    );
 
     const filtered = indComboboxEntries.filter(e => {
         // Exclude if already plotted
@@ -1581,10 +1582,12 @@ function _updateIndRegionInputState() {
     const input = document.getElementById('ind-region-input');
     if (!input) return;
 
-    if (indChartState.regions.length >= 12) {
+    // Only count slots that have a region in them
+    const activeCount = indChartState.regions.filter(r => r !== null).length;
+
+    if (activeCount >= 12) {
         input.disabled = true;
         input.placeholder = "Maximum of 12 regions reached";
-        // Force close if it somehow stayed open
         if (typeof _closeIndCombobox === 'function') _closeIndCombobox();
     } else {
         input.disabled = false;
@@ -1604,11 +1607,16 @@ function _selectIndComboboxEntry(key, level, label) {
 
     // Enable "Add" if a valid new region is selected and we haven't hit 12
     if (addBtn) {
-        const isAlreadyAdded = indChartState.regions.some(r => r.key === key);
-        addBtn.disabled = !key || isAlreadyAdded || indChartState.regions.length >= 12;
+        // Ensure r is not null before checking r.key
+        const isAlreadyAdded = indChartState.regions.some(r => r !== null && r.key === key);
+
+        // Filter out nulls when checking the length
+        const activeCount = indChartState.regions.filter(r => r !== null).length;
+
+        addBtn.disabled = !key || isAlreadyAdded || activeCount >= 12;
     }
 
-    _closeIndCombobox();
+    if (typeof _closeIndCombobox === 'function') _closeIndCombobox();
 }
 
 function renderIndRegionBubbles() {
@@ -1618,10 +1626,11 @@ function renderIndRegionBubbles() {
     container.innerHTML = '';
 
     indChartState.regions.forEach((region, i) => {
+        if (!region) return; // Skip empty slots
+
         const bubble = document.createElement('div');
         bubble.className = 'region-bubble';
         bubble.style.borderColor = indChartColors(i);
-        // Use a very light tint of the border color for the background
         bubble.style.backgroundColor = `${indChartColors(i)}15`;
 
         const label = document.createElement('span');
@@ -1633,19 +1642,18 @@ function renderIndRegionBubbles() {
         removeBtn.setAttribute('aria-label', `Remove ${region.label}`);
 
         removeBtn.addEventListener('click', () => {
-            // Remove region from array
-            indChartState.regions = indChartState.regions.filter(r => r.key !== region.key);
+            // Nullify the specific slot instead of filtering the array
+            indChartState.regions[i] = null;
 
             // Re-evaluate Add button state
             const addBtn = document.getElementById('ind-add-btn');
             if (addBtn && indChartState.stagedKey) {
-                const isAlreadyAdded = indChartState.regions.some(r => r.key === indChartState.stagedKey);
-                addBtn.disabled = isAlreadyAdded || indChartState.regions.length >= 12;
+                const isAlreadyAdded = indChartState.regions.some(r => r !== null && r.key === indChartState.stagedKey);
+                const activeCount = indChartState.regions.filter(r => r !== null).length;
+                addBtn.disabled = isAlreadyAdded || activeCount >= 12;
             }
 
-            // Re-enable the dropdown input if we dropped below 12
             _updateIndRegionInputState();
-
             renderIndRegionBubbles();
             renderIndividualChart();
         });
@@ -1837,8 +1845,12 @@ function renderIndividualChart() {
     const svgContainer = document.getElementById('chart-individual-svg-container');
     if (!placeholder || !svgContainer) return;
 
-    // ── 1. Check if ANY region is selected ────────────────────────────────────
-    if (indChartState.regions.length === 0) {
+    // ── 1. Extract active regions and remember their slot index ───────────────
+    const activeRegions = indChartState.regions
+        .map((r, i) => r ? { ...r, slotIndex: i } : null)
+        .filter(r => r !== null);
+
+    if (activeRegions.length === 0) {
         placeholder.removeAttribute('hidden');
         svgContainer.setAttribute('hidden', '');
         return;
@@ -1853,7 +1865,7 @@ function renderIndividualChart() {
     const metricKey = indChartState.metric;
 
     // ── 3. Build Data Series for ALL regions ──────────────────────────────────
-    const allSeries = indChartState.regions.map((region, idx) => {
+    const allSeries = activeRegions.map((region) => {
         const seriesData = YEARS.map(year => {
             let value = null;
             if (region.level === 'state') {
@@ -1867,7 +1879,7 @@ function renderIndividualChart() {
         return {
             regionKey: region.key,
             regionLabel: region.label,
-            color: indChartColors(idx),
+            color: indChartColors(region.slotIndex), // FIXED COLOR BY SLOT
             data: seriesData
         };
     });
@@ -2509,14 +2521,19 @@ function wireControls() {
     const indAddBtn = document.getElementById('ind-add-btn');
     if (indAddBtn) {
         indAddBtn.addEventListener('click', () => {
-            if (indChartState.stagedKey && indChartState.regions.length < 12) {
+            const activeCount = indChartState.regions.filter(r => r !== null).length;
+            if (indChartState.stagedKey && activeCount < 12) {
                 // Ensure it's not already in the array
-                if (!indChartState.regions.some(r => r.key === indChartState.stagedKey)) {
-                    indChartState.regions.push({
-                        key: indChartState.stagedKey,
-                        level: indChartState.stagedLevel,
-                        label: indChartState.stagedLabel
-                    });
+                if (!indChartState.regions.some(r => r !== null && r.key === indChartState.stagedKey)) {
+                    // Find first empty slot
+                    const emptyIdx = indChartState.regions.findIndex(r => r === null);
+                    if (emptyIdx !== -1) {
+                        indChartState.regions[emptyIdx] = {
+                            key: indChartState.stagedKey,
+                            level: indChartState.stagedLevel,
+                            label: indChartState.stagedLabel
+                        };
+                    }
                 }
 
                 // Clear the input and staged values
@@ -2529,9 +2546,7 @@ function wireControls() {
 
                 indAddBtn.disabled = true;
 
-                // Check if we just hit the limit of 12 and disable the input
                 _updateIndRegionInputState();
-
                 renderIndRegionBubbles();
                 renderIndividualChart();
             }
@@ -2542,8 +2557,8 @@ function wireControls() {
     const indClearBtn = document.getElementById('ind-clear-btn');
     if (indClearBtn) {
         indClearBtn.addEventListener('click', () => {
-            // Empty the regions array
-            indChartState.regions = [];
+            // Empty the regions array by filling with 12 nulls
+            indChartState.regions = new Array(12).fill(null);
 
             // Clear staged input
             indChartState.stagedKey = null;
@@ -2557,9 +2572,7 @@ function wireControls() {
 
             if (typeof _closeIndCombobox === 'function') _closeIndCombobox();
 
-            // Ensure the input is re-enabled
             _updateIndRegionInputState();
-
             renderIndRegionBubbles();
             renderIndividualChart();
         });

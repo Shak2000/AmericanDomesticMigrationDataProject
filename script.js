@@ -1565,10 +1565,61 @@ function _openIndCombobox() {
     if (active) active.scrollIntoView({ block: 'nearest' });
 }
 
-function _closeIndCombobox() {
+function _closeIndCombobox(validateInput = false) {
     const listbox = document.getElementById('ind-region-listbox');
     const input = document.getElementById('ind-region-input');
     if (!listbox || !input) return;
+
+    if (validateInput && indComboboxOpen) {
+        const currentText = input.value.trim();
+        const lower = currentText.toLowerCase();
+        const selKey = indChartState.stagedKey;
+
+        if (currentText === '') {
+            // User erased the text box, clear the selection
+            if (selKey !== null) {
+                indChartState.stagedKey = null;
+                indChartState.stagedLevel = null;
+                indChartState.stagedLabel = null;
+                const addBtn = document.getElementById('ind-add-btn');
+                if (addBtn) addBtn.disabled = true;
+            }
+        } else {
+            // User typed text but didn't click. See if it matches exactly
+            const match = indComboboxEntries.find(e => e.label.toLowerCase() === lower);
+            if (match) {
+                // Ensure it is not already plotted/added
+                const isAlreadyAdded = indChartState.regions.some(r => r !== null && r.key === match.key);
+                const activeCount = indChartState.regions.filter(r => r !== null).length;
+                const isValid = !isAlreadyAdded && activeCount < 12;
+
+                if (isValid) {
+                    if (match.key !== selKey) {
+                        indChartState.stagedKey = match.key;
+                        indChartState.stagedLevel = match.level;
+                        indChartState.stagedLabel = match.label;
+                        const addBtn = document.getElementById('ind-add-btn');
+                        if (addBtn) addBtn.disabled = false;
+                    }
+                } else {
+                    // Matches but is excluded or we reached the limit
+                    indChartState.stagedKey = null;
+                    indChartState.stagedLevel = null;
+                    indChartState.stagedLabel = null;
+                    const addBtn = document.getElementById('ind-add-btn');
+                    if (addBtn) addBtn.disabled = true;
+                }
+            } else {
+                // Typed gibberish, clear selection
+                indChartState.stagedKey = null;
+                indChartState.stagedLevel = null;
+                indChartState.stagedLabel = null;
+                const addBtn = document.getElementById('ind-add-btn');
+                if (addBtn) addBtn.disabled = true;
+            }
+        }
+    }
+
     listbox.setAttribute('hidden', '');
     input.setAttribute('aria-expanded', 'false');
     indComboboxOpen = false;
@@ -1733,7 +1784,11 @@ function initIndividualCombobox() {
         } else if (e.key === 'Enter') {
             e.preventDefault();
             const highlighted = options[indComboboxHighlightIdx];
-            if (highlighted) _selectIndComboboxEntry(highlighted.dataset.key, highlighted.dataset.level, highlighted.dataset.label);
+            if (highlighted) {
+                _selectIndComboboxEntry(highlighted.dataset.key, highlighted.dataset.level, highlighted.dataset.label);
+            } else {
+                _closeIndCombobox(true);
+            }
         } else if (e.key === 'Escape') {
             _closeIndCombobox();
         }
@@ -1748,11 +1803,11 @@ function initIndividualCombobox() {
     });
 
     // Close on blur (delayed so mousedown on listbox can fire first)
-    input.addEventListener('blur', () => setTimeout(_closeIndCombobox, 150));
+    input.addEventListener('blur', () => setTimeout(() => _closeIndCombobox(true), 150));
 
     // Click outside closes
     document.addEventListener('click', e => {
-        if (!combobox.contains(e.target)) _closeIndCombobox();
+        if (!combobox.contains(e.target)) _closeIndCombobox(true);
     });
 }
 

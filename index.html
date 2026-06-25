@@ -259,13 +259,18 @@
 
         <div class="chart-control-group">
           <label class="control-label" for="ind-region-input">State or County</label>
-          <div class="region-combobox" id="ind-region-combobox">
-            <input type="text" id="ind-region-input" class="region-combobox-input"
-              placeholder="Search states and counties…" autocomplete="off" spellcheck="false" role="combobox"
-              aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list"
-              aria-controls="ind-region-listbox" />
-            <div id="ind-region-listbox" class="region-combobox-listbox" role="listbox" aria-label="Region options"
-              hidden></div>
+          <div class="ind-combobox-row">
+            <div class="region-combobox" id="ind-region-combobox">
+              <input type="text" id="ind-region-input" class="region-combobox-input"
+                placeholder="Search states and counties…" autocomplete="off" spellcheck="false" role="combobox"
+                aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list"
+                aria-controls="ind-region-listbox" />
+              <div id="ind-region-listbox" class="region-combobox-listbox" role="listbox" aria-label="Region options"
+                hidden></div>
+            </div>
+            <button id="ind-add-btn" type="button" class="chart-add-btn" aria-label="Add region to chart" disabled>
+              Add
+            </button>
           </div>
         </div>
 
@@ -314,6 +319,9 @@
       <button id="scroll-down-ind-btn" class="nav-arrow" aria-label="Scroll to pairwise chart"
         title="Go to Pairwise Comparison">↓</button>
     </div>
+
+    <div id="ind-selected-regions" class="selected-regions-container" aria-live="polite"></div>
+
     <div id="chart-individual-area">
 
       <div id="chart-individual-placeholder" class="chart-placeholder" role="status" aria-live="polite">

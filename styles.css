@@ -1167,6 +1167,84 @@ body {
   }
 }
 
+/* ── Multi-Region Selection (Phase 8) ────────────────────── */
+.ind-combobox-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-sm);
+}
+
+.chart-add-btn {
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--surface);
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--t-fast), transform var(--t-fast);
+  white-space: nowrap;
+}
+
+.chart-add-btn:hover {
+  opacity: 0.9;
+}
+
+.chart-add-btn:active {
+  transform: scale(0.97);
+}
+
+.chart-add-btn:disabled {
+  background: var(--border);
+  border-color: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.selected-regions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-md);
+  width: 100%;
+}
+
+.region-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--surface);
+  border: 1.5px solid;
+  /* Color applied via JS based on schemePaired */
+  border-radius: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.bubble-remove-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble-remove-btn:hover {
+  color: #dc2626;
+  /* Red on hover */
+}
+
 /* ────────────────────────────────────────────────────────────
    13. PHASE 7 — PAIRWISE REGION TREND CHART
 ──────────────────────────────────────────────────────────── */

@@ -1402,10 +1402,17 @@ function renderChart() {
  * selection and does not interfere with the map's primary/secondary selection.
  */
 const indChartState = {
-    regionKey: null,    // e.g. "06" (state FIPS) or "06_037" (county key)
-    regionLevel: null,  // 'state' | 'county'
+    // Array of objects: { key, level, label }
+    regions: [],
     metric: 'pop_inflow',
+    // Temporarily hold the combobox selection before "Add" is clicked
+    stagedKey: null,
+    stagedLevel: null,
+    stagedLabel: null
 };
+
+// D3 color scale for up to 12 lines
+const indChartColors = d3.scaleOrdinal(d3.schemePaired);
 
 /** D3 handles retained between renders so we can update-in-place. */
 let indChartSvg = null;        // the root <svg> selection
@@ -1557,20 +1564,70 @@ function _closeIndCombobox() {
     input.setAttribute('aria-expanded', 'false');
     indComboboxOpen = false;
     indComboboxHighlightIdx = -1;
-    // Restore input to the selected name (or blank)
-    const entry = indChartState.regionKey
-        ? indComboboxEntries.find(e => e.key === indChartState.regionKey)
-        : null;
-    input.value = entry ? entry.label : '';
+
+    // Restore input to the staged name
+    input.value = indChartState.stagedLabel || '';
 }
 
 function _selectIndComboboxEntry(key, level, label) {
-    indChartState.regionKey = key || null;
-    indChartState.regionLevel = level || null;
+    indChartState.stagedKey = key || null;
+    indChartState.stagedLevel = level || null;
+    indChartState.stagedLabel = label || null;
+
     const input = document.getElementById('ind-region-input');
+    const addBtn = document.getElementById('ind-add-btn');
+
     if (input) input.value = key ? label : '';
+
+    // Enable "Add" if a valid new region is selected and we haven't hit 12
+    if (addBtn) {
+        const isAlreadyAdded = indChartState.regions.some(r => r.key === key);
+        addBtn.disabled = !key || isAlreadyAdded || indChartState.regions.length >= 12;
+    }
+
     _closeIndCombobox();
-    renderIndividualChart();
+}
+
+function renderIndRegionBubbles() {
+    const container = document.getElementById('ind-selected-regions');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    indChartState.regions.forEach((region, i) => {
+        const bubble = document.createElement('div');
+        bubble.className = 'region-bubble';
+        bubble.style.borderColor = indChartColors(i);
+        // Use a very light tint of the border color for the background
+        bubble.style.backgroundColor = `${indChartColors(i)}15`;
+
+        const label = document.createElement('span');
+        label.textContent = region.label;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'bubble-remove-btn';
+        removeBtn.innerHTML = '×';
+        removeBtn.setAttribute('aria-label', `Remove ${region.label}`);
+
+        removeBtn.addEventListener('click', () => {
+            // Remove region from array
+            indChartState.regions = indChartState.regions.filter(r => r.key !== region.key);
+
+            // Re-evaluate Add button state
+            const addBtn = document.getElementById('ind-add-btn');
+            if (addBtn && indChartState.stagedKey) {
+                const isAlreadyAdded = indChartState.regions.some(r => r.key === indChartState.stagedKey);
+                addBtn.disabled = isAlreadyAdded || indChartState.regions.length >= 12;
+            }
+
+            renderIndRegionBubbles();
+            renderIndividualChart();
+        });
+
+        bubble.appendChild(label);
+        bubble.appendChild(removeBtn);
+        container.appendChild(bubble);
+    });
 }
 
 function _updateComboboxHighlight(options) {
@@ -1754,8 +1811,8 @@ function renderIndividualChart() {
     const svgContainer = document.getElementById('chart-individual-svg-container');
     if (!placeholder || !svgContainer) return;
 
-    // ── 1. Check if region is selected ────────────────────────────────────────
-    if (!indChartState.regionKey) {
+    // ── 1. Check if ANY region is selected ────────────────────────────────────
+    if (indChartState.regions.length === 0) {
         placeholder.removeAttribute('hidden');
         svgContainer.setAttribute('hidden', '');
         return;
@@ -1764,52 +1821,46 @@ function renderIndividualChart() {
     placeholder.setAttribute('hidden', '');
     svgContainer.removeAttribute('hidden');
 
-    // ── 2. Setup Dimensions and Skeleton ──────────────────────────────────────
     const { width, height } = setupIndividualChart();
     if (width <= 0 || height <= 0) return;
 
     const metricKey = indChartState.metric;
 
-    // ── 3. Build Data Series ──────────────────────────────────────────────────
-    const series = YEARS.map(year => {
-        let value = null;
-
-        // FIXED: Correctly reference regionLevel instead of level
-        const currentLevel = indChartState.regionLevel || indChartState.level;
-
-        if (currentLevel === 'state') {
-            value = _getStateMapValue(indChartState.regionKey, year, metricKey);
-        } else if (currentLevel === 'county') {
-            value = _getCountyMapValue(indChartState.regionKey, year, metricKey);
-        }
+    // ── 3. Build Data Series for ALL regions ──────────────────────────────────
+    const allSeries = indChartState.regions.map((region, idx) => {
+        const seriesData = YEARS.map(year => {
+            let value = null;
+            if (region.level === 'state') {
+                value = _getStateMapValue(region.key, year, metricKey);
+            } else if (region.level === 'county') {
+                value = _getCountyMapValue(region.key, year, metricKey);
+            }
+            return { year, label: YEAR_LABELS[year] ?? year, value };
+        });
 
         return {
-            year,
-            label: YEAR_LABELS[year] ?? year,
-            value
+            regionKey: region.key,
+            regionLabel: region.label,
+            color: indChartColors(idx),
+            data: seriesData
         };
     });
 
+    // Flatten all valid values to find the global Y domain
     const defined = d => d.value !== null && Number.isFinite(d.value);
-    const validVals = series.filter(defined).map(d => d.value);
+    const validVals = allSeries.flatMap(s => s.data.filter(defined).map(d => d.value));
 
     // ── 4. Dynamic Y Scale ────────────────────────────────────────────────────
-    let [yMin, yMax] = validVals.length > 0
-        ? [d3.min(validVals), d3.max(validVals)]
-        : [0, 1];
+    let [yMin, yMax] = validVals.length > 0 ? [d3.min(validVals), d3.max(validVals)] : [0, 1];
 
     const range = yMax - yMin;
-    // Apply 10% padding based on the envelope. If perfectly flat, use 5% of the value.
     const pad = range === 0 ? (Math.abs(yMax) * 0.05 || 1) : range * 0.1;
-
     const isDiverging = METRIC_META[metricKey]?.direction === 'both';
 
     if (isDiverging) {
-        // Strictly pad around the actual data envelope for net flows
         yMin = yMin - pad;
         yMax = yMax + pad;
     } else {
-        // Allow absolute metrics to zoom in, but never drop below 0
         yMin = Math.max(0, yMin - pad);
         yMax = yMax + pad;
     }
@@ -1818,94 +1869,98 @@ function renderIndividualChart() {
 
     // ── 5. Axes & Grid ────────────────────────────────────────────────────────
     indChartInner.select('.ind-chart-axis-y')
-        .call(
-            d3.axisLeft(indChartYScale)
-                .ticks(6)
-                .tickFormat(v => formatMetricValue(v, metricKey))
-        );
+        .call(d3.axisLeft(indChartYScale).ticks(6).tickFormat(v => formatMetricValue(v, metricKey)));
 
     indChartInner.select('.ind-chart-grid-y')
-        .call(
-            d3.axisLeft(indChartYScale)
-                .ticks(6)
-                .tickSize(-width)
-                .tickFormat('')
-        )
+        .call(d3.axisLeft(indChartYScale).ticks(6).tickSize(-width).tickFormat(''))
         .select('.domain').remove();
 
-    // Zero-line (for net/diverging metrics)
     const zeroY = indChartYScale(0);
-    // Hide the zero-line if the tight padding pushes 0 off the screen
     const showZero = isDiverging && zeroY >= 0 && zeroY <= height;
 
     indChartInner.select('.ind-chart-zero-line')
         .attr('x1', 0).attr('x2', width)
         .attr('y1', zeroY).attr('y2', zeroY)
         .attr('stroke', showZero ? 'rgba(0,0,0,0.25)' : 'none')
-        .attr('stroke-width', 1)
-        .attr('stroke-dasharray', '4 3');
+        .attr('stroke-width', 1).attr('stroke-dasharray', '4 3');
 
-    // ── 6. Line Path ──────────────────────────────────────────────────────────
+    // ── 6. Line Paths ─────────────────────────────────────────────────────────
     const lineGen = d3.line()
         .defined(defined)
         .x(d => indChartXScale(d.year))
         .y(d => indChartYScale(d.value))
         .curve(d3.curveMonotoneX);
 
-    indChartInner.select('.ind-chart-line')
-        .datum(series)
+    // Because there are multiple lines, bind data to a group of paths rather than a single path
+    // Remove the old single path first if it exists
+    indChartInner.select('path.ind-chart-line').remove();
+
+    // Create a container for multi-lines if it doesn't exist
+    let lineGroup = indChartInner.select('.ind-chart-lines-group');
+    if (lineGroup.empty()) {
+        // Insert it right before the dots group
+        lineGroup = indChartInner.insert('g', '.ind-chart-dots').attr('class', 'ind-chart-lines-group');
+    }
+
+    lineGroup.selectAll('path.multi-line')
+        .data(allSeries, d => d.regionKey)
+        .join('path')
+        .attr('class', 'multi-line')
         .attr('fill', 'none')
-        .attr('stroke', 'var(--accent)')
+        .attr('stroke', d => d.color)
         .attr('stroke-width', 2.5)
         .attr('stroke-linejoin', 'round')
         .attr('stroke-linecap', 'round')
-        .attr('d', lineGen);
+        .attr('d', d => lineGen(d.data));
 
     // ── 7. Circle Markers & Tooltip ───────────────────────────────────────────
     let tooltip = d3.select('body').select('#chart-tooltip');
-    if (tooltip.empty()) {
-        tooltip = d3.select('body').append('div').attr('id', 'chart-tooltip');
-    }
+    if (tooltip.empty()) tooltip = d3.select('body').append('div').attr('id', 'chart-tooltip');
 
-    const dots = indChartInner.select('.ind-chart-dots').selectAll('circle').data(series, d => d.year);
+    // Create a group for each region's dots
+    const dotsGroups = indChartInner.select('.ind-chart-dots')
+        .selectAll('g.region-dots')
+        .data(allSeries, d => d.regionKey)
+        .join('g')
+        .attr('class', 'region-dots');
 
-    dots.join(
-        enter => enter.append('circle')
-            .attr('r', 4)
-            .attr('cx', d => indChartXScale(d.year))
-            .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
-            .attr('fill', 'var(--surface)')
-            .attr('stroke', 'var(--accent)')
-            .attr('stroke-width', 2)
-            .style('cursor', 'pointer')
-            .style('display', d => defined(d) ? null : 'none'),
-        update => update
-            .attr('cx', d => indChartXScale(d.year))
-            .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
-            .style('display', d => defined(d) ? null : 'none')
-    )
+    dotsGroups.selectAll('circle')
+        .data(d => d.data.map(point => ({ ...point, regionLabel: d.regionLabel, color: d.color })))
+        .join(
+            enter => enter.append('circle')
+                .attr('r', 4)
+                .attr('cx', d => indChartXScale(d.year))
+                .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
+                .attr('fill', 'var(--surface)')
+                .attr('stroke', d => d.color)
+                .attr('stroke-width', 2)
+                .style('cursor', 'pointer')
+                .style('display', d => defined(d) ? null : 'none'),
+            update => update
+                .attr('cx', d => indChartXScale(d.year))
+                .attr('cy', d => defined(d) ? indChartYScale(d.value) : 0)
+                .attr('stroke', d => d.color)
+                .style('display', d => defined(d) ? null : 'none')
+        )
         .on('mouseenter', function (event, d) {
+            // Bring hovered line's dots to front
+            d3.select(this.parentNode).raise();
             d3.select(this).attr('r', 6);
+
             const valStr = formatMetricValue(d.value, metricKey);
-
-            // Get the dynamically selected region name
-            const regionInput = document.getElementById('ind-region-input');
-            const regionName = regionInput ? regionInput.value : 'Selected Region';
-
-            tooltip
-                .style('display', 'block')
-                .html(`<strong>${d.label}</strong><br/>
-                       <span style="color: #666;">Region:</span> ${regionName}<br/>
-                       <span style="color: #666;">${getMetricLabel(metricKey)}:</span> ${valStr}`);
+            tooltip.style('display', 'block').html(`
+                <strong>${d.label}</strong><br/>
+                <span style="color: #666;">Region:</span> 
+                <span style="color: ${d.color}; font-weight: bold;">${d.regionLabel}</span><br/>
+                <span style="color: #666;">${getMetricLabel(metricKey)}:</span> ${valStr}
+            `);
         })
         .on('mousemove', function (event) {
             const tipNode = tooltip.node();
             const tipW = tipNode ? tipNode.offsetWidth : 180;
             const rightOverflow = event.pageX + 14 + tipW > window.innerWidth - 16;
             tooltip
-                .style('left', rightOverflow
-                    ? (event.pageX - tipW - 14) + 'px'
-                    : (event.pageX + 14) + 'px')
+                .style('left', rightOverflow ? (event.pageX - tipW - 14) + 'px' : (event.pageX + 14) + 'px')
                 .style('top', (event.pageY - 10) + 'px');
         })
         .on('mouseleave', function () {
@@ -2312,7 +2367,6 @@ function wireControls() {
         });
     });
 
-
     // ── Year slider ───────────────────────────────────────────────────────────
     const slider = document.getElementById('year-slider');
     const yearLabel = document.getElementById('year-display');
@@ -2417,7 +2471,6 @@ function wireControls() {
     }
 
     // ── Individual chart: metric selector ────────────────────────────────────
-    // (Region selection is handled entirely inside initIndividualCombobox)
     const indMetricSel = document.getElementById('ind-metric-select');
     if (indMetricSel) {
         indMetricSel.addEventListener('change', () => {
@@ -2426,15 +2479,55 @@ function wireControls() {
         });
     }
 
-    // ── Individual chart: clear button ───────────────────────────────────────
+    // ── Individual chart: ADD button ─────────────────────────────────────────
+    const indAddBtn = document.getElementById('ind-add-btn');
+    if (indAddBtn) {
+        indAddBtn.addEventListener('click', () => {
+            if (indChartState.stagedKey && indChartState.regions.length < 12) {
+                // Ensure it's not already in the array
+                if (!indChartState.regions.some(r => r.key === indChartState.stagedKey)) {
+                    indChartState.regions.push({
+                        key: indChartState.stagedKey,
+                        level: indChartState.stagedLevel,
+                        label: indChartState.stagedLabel
+                    });
+                }
+
+                // Clear the input and staged values
+                indChartState.stagedKey = null;
+                indChartState.stagedLevel = null;
+                indChartState.stagedLabel = null;
+
+                const input = document.getElementById('ind-region-input');
+                if (input) input.value = '';
+
+                indAddBtn.disabled = true;
+
+                renderIndRegionBubbles();
+                renderIndividualChart();
+            }
+        });
+    }
+
+    // ── Individual chart: CLEAR button ───────────────────────────────────────
     const indClearBtn = document.getElementById('ind-clear-btn');
     if (indClearBtn) {
         indClearBtn.addEventListener('click', () => {
-            indChartState.regionKey = null;
-            indChartState.regionLevel = null;
+            // Empty the regions array
+            indChartState.regions = [];
+
+            // Clear staged input
+            indChartState.stagedKey = null;
+            indChartState.stagedLevel = null;
+            indChartState.stagedLabel = null;
+
             const input = document.getElementById('ind-region-input');
             if (input) input.value = '';
-            _closeIndCombobox();
+
+            if (indAddBtn) indAddBtn.disabled = true;
+
+            if (typeof _closeIndCombobox === 'function') _closeIndCombobox();
+            renderIndRegionBubbles();
             renderIndividualChart();
         });
     }

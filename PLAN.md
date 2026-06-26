@@ -455,9 +455,9 @@ them across all available years.
 
 ### Milestone 8.2 - Pairwise Region Selector
 
-- [ ] Introduce an "Add" button to add a pair of states or counties to a graph.
-- [ ] Create bubbles for pairs of states or counties that have been selected and "X" buttons in those bubbles to remove the state or county from the graph.
-- [ ] Enable the graph to plot data for up to 12 pairs of states or counties, with the lines incorporating the schemePaired D3 schema.
+- [x] Introduce an "Add" button to add a pair of states or counties to a graph.
+- [x] Create bubbles for pairs of states or counties that have been selected and "X" buttons in those bubbles to remove the state or county from the graph.
+- [x] Enable the graph to plot data for up to 12 pairs of states or counties, with the lines incorporating the schemePaired D3 schema.
 
 ---
 

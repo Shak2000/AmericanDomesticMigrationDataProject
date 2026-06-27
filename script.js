@@ -1616,7 +1616,11 @@ async function renderMap() {
  */
 const indChartState = {
     // Array of exactly 12 slots. Each is either null or { key, level, label }
-    regions: new Array(12).fill(null),
+    regions: [
+        { key: '06', level: 'state', label: 'California' },
+        { key: '48', level: 'state', label: 'Texas' },
+        ...new Array(10).fill(null)
+    ],
     metricCategory: 'pop',
     metric: 'pop_inflow',
     stagedKey: null,
@@ -2299,7 +2303,17 @@ function renderIndividualChart() {
 
 const pairChartState = {
     // Array of exactly 12 slots. Each is either null or an object with regionA and regionB
-    pairs: new Array(12).fill(null),
+    pairs: [
+        {
+            regionA: { key: '06', level: 'state', label: 'California' },
+            regionB: { key: '48', level: 'state', label: 'Texas' }
+        },
+        {
+            regionA: { key: '48', level: 'state', label: 'Texas' },
+            regionB: { key: '06', level: 'state', label: 'California' }
+        },
+        ...new Array(10).fill(null)
+    ],
     metricCategory: 'pop',
     metric: 'pop_outflow',
 
@@ -3281,6 +3295,7 @@ function initUI() {
         indStatEl.value = indChartState.metric;
     }
     initIndividualCombobox(); // builds entries, wires all combobox events
+    renderIndRegionBubbles();
     renderIndividualChart();
 
     // ── Pairwise chart: sync category + stat selects ──────────────────────────
@@ -3292,6 +3307,7 @@ function initUI() {
         pairStatEl.value = pairChartState.metric;
     }
     initPairComboboxes();
+    renderPairRegionBubbles();
     renderPairChart();
 }
 

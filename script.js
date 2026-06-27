@@ -10,7 +10,7 @@
  * - Precomputes per-region totals from IRS aggregate rows (y1/y2 FIPS = "96")
  *
  * Milestone 3.2: Derived Metric Computation
- * - METRIC_META: registry of all 22 metrics (label, unit, direction, format)
+ * - METRIC_META: registry of all 22+ metrics (label, unit, direction, format)
  * - computeMetric(metricKey, records): pure function → number | null
  * - getMapValue(regionKey, year, metricKey, level, primaryRegion): dispatcher
  * - formatMetricValue(value, metricKey): display formatter
@@ -497,11 +497,11 @@ function computeNationalTotals() {
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   SECTION 6 — DERIVED METRIC COMPUTATION  (Milestone 3.2)
+   SECTION 6 — DERIVED METRIC COMPUTATION  (Milestone 3.2 & 9.2)
 ═══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Metadata registry for all 22 metrics.
+ * Metadata registry for all metrics.
  *
  * Fields:
  * label     — human-readable name (matches index.html <option> text)
@@ -513,6 +513,7 @@ function computeNationalTotals() {
  * 'integer'  → round to whole number, add comma separator
  * 'currency' → round to whole number, thousands of $, add comma
  * 'percent'  → multiply by 100, show as X.X %
+ * 'decimal'  → display with 2 decimal places
  *
  * AGI values in the raw data are in thousands of dollars.
  * Avg AGI metrics therefore produce values in thousands of $/person.
@@ -561,6 +562,12 @@ const METRIC_META = {
     avg_agi_in_household: { label: 'Avg AGI of household moving in ($K)', direction: 'inflow', format: 'currency' },
     avg_agi_out_individual: { label: 'Avg AGI of individual moving out ($K)', direction: 'outflow', format: 'currency' },
     avg_agi_out_household: { label: 'Avg AGI of household moving out ($K)', direction: 'outflow', format: 'currency' },
+
+    // ── Ratio of Average AGIs ────────────────────────────────────────────────
+    agi_ratio_in_out_individual: { label: 'Avg AGI ratio, in- to out-migrant individual', direction: 'both', format: 'decimal' },
+    agi_ratio_in_out_household: { label: 'Avg AGI ratio, in- to out-migrant household', direction: 'both', format: 'decimal' },
+    agi_ratio_out_in_individual: { label: 'Avg AGI ratio, out- to in-migrant individual', direction: 'both', format: 'decimal' },
+    agi_ratio_out_in_household: { label: 'Avg AGI ratio, out- to in-migrant household', direction: 'both', format: 'decimal' },
 };
 
 /* ── Two-dropdown metric selection ──────────────────────────────────────────
@@ -591,14 +598,18 @@ const AGI_EXTRA_STATS = [
     { suffix: 'avg_agi_in_household', label: 'Avg AGI of household moving in ($K)', pairLabel: 'Avg AGI of household moving in (B → A)' },
     { suffix: 'avg_agi_out_individual', label: 'Avg AGI of individual moving out ($K)', pairLabel: 'Avg AGI of individual moving out (A → B)' },
     { suffix: 'avg_agi_out_household', label: 'Avg AGI of household moving out ($K)', pairLabel: 'Avg AGI of household moving out (A → B)' },
+    { suffix: 'agi_ratio_in_out_individual', label: 'Avg AGI ratio, in- to out-migrant individual', pairLabel: 'Avg AGI ratio, in- to out-migrant individual' },
+    { suffix: 'agi_ratio_in_out_household', label: 'Avg AGI ratio, in- to out-migrant household', pairLabel: 'Avg AGI ratio, in- to out-migrant household' },
+    { suffix: 'agi_ratio_out_in_individual', label: 'Avg AGI ratio, out- to in-migrant individual', pairLabel: 'Avg AGI ratio, out- to in-migrant individual' },
+    { suffix: 'agi_ratio_out_in_household', label: 'Avg AGI ratio, out- to in-migrant household', pairLabel: 'Avg AGI ratio, out- to in-migrant household' },
 ];
 
 /**
  * Build the full METRIC_META key from a category prefix and stat suffix.
- * AGI-only stats (avg_agi_*) use their suffix as the full key.
+ * AGI-only stats (avg_agi_* and agi_ratio_*) use their suffix as the full key.
  */
 function buildMetricKey(category, statSuffix) {
-    if (statSuffix.startsWith('avg_agi_')) return statSuffix;
+    if (statSuffix.startsWith('avg_agi_') || statSuffix.startsWith('agi_ratio_')) return statSuffix;
     return `${category}_${statSuffix}`;
 }
 
@@ -607,7 +618,7 @@ function buildMetricKey(category, statSuffix) {
  * Returns the suffix that, combined with a category, reproduces the key.
  */
 function extractStatSuffix(metricKey) {
-    if (metricKey.startsWith('avg_agi_')) return metricKey;
+    if (metricKey.startsWith('avg_agi_') || metricKey.startsWith('agi_ratio_')) return metricKey;
     for (const p of ['pop_', 'hh_', 'agi_']) {
         if (metricKey.startsWith(p)) return metricKey.slice(p.length);
     }
@@ -618,7 +629,7 @@ function extractStatSuffix(metricKey) {
  * Extract the category prefix from a full metric key.
  */
 function extractMetricCategory(metricKey) {
-    if (metricKey.startsWith('avg_agi_')) return 'agi';
+    if (metricKey.startsWith('avg_agi_') || metricKey.startsWith('agi_ratio_')) return 'agi';
     if (metricKey.startsWith('pop_')) return 'pop';
     if (metricKey.startsWith('hh_')) return 'hh';
     if (metricKey.startsWith('agi_')) return 'agi';
@@ -787,6 +798,28 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
         case 'avg_agi_out_individual': return o.n2 > 0 ? o.AGI / o.n2 : null;
         case 'avg_agi_out_household': return o.n1 > 0 ? o.AGI / o.n1 : null;
 
+        // ── Ratio of Average AGIs ───────────────────────────────────────────────
+        case 'agi_ratio_in_out_individual': {
+            const avgIn = i.n2 > 0 ? i.AGI / i.n2 : 0;
+            const avgOut = o.n2 > 0 ? o.AGI / o.n2 : 0;
+            return avgOut > 0 ? avgIn / avgOut : null;
+        }
+        case 'agi_ratio_in_out_household': {
+            const avgIn = i.n1 > 0 ? i.AGI / i.n1 : 0;
+            const avgOut = o.n1 > 0 ? o.AGI / o.n1 : 0;
+            return avgOut > 0 ? avgIn / avgOut : null;
+        }
+        case 'agi_ratio_out_in_individual': {
+            const avgIn = i.n2 > 0 ? i.AGI / i.n2 : 0;
+            const avgOut = o.n2 > 0 ? o.AGI / o.n2 : 0;
+            return avgIn > 0 ? avgOut / avgIn : null;
+        }
+        case 'agi_ratio_out_in_household': {
+            const avgIn = i.n1 > 0 ? i.AGI / i.n1 : 0;
+            const avgOut = o.n1 > 0 ? o.AGI / o.n1 : 0;
+            return avgIn > 0 ? avgOut / avgIn : null;
+        }
+
         default:
             console.warn(`computeMetric: unknown metric key "${metricKey}"`);
             return null;
@@ -816,7 +849,7 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
  *
  * @param {string}      regionKey     - state FIPS or "sf_cf" county key
  * @param {string}      year          - e.g. "2122"
- * @param {string}      metricKey     - one of the 22 keys in METRIC_META
+ * @param {string}      metricKey     - one of the 22+ keys in METRIC_META
  * @param {string}      level         - "state" | "county"
  * @param {string|null} primaryRegion - FIPS key, or null for default view
  */
@@ -890,6 +923,9 @@ function formatMetricValue(value, metricKey) {
         case 'currency':
             // Value is in thousands of dollars.
             return `$${Math.round(value).toLocaleString('en-US')}K`;
+        case 'decimal':
+            // E.g. for ratios
+            return value.toFixed(2);
         case 'integer':
         default:
             // Possibly negative (net metrics); include sign for clarity.
@@ -2029,12 +2065,12 @@ function setupIndividualChart() {
  *
  * Shows the placeholder when no region is chosen.
  * When a region is chosen, builds the data series and paints/updates:
- *   - D3 scales with correct domains
- *   - Y-axis ticks + grid lines
- *   - The line path
- *   - Circle markers with hover tooltips
- *   - A horizontal zero-line for net/diverging metrics
- *   - The Y-axis label text
+ * - D3 scales with correct domains
+ * - Y-axis ticks + grid lines
+ * - The line path
+ * - Circle markers with hover tooltips
+ * - A horizontal zero-line for net/diverging metrics
+ * - The Y-axis label text
  */
 function renderIndividualChart() {
     const placeholder = document.getElementById('chart-individual-placeholder');

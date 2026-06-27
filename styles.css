@@ -585,15 +585,6 @@ select:focus {
   min-height: 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-md);
-}
-
-.map-statistic-description-inline {
-  font-style: italic;
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  text-align: right;
 }
 
 /* ── Color-scale legend ─────────────────────────────────── */

@@ -250,6 +250,8 @@
 
       <!-- Choropleth map -->
       <section id="map-panel" aria-label="Choropleth map">
+        
+        <p id="map-statistic-description" class="statistic-description" aria-live="polite"></p>
 
         <!-- Map SVG is injected here by D3 -->
         <div id="map" role="img" aria-label="U.S. choropleth migration map"></div>
@@ -257,7 +259,6 @@
         <!-- Hover / selection status bar -->
         <div id="map-status-bar" role="status" aria-live="polite" aria-atomic="true">
           <span id="map-status-text">Hover over a state, county, or county equivalent to see details</span>
-          <span id="map-statistic-description" class="map-statistic-description-inline"></span>
         </div>
 
         <!-- Color-scale legend -->

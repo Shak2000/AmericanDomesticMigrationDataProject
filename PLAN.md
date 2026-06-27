@@ -461,7 +461,7 @@ them across all available years.
 
 ---
 
-## Phase 9 – Further Data Extensions
+## Phase 9 – More Pages & Further Data Extensions
 
 ### Milestone 9.1 – Inbound and Outbound Rates
 
@@ -477,12 +477,22 @@ them across all available years.
   - [x] Ratio of Average Out-Migrant Individual AGI to Average In-Migrant Individual AGI
   - [x] Ratio of Average Out-Migrant Household AGI to Average In-Migrant Household AGI
 
-### Milestone 9.3 – Rearrange Map Control Panel
+### Milestone 9.3 – Instructions and Glossary Page at the End
+
+- [ ] Create a page at the end of the website that:
+  - [ ] Explains how to use the website
+  - [ ] Includes a glossary of terms used on the website
+
+### Milestone 9.4 – Table of Contents Page
+
+- [ ] Create a page with a table of contents that links to all other pages
+
+### Milestone 9.5 – Rearrange Map Control Panel
 
 - [ ] Move every component of the map control panel to the left side of the map instead of the top, where it is now
 - [ ] Extend the year slider's length so that it would be long enough to go as far back as 1990-91
 
-### Milestone 9.4 – Extend Data Back to 1990-91
+### Milestone 9.6 – Extend Data Back to 1990-91
 
 - [ ] Collect IRS data on migration dating as far back as 1990-91
 - [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too

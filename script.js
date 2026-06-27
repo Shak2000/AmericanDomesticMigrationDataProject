@@ -564,10 +564,10 @@ const METRIC_META = {
     avg_agi_out_household: { label: 'Avg AGI of household moving out', direction: 'outflow', format: 'currency' },
 
     // ── Ratio of Average AGIs ────────────────────────────────────────────────
-    agi_ratio_in_out_individual: { label: 'Ratio of Avg In-Migrant to Out-Migrant Individual AGI', direction: 'both', format: 'decimal' },
-    agi_ratio_in_out_household: { label: 'Ratio of Avg In-Migrant to Out-Migrant Household AGI', direction: 'both', format: 'decimal' },
-    agi_ratio_out_in_individual: { label: 'Ratio of Avg Out-Migrant to In-Migrant Individual AGI', direction: 'both', format: 'decimal' },
-    agi_ratio_out_in_household: { label: 'Ratio of Avg Out-Migrant to In-Migrant Household AGI', direction: 'both', format: 'decimal' },
+    agi_ratio_in_out_individual: { label: 'Avg AGI ratio, in- to out-migrant individual', direction: 'both', format: 'decimal' },
+    agi_ratio_in_out_household: { label: 'Avg AGI ratio, in- to out-migrant household', direction: 'both', format: 'decimal' },
+    agi_ratio_out_in_individual: { label: 'Avg AGI ratio, out- to in-migrant individual', direction: 'both', format: 'decimal' },
+    agi_ratio_out_in_household: { label: 'Avg AGI ratio, out- to in-migrant household', direction: 'both', format: 'decimal' },
 };
 
 /* ── Two-dropdown metric selection ──────────────────────────────────────────
@@ -598,10 +598,10 @@ const AGI_EXTRA_STATS = [
     { suffix: 'avg_agi_in_household', label: 'Avg AGI of household moving in', pairLabel: 'Avg AGI of household moving in (B → A)' },
     { suffix: 'avg_agi_out_individual', label: 'Avg AGI of individual moving out', pairLabel: 'Avg AGI of individual moving out (A → B)' },
     { suffix: 'avg_agi_out_household', label: 'Avg AGI of household moving out', pairLabel: 'Avg AGI of household moving out (A → B)' },
-    { suffix: 'agi_ratio_in_out_individual', label: 'Ratio of Avg In-Migrant to Out-Migrant Individual AGI', pairLabel: 'Ratio of Avg In-Migrant (B → A) to Out-Migrant (A → B) Individual AGI' },
-    { suffix: 'agi_ratio_in_out_household', label: 'Ratio of Avg In-Migrant to Out-Migrant Household AGI', pairLabel: 'Ratio of Avg In-Migrant (B → A) to Out-Migrant (A → B) Household AGI' },
-    { suffix: 'agi_ratio_out_in_individual', label: 'Ratio of Avg Out-Migrant to In-Migrant Individual AGI', pairLabel: 'Ratio of Avg Out-Migrant (A → B) to In-Migrant (B → A) Individual AGI' },
-    { suffix: 'agi_ratio_out_in_household', label: 'Ratio of Avg Out-Migrant to In-Migrant Household AGI', pairLabel: 'Ratio of Avg Out-Migrant (A → B) to In-Migrant (B → A) Household AGI' },
+    { suffix: 'agi_ratio_in_out_individual', label: 'Avg AGI ratio, in- to out-migrant individual', pairLabel: 'Avg AGI ratio, in- to out-migrant individual' },
+    { suffix: 'agi_ratio_in_out_household', label: 'Avg AGI ratio, in- to out-migrant household', pairLabel: 'Avg AGI ratio, in- to out-migrant household' },
+    { suffix: 'agi_ratio_out_in_individual', label: 'Avg AGI ratio, out- to in-migrant individual', pairLabel: 'Avg AGI ratio, out- to in-migrant individual' },
+    { suffix: 'agi_ratio_out_in_household', label: 'Avg AGI ratio, out- to in-migrant household', pairLabel: 'Avg AGI ratio, out- to in-migrant household' },
 ];
 
 /**
@@ -933,6 +933,32 @@ function formatMetricValue(value, metricKey) {
             // Possibly negative (net metrics); include sign for clarity.
             return Math.round(value).toLocaleString('en-US');
     }
+}
+
+/**
+ * formatAxisValue(value, metricKey) → string
+ * Specifically for chart Y-axes to format large currency values in M or B.
+ */
+function formatAxisValue(value, metricKey) {
+    if (value === null || !Number.isFinite(value)) return '—';
+    const meta = METRIC_META[metricKey];
+    if (!meta) return String(value);
+
+    if (meta.format === 'currency') {
+        if (value === 0) return '$0';
+        const actualDollars = value * 1000;
+        const absDollars = Math.abs(actualDollars);
+        const sign = value < 0 ? '-' : '';
+
+        if (absDollars >= 1000000000) {
+            return `${sign}$${(absDollars / 1000000000).toFixed(1).replace(/\.0$/, '')}B`;
+        } else if (absDollars >= 1000000) {
+            return `${sign}$${(absDollars / 1000000).toFixed(1).replace(/\.0$/, '')}M`;
+        } else {
+            return `${sign}$${Math.round(absDollars).toLocaleString('en-US')}`;
+        }
+    }
+    return formatMetricValue(value, metricKey);
 }
 
 /**
@@ -2141,7 +2167,7 @@ function renderIndividualChart() {
 
     // ── 5. Axes & Grid ────────────────────────────────────────────────────────
     indChartInner.select('.ind-chart-axis-y')
-        .call(d3.axisLeft(indChartYScale).ticks(6).tickFormat(v => formatMetricValue(v, metricKey)));
+        .call(d3.axisLeft(indChartYScale).ticks(6).tickFormat(v => formatAxisValue(v, metricKey)));
 
     indChartInner.select('.ind-chart-grid-y')
         .call(d3.axisLeft(indChartYScale).ticks(6).tickSize(-width).tickFormat(''))
@@ -2457,7 +2483,7 @@ function renderPairChart() {
     pairChartYScale.domain([yMin, yMax]).nice();
 
     // ── 5. Axes & Grid ────────────────────────────────────────────────────────
-    pairChartInner.select('.ind-chart-axis-y').call(d3.axisLeft(pairChartYScale).ticks(6).tickFormat(v => formatMetricValue(v, metricKey)));
+    pairChartInner.select('.ind-chart-axis-y').call(d3.axisLeft(pairChartYScale).ticks(6).tickFormat(v => formatAxisValue(v, metricKey)));
     pairChartInner.select('.ind-chart-grid-y').call(d3.axisLeft(pairChartYScale).ticks(6).tickSize(-width).tickFormat('')).select('.domain').remove();
 
     const zeroY = pairChartYScale(0);
@@ -3405,7 +3431,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         isRealStateFips, isRealCounty,
         // Section 6 — Metric computation
         computeMetric, getMapValue,
-        formatMetricValue, getMetricLabel,
+        formatMetricValue, formatAxisValue, getMetricLabel,
         // Section 7.5 — Geo integration
         loadGeoData, setupMapSvg,
         geoCache,

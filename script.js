@@ -662,13 +662,13 @@ function updateStatisticDescription(elementId, metricKey) {
  */
 function buildMetricKey(category, direction, baseStat) {
     const isOut = (direction === 'out');
-    
+
     // AGI Extras
     if (baseStat === 'avg_individual') return isOut ? 'avg_agi_out_individual' : 'avg_agi_in_individual';
     if (baseStat === 'avg_household') return isOut ? 'avg_agi_out_household' : 'avg_agi_in_household';
     if (baseStat === 'ratio_individual') return isOut ? 'agi_ratio_out_in_individual' : 'agi_ratio_in_out_individual';
     if (baseStat === 'ratio_household') return isOut ? 'agi_ratio_out_in_household' : 'agi_ratio_in_out_household';
-    
+
     // Standard Stats
     let suffix = '';
     if (baseStat === 'total') suffix = isOut ? 'outflow' : 'inflow';
@@ -677,7 +677,7 @@ function buildMetricKey(category, direction, baseStat) {
     if (baseStat === 'net_rate') suffix = isOut ? 'net_outflow_share' : 'net_inflow_share';
     if (baseStat === 'share') suffix = isOut ? 'outflow_total_share' : 'inflow_total_share';
     if (baseStat === 'volume_share') suffix = isOut ? 'outbound_rate' : 'inbound_rate';
-    
+
     return `${category}_${suffix}`;
 }
 
@@ -696,12 +696,12 @@ function parseMetricKey(metricKey) {
             break;
         }
     }
-    
+
     let direction = 'in';
     if (metricKey.includes('outbound_rate') || metricKey.includes('outflow') || metricKey.includes('avg_agi_out') || metricKey.includes('agi_ratio_out_in')) {
         direction = 'out';
     }
-    
+
     let baseStat = 'total';
     if (metricKey.includes('net_inflow_share') || metricKey.includes('net_outflow_share')) baseStat = 'net_rate';
     else if (metricKey.includes('inflow_share') || metricKey.includes('outflow_share')) baseStat = 'rate';
@@ -713,7 +713,7 @@ function parseMetricKey(metricKey) {
     else if (metricKey.includes('avg_agi_in_household') || metricKey.includes('avg_agi_out_household')) baseStat = 'avg_household';
     else if (metricKey.includes('agi_ratio_in_out_individual') || metricKey.includes('agi_ratio_out_in_individual')) baseStat = 'ratio_individual';
     else if (metricKey.includes('agi_ratio_in_out_household') || metricKey.includes('agi_ratio_out_in_household')) baseStat = 'ratio_household';
-    
+
     return { category, direction, baseStat };
 }
 
@@ -763,7 +763,7 @@ function populateStatSelect(selectEl, category, isPairMode = false, preferredBas
     if (category === 'agi') {
         for (const stat of AGI_EXTRA_BASE_STATS) {
             const opt = document.createElement('option');
-            opt.value = stat.base; 
+            opt.value = stat.base;
             opt.textContent = isPairMode ? stat.pairLabel : stat.label;
             selectEl.appendChild(opt);
         }
@@ -807,7 +807,7 @@ function populateStatSelect(selectEl, category, isPairMode = false, preferredBas
  * n2  = individuals
  * AGI = adjusted gross income (thousands of dollars)
  */
-function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }, isRelative = false, level = appState.level) {
+function computeMetric(metricKey, { inflow, outflow, baseOutflow, totalInflow, totalOutflow }, isRelative = false, level = appState.level) {
     // ── Milestone 5.2: Check for missing data in county level ──
     if (level === 'county') {
         const meta = METRIC_META[metricKey];
@@ -820,6 +820,7 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
 
     const i = inflow ?? { n1: 0, n2: 0, AGI: 0 };
     const o = outflow ?? { n1: 0, n2: 0, AGI: 0 };
+    const bo = baseOutflow ?? { n1: 0, n2: 0, AGI: 0 };
     const ti = totalInflow ?? i;
     const to = totalOutflow ?? o;
 
@@ -839,16 +840,10 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
         case 'pop_outflow': return o.n2;
         case 'pop_net_inflow': return netInflowN2;
         case 'pop_net_outflow': return netOutflowN2;
-        case 'pop_inflow_share': return bi.n2 > 0 ? i.n2 / bi.n2 : null;
+        case 'pop_inflow_share': return bo.n2 > 0 ? i.n2 / bo.n2 : null;
         case 'pop_outflow_share': return bo.n2 > 0 ? o.n2 / bo.n2 : null;
-        case 'pop_net_inflow_share': {
-            const denom = Math.max(bi.n2, bo.n2);
-            return denom > 0 ? netInflowN2 / denom : null;
-        }
-        case 'pop_net_outflow_share': {
-            const denom = Math.max(bi.n2, bo.n2);
-            return denom > 0 ? netOutflowN2 / denom : null;
-        }
+        case 'pop_net_inflow_share': return bo.n2 > 0 ? netInflowN2 / bo.n2 : null;
+        case 'pop_net_outflow_share': return bo.n2 > 0 ? netOutflowN2 / bo.n2 : null;
         case 'pop_inflow_total_share': return ti.n2 > 0 ? i.n2 / ti.n2 : null;
         case 'pop_outflow_total_share': return to.n2 > 0 ? o.n2 / to.n2 : null;
 
@@ -857,16 +852,10 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
         case 'hh_outflow': return o.n1;
         case 'hh_net_inflow': return netInflowN1;
         case 'hh_net_outflow': return netOutflowN1;
-        case 'hh_inflow_share': return bi.n1 > 0 ? i.n1 / bi.n1 : null;
+        case 'hh_inflow_share': return bo.n1 > 0 ? i.n1 / bo.n1 : null;
         case 'hh_outflow_share': return bo.n1 > 0 ? o.n1 / bo.n1 : null;
-        case 'hh_net_inflow_share': {
-            const denom = Math.max(bi.n1, bo.n1);
-            return denom > 0 ? netInflowN1 / denom : null;
-        }
-        case 'hh_net_outflow_share': {
-            const denom = Math.max(bi.n1, bo.n1);
-            return denom > 0 ? netOutflowN1 / denom : null;
-        }
+        case 'hh_net_inflow_share': return bo.n1 > 0 ? netInflowN1 / bo.n1 : null;
+        case 'hh_net_outflow_share': return bo.n1 > 0 ? netOutflowN1 / bo.n1 : null;
         case 'hh_inflow_total_share': return ti.n1 > 0 ? i.n1 / ti.n1 : null;
         case 'hh_outflow_total_share': return to.n1 > 0 ? o.n1 / to.n1 : null;
 
@@ -875,16 +864,10 @@ function computeMetric(metricKey, { inflow, outflow, totalInflow, totalOutflow }
         case 'agi_outflow': return o.AGI;
         case 'agi_net_inflow': return netInflowAGI;
         case 'agi_net_outflow': return netOutflowAGI;
-        case 'agi_inflow_share': return bi.AGI > 0 ? i.AGI / bi.AGI : null;
+        case 'agi_inflow_share': return bo.AGI > 0 ? i.AGI / bo.AGI : null;
         case 'agi_outflow_share': return bo.AGI > 0 ? o.AGI / bo.AGI : null;
-        case 'agi_net_inflow_share': {
-            const denom = Math.max(bi.AGI, bo.AGI);
-            return denom > 0 ? netInflowAGI / denom : null;
-        }
-        case 'agi_net_outflow_share': {
-            const denom = Math.max(bi.AGI, bo.AGI);
-            return denom > 0 ? netOutflowAGI / denom : null;
-        }
+        case 'agi_net_inflow_share': return bo.AGI > 0 ? netInflowAGI / bo.AGI : null;
+        case 'agi_net_outflow_share': return bo.AGI > 0 ? netOutflowAGI / bo.AGI : null;
         case 'agi_inflow_total_share': return ti.AGI > 0 ? i.AGI / ti.AGI : null;
         case 'agi_outflow_total_share': return to.AGI > 0 ? o.AGI / to.AGI : null;
 
@@ -1033,7 +1016,7 @@ function formatMetricValue(value, metricKey) {
     switch (meta.format) {
         case 'percent':
             // Value is a fraction (0–1); display as percentage with 2 decimal places.
-            return `${(value * 100).toFixed(2)} %`;
+            return `${(value * 100).toFixed(2)}%`;
         case 'currency':
             // Value is in thousands of dollars. Replace K with ,000
             if (Math.round(value) === 0) return '$0';
@@ -3293,7 +3276,7 @@ function initDropdowns(metricKey, catSelId, dirSelId, statSelId, isPairMode) {
     const dirSel = document.getElementById(dirSelId);
     const statSel = document.getElementById(statSelId);
     if (!metricKey || !catSel || !dirSel || !statSel) return;
-    
+
     const { category, direction, baseStat } = parseMetricKey(metricKey);
     catSel.value = category;
     dirSel.value = direction;

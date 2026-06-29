@@ -123,161 +123,169 @@
   ════════════════════════════════════════════════════════════════════════ -->
   <section id="page-map" aria-labelledby="page-map-heading">
 
-    <div class="chart-section-header">
-      <div class="chart-section-title-group">
-        <h2 id="page-map-heading" class="chart-section-heading">
-          Choropleth Map
+    <div class="map-header">
+      <div class="title-container">
+        <h2 id="map-heading" class="chart-section-title">
+          United States Migration Patterns
+          <span id="site-subtitle">| Data: IRS SOI Tax Stats</span>
         </h2>
         <p class="chart-section-subtitle">
           Interactive U.S. migration map — explore state and county data by year, category, and statistic.
         </p>
       </div>
+
+      <!-- Year slider -->
+      <div id="year-control" class="control-group top-year-control">
+        <label for="year-slider" class="control-label">Year: <span id="year-display"></span></label>
+        <div class="slider-track-container">
+          <input type="range" id="year-slider" min="0" max="14" value="14" aria-label="Select migration year">
+          <div class="slider-ticks" aria-hidden="true">
+            <div class="tick"><span class="tick-label">2008-<br>2009</span></div>
+            <div class="tick"><span class="tick-label">2009-<br>2010</span></div>
+            <div class="tick"><span class="tick-label">2010-<br>2011</span></div>
+            <div class="tick"><span class="tick-label">2011-<br>2012</span></div>
+            <div class="tick"><span class="tick-label">2012-<br>2013</span></div>
+            <div class="tick"><span class="tick-label">2013-<br>2014</span></div>
+            <div class="tick"><span class="tick-label">2014-<br>2015</span></div>
+            <div class="tick"><span class="tick-label">2015-<br>2016</span></div>
+            <div class="tick"><span class="tick-label">2016-<br>2017</span></div>
+            <div class="tick"><span class="tick-label">2017-<br>2018</span></div>
+            <div class="tick"><span class="tick-label">2018-<br>2019</span></div>
+            <div class="tick"><span class="tick-label">2019-<br>2020</span></div>
+            <div class="tick"><span class="tick-label">2020-<br>2021</span></div>
+            <div class="tick"><span class="tick-label">2021-<br>2022</span></div>
+            <div class="tick"><span class="tick-label">2022-<br>2023</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         TOP CONTROL BAR
-  ════════════════════════════════════════════════════════════════════════ -->
-    <nav id="control-bar" aria-label="Visualization controls">
-      <div class="controls-inner">
+    <div class="map-middle-layout">
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           LEFT CONTROL BAR
+      ════════════════════════════════════════════════════════════════════════ -->
+      <nav id="control-bar" aria-label="Visualization controls">
+        <div class="controls-inner">
 
-        <!-- Granularity toggle: State / County -->
-        <fieldset id="granularity-fieldset" class="control-group">
-          <legend class="control-label">Level</legend>
-          <div class="radio-group">
-            <label id="label-level-state" class="radio-label">
-              <input type="radio" id="radio-level-state" name="granularity" value="state" checked />
-              <span class="radio-custom"></span>
-              State
-            </label>
-            <label id="label-level-county" class="radio-label">
-              <input type="radio" id="radio-level-county" name="granularity" value="county" />
-              <span class="radio-custom"></span>
-              County
-            </label>
+          <!-- Granularity toggle: State / County -->
+          <fieldset id="granularity-fieldset" class="control-group">
+            <legend class="control-label">Level</legend>
+            <div class="radio-group">
+              <label id="label-level-state" class="radio-label">
+                <input type="radio" id="radio-level-state" name="granularity" value="state" checked />
+                <span class="radio-custom"></span>
+                State
+              </label>
+              <label id="label-level-county" class="radio-label">
+                <input type="radio" id="radio-level-county" name="granularity" value="county" />
+                <span class="radio-custom"></span>
+                County
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Metric category + statistic dropdowns -->
+          <div id="metric-control" class="control-group">
+            <label class="control-label" for="metric-category-select">Category</label>
+            <select id="metric-category-select" name="metric-category">
+              <option value="pop" selected>Population</option>
+              <option value="hh">Households</option>
+              <option value="agi">AGI</option>
+            </select>
           </div>
-        </fieldset>
+          <div id="metric-stat-control" class="control-group">
+            <label class="control-label" for="metric-stat-select">Statistic</label>
+            <select id="metric-stat-select" name="metric-stat">
+              <!-- Populated dynamically by JS -->
+            </select>
+          </div>
 
-        <!-- Year slider -->
-        <div id="year-control" class="control-group">
-          <label for="year-slider" class="control-label">Year: <span id="year-display"></span></label>
-          <div class="slider-track-container">
-            <input type="range" id="year-slider" min="0" max="14" value="14" aria-label="Select migration year">
-            <div class="slider-ticks" aria-hidden="true">
-              <div class="tick"><span class="tick-label">2008-<br>2009</span></div>
-              <div class="tick"><span class="tick-label">2009-<br>2010</span></div>
-              <div class="tick"><span class="tick-label">2010-<br>2011</span></div>
-              <div class="tick"><span class="tick-label">2011-<br>2012</span></div>
-              <div class="tick"><span class="tick-label">2012-<br>2013</span></div>
-              <div class="tick"><span class="tick-label">2013-<br>2014</span></div>
-              <div class="tick"><span class="tick-label">2014-<br>2015</span></div>
-              <div class="tick"><span class="tick-label">2015-<br>2016</span></div>
-              <div class="tick"><span class="tick-label">2016-<br>2017</span></div>
-              <div class="tick"><span class="tick-label">2017-<br>2018</span></div>
-              <div class="tick"><span class="tick-label">2018-<br>2019</span></div>
-              <div class="tick"><span class="tick-label">2019-<br>2020</span></div>
-              <div class="tick"><span class="tick-label">2020-<br>2021</span></div>
-              <div class="tick"><span class="tick-label">2021-<br>2022</span></div>
-              <div class="tick"><span class="tick-label">2022-<br>2023</span></div>
+          <!-- Map zoom slider -->
+          <div id="zoom-control" class="control-group">
+            <label class="control-label" for="zoom-slider">
+              Zoom: <span id="zoom-display">1×</span>
+            </label>
+            <input type="range" id="zoom-slider" name="zoom" min="1" max="5" step="0.25" value="1"
+              aria-label="Map zoom level" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-valuetext="1×" />
+            <div class="slider-tick-labels" aria-hidden="true">
+              <span>1×</span>
+              <span>2×</span>
+              <span>3×</span>
+              <span>4×</span>
+              <span>5×</span>
             </div>
           </div>
-        </div>
 
-        <!-- Metric category + statistic dropdowns -->
-        <div id="metric-control" class="control-group">
-          <label class="control-label" for="metric-category-select">Category</label>
-          <select id="metric-category-select" name="metric-category">
-            <option value="pop" selected>Population</option>
-            <option value="hh">Households</option>
-            <option value="agi">AGI</option>
-          </select>
-        </div>
-        <div id="metric-stat-control" class="control-group">
-          <label class="control-label" for="metric-stat-select">Statistic</label>
-          <select id="metric-stat-select" name="metric-stat">
-            <!-- Populated dynamically by JS -->
-          </select>
-        </div>
-
-        <!-- Map zoom slider -->
-        <div id="zoom-control" class="control-group">
-          <label class="control-label" for="zoom-slider">
-            Zoom: <span id="zoom-display">1×</span>
-          </label>
-          <input type="range" id="zoom-slider" name="zoom" min="1" max="5" step="0.25" value="1"
-            aria-label="Map zoom level" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-valuetext="1×" />
-          <div class="slider-tick-labels" aria-hidden="true">
-            <span>1×</span>
-            <span>2×</span>
-            <span>3×</span>
-            <span>4×</span>
-            <span>5×</span>
+          <div id="pan-x-control" class="control-group">
+            <label class="control-label" for="pan-x-slider">
+              Pan X: <span id="pan-x-display">0</span>
+            </label>
+            <input type="range" id="pan-x-slider" name="pan-x" min="-55" max="55" step="1" value="0"
+              aria-label="Map horizontal pan" />
+            <div class="slider-tick-labels" aria-hidden="true">
+              <span>Left</span>
+              <span>Center</span>
+              <span>Right</span>
+            </div>
           </div>
-        </div>
 
-        <div id="pan-x-control" class="control-group">
-          <label class="control-label" for="pan-x-slider">
-            Pan X: <span id="pan-x-display">0</span>
-          </label>
-          <input type="range" id="pan-x-slider" name="pan-x" min="-55" max="55" step="1" value="0"
-            aria-label="Map horizontal pan" />
-          <div class="slider-tick-labels" aria-hidden="true">
-            <span>Left</span>
-            <span>Center</span>
-            <span>Right</span>
+          <div id="pan-y-control" class="control-group">
+            <label class="control-label" for="pan-y-slider">
+              Pan Y: <span id="pan-y-display">0</span>
+            </label>
+            <input type="range" id="pan-y-slider" name="pan-y" min="-80" max="80" step="1" value="0"
+              aria-label="Map vertical pan" />
+            <div class="slider-tick-labels" aria-hidden="true">
+              <span>Up</span>
+              <span>Center</span>
+              <span>Down</span>
+            </div>
           </div>
-        </div>
 
-        <div id="pan-y-control" class="control-group">
-          <label class="control-label" for="pan-y-slider">
-            Pan Y: <span id="pan-y-display">0</span>
-          </label>
-          <input type="range" id="pan-y-slider" name="pan-y" min="-80" max="80" step="1" value="0"
-            aria-label="Map vertical pan" />
-          <div class="slider-tick-labels" aria-hidden="true">
-            <span>Up</span>
-            <span>Center</span>
-            <span>Down</span>
+        </div><!-- /.controls-inner -->
+      </nav>
+
+      <!-- ═══════════════════════════════════════════════════════════════════════
+         MAIN LAYOUT — full-width map
+    ════════════════════════════════════════════════════════════════════════ -->
+      <main id="main-layout" role="main">
+
+        <!-- Choropleth map -->
+        <section id="map-panel" aria-label="Choropleth map">
+          
+          <p id="map-statistic-description" class="statistic-description" aria-live="polite"></p>
+
+          <!-- Map SVG is injected here by D3 -->
+          <div id="map" role="img" aria-label="U.S. choropleth migration map"></div>
+
+          <!-- Hover / selection status bar -->
+          <div id="map-status-bar" role="status" aria-live="polite" aria-atomic="true">
+            <span id="map-status-text">Hover over a state, county, or county equivalent to see details</span>
           </div>
-        </div>
 
-      </div><!-- /.controls-inner -->
-    </nav>
+          <div class="map-nav-arrows">
+            <button id="scroll-up-map-btn" class="nav-arrow" aria-label="Scroll to table of contents"
+              title="Go to Table of Contents">↑</button>
+            <button id="scroll-down-btn" class="nav-arrow" aria-label="Scroll to individual trend chart"
+              title="Go to Individual Trend">↓</button>
+          </div>
+
+        </section>
+
+      </main><!-- /#main-layout -->
+    </div><!-- /.map-middle-layout -->
 
     <!-- ═══════════════════════════════════════════════════════════════════════
-       MAIN LAYOUT — full-width map
-  ════════════════════════════════════════════════════════════════════════ -->
-    <main id="main-layout" role="main">
-
-      <!-- Choropleth map -->
-      <section id="map-panel" aria-label="Choropleth map">
-        
-        <p id="map-statistic-description" class="statistic-description" aria-live="polite"></p>
-
-        <!-- Map SVG is injected here by D3 -->
-        <div id="map" role="img" aria-label="U.S. choropleth migration map"></div>
-
-        <!-- Hover / selection status bar -->
-        <div id="map-status-bar" role="status" aria-live="polite" aria-atomic="true">
-          <span id="map-status-text">Hover over a state, county, or county equivalent to see details</span>
-        </div>
-
-        <!-- Color-scale legend -->
-        <div id="map-legend" aria-label="Color scale legend">
-          <span id="legend-min" class="legend-bound"></span>
-          <div id="legend-gradient"></div>
-          <span id="legend-max" class="legend-bound"></span>
-        </div>
-
-        <div class="map-nav-arrows">
-          <button id="scroll-up-map-btn" class="nav-arrow" aria-label="Scroll to table of contents"
-            title="Go to Table of Contents">↑</button>
-          <button id="scroll-down-btn" class="nav-arrow" aria-label="Scroll to individual trend chart"
-            title="Go to Individual Trend">↓</button>
-        </div>
-
-      </section>
-
-    </main><!-- /#main-layout -->
+         BOTTOM LEGEND
+    ════════════════════════════════════════════════════════════════════════ -->
+    <div id="bottom-bar">
+      <!-- Color-scale legend -->
+      <div id="map-legend" aria-label="Color scale legend">
+        <span id="legend-min" class="legend-bound"></span>
+        <div id="legend-gradient"></div>
+        <span id="legend-max" class="legend-bound"></span>
+      </div>
+    </div>
 
   </section><!-- /#page-map -->
 

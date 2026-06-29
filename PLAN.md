@@ -497,8 +497,8 @@ them across all available years.
 
 ### Milestone 9.6 – Rearrange Map Control Panel
 
-- [ ] Move every component of the map control panel to the left side of the map instead of the top, where it is now
-- [ ] Extend the year slider's length so that it would be long enough to go as far back as 1990-91
+- [x] Move every component of the map control panel to the left side of the map instead of the top, where it is now
+- [x] Extend the year slider's length so that it would be long enough to go as far back as 1990-91
 
 ### Milestone 9.7 – Data Dropdown for In or Out
 

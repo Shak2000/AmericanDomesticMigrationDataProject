@@ -167,24 +167,36 @@ body {
   flex-direction: column;
 }
 
+.map-header {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-middle-layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+}
+
 #control-bar {
   flex-shrink: 0;
-  height: var(--controls-h);
+  width: 320px;
+  height: 100%;
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   z-index: 9;
+  overflow-y: auto;
 }
 
 .controls-inner {
-  max-width: 1800px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 var(--sp-lg);
+  height: auto;
+  padding: var(--sp-lg);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--sp-xl);
-  flex-wrap: wrap;
 }
 
 /* Generic control group */
@@ -276,8 +288,9 @@ body {
 /* ── 4b. Year slider ─────────────────────────────────────── */
 #year-control {
   flex: 1;
-  /* Forces the slider to expand and push following elements to the right */
-  min-width: 320px;
+  padding: 0 var(--sp-lg);
+  margin-bottom: var(--sp-md);
+  margin-top: var(--sp-sm);
 }
 
 #year-display {
@@ -295,7 +308,6 @@ body {
   outline: none;
   cursor: pointer;
   margin-top: 6px;
-  /* extra gap below the label */
   transition: background var(--t-fast);
 }
 
@@ -374,22 +386,12 @@ body {
 .slider-track-container {
   position: relative;
   padding-bottom: 24px;
-  /* Provides vertical space for the stacked text */
-}
-
-#year-slider {
-  position: relative;
-  z-index: 2;
-  margin-top: 6px;
-  width: 100%;
 }
 
 .slider-ticks {
   position: absolute;
   top: 15px;
-  /* Aligns visually below the slider track */
   left: 6.5px;
-  /* Inset by half the thumb width (13px/2) for perfect alignment */
   right: 6.5px;
   display: flex;
   justify-content: space-between;
@@ -407,7 +409,6 @@ body {
 .tick-label {
   position: absolute;
   top: 8px;
-  /* Drops the text below the tick mark */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -588,6 +589,12 @@ select:focus {
 }
 
 /* ── Color-scale legend ─────────────────────────────────── */
+#bottom-bar {
+  flex-shrink: 0;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
 #map-legend {
   display: none;
   /* hidden until D3 sets the gradient & bounds */

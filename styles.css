@@ -309,6 +309,8 @@ body {
   cursor: pointer;
   margin-top: 6px;
   transition: background var(--t-fast);
+  position: relative;
+  z-index: 2;
 }
 
 /* Filled track uses a CSS gradient updated via JS (--slider-pct custom property) */

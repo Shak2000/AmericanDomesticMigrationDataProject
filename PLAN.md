@@ -509,10 +509,10 @@ them across all available years.
 
 ### Milestone 9.8 — Performance
 
-- [ ] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
-  - [ ] Load county data lazily (only when the user switches to County mode).
-  - [ ] Precompute and cache aggregated totals per county on load.
-  - [ ] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
+- [x] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
+  - [x] Load county data lazily (only when the user switches to County mode).
+  - [x] Precompute and cache aggregated totals per county on load.
+  - [x] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
 
 ### Milestone 9.9 – Extend Data Back to 1990-91
 

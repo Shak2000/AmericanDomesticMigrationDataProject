@@ -507,7 +507,14 @@ them across all available years.
   - [x] A dropdown for inflow or outflow
   - [x] A dropdown for the actual statistic (inflow/outflow, net inflow/outflow, etc.)
 
-### Milestone 9.8 – Extend Data Back to 1990-91
+### Milestone 9.8 — Performance
+
+- [ ] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
+  - [ ] Load county data lazily (only when the user switches to County mode).
+  - [ ] Precompute and cache aggregated totals per county on load.
+  - [ ] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
+
+### Milestone 9.9 – Extend Data Back to 1990-91
 
 - [ ] Collect IRS data on migration dating as far back as 1990-91
 - [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
@@ -533,14 +540,7 @@ them across all available years.
 - [ ] Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
 - [ ] Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
 
-### Milestone 10.3 — Performance
-
-- [ ] County-level data (~90k rows × 4 files) is the main bottleneck. Strategies:
-  - [ ] Load county data lazily (only when the user switches to County mode).
-  - [ ] Precompute and cache aggregated totals per county on load.
-  - [ ] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
-
-### Milestone 10.4 — Final Validation Checklist
+### Milestone 10.3 — Final Validation Checklist
 
 - [ ] All 22 metrics render correctly for both state and county modes
 - [ ] Selection states (none / primary / primary+secondary) all work as specified

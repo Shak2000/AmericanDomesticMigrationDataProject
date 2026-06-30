@@ -514,33 +514,52 @@ them across all available years.
   - [x] Precompute and cache aggregated totals per county on load.
   - [x] Throttle slider `input` events with `d3.timer` / `requestAnimationFrame`.
 
-### Milestone 9.9 – Extend Data Back to 1990-91
+## Phase 10 — SQLizing the Project
 
-- [ ] Collect IRS data on migration dating as far back as 1990-91
-- [ ] Expand the Python data enrichment files in data/original/ and data/enriched to process this data, too
-- [ ] Note that the format of this data may be slightly different from the data from 2011-12 onwards, so the Python programs may need to be modified to handle this
-- [ ] Expand the YEAR_LABELS and YEARS constants in script.js to include the additional years
+**Goal:** Transition from large in-memory CSVs to a highly optimized SQLite database loaded via WebAssembly (`sql.js`).
+
+### Milestone 10.1 — Automated IRS Data Ingestion
+- [x] Update the Python pipeline to automatically fetch raw CSV/XLS files from IRS.gov URLs based on a configuration file, saving them to `data/original/`.
+
+### Milestone 10.2 — Consolidate Enriched Data into SQLite
+- [ ] Create `scripts/build_sqlite_db.py` to read all `enriched/` CSVs and insert them into a single `data/database.sqlite` file.
+- [ ] Create optimized SQL tables with proper indexes (e.g., `state_flows`, `county_flows`) for fast querying.
+
+### Milestone 10.3 — Migrate Frontend to `sql.js`
+- [ ] Include `sql.js` (WebAssembly SQLite) in the frontend `index.html`.
+- [ ] Modify `script.js` to fetch `database.sqlite` once on startup, replacing CSV fetches.
+- [ ] Replace in-memory array filtering with parameterized SQL queries executed in the browser.
 
 ---
 
-## Phase 10 — Polish, Accessibility & Validation
+## Phase 11 — Extend Data Back to 1990-91
+
+### Milestone 11.1 – Data Collection and Parsing
+- [ ] Collect IRS data on migration dating as far back as 1990-91
+- [ ] Expand the Python data enrichment files in `data/original/` and `data/enriched/` to process this data, too
+- [ ] Note that the format of this data may be slightly different from the data from 2011-12 onwards, so the Python programs may need to be modified to handle this
+- [ ] Expand the `YEAR_LABELS` and `YEARS` constants in `script.js` to include the additional years
+
+---
+
+## Phase 12 — Polish, Accessibility & Validation
 
 **Goal:** Final pass for quality, performance, and usability.
 
-### Milestone 10.1 — Micro-Animations & UX Polish
+### Milestone 12.1 — Micro-Animations & UX Polish
 
 - [ ] Animated map load: regions fade in with a staggered `delay` on first render.
 - [ ] Line chart path draws itself in on appearance.
 - [ ] Slider year indicator updates a visible numeric label in real time.
 - [ ] Metric dropdown uses a custom-styled `<select>` grouped by metric category.
 
-### Milestone 10.2 — Accessibility
+### Milestone 12.2 — Accessibility
 
 - [ ] All interactive elements have `aria-label` attributes.
 - [ ] Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
 - [ ] Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
 
-### Milestone 10.3 — Final Validation Checklist
+### Milestone 12.3 — Final Validation Checklist
 
 - [ ] All 22 metrics render correctly for both state and county modes
 - [ ] Selection states (none / primary / primary+secondary) all work as specified
@@ -595,8 +614,8 @@ IRSMigrationDataProject/
 ## Execution Order
 
 ```
-Phase 1  →  Phase 2  →  Phase 3  →  Phase 4  →  Phase 5  →  Phase 6    →  Phase 7  →  Phase 8  →  Phase 9      →  Phase 10
-(Data)      (Scaffold)  (D3 Core)   (Map)       (Data)      (Individual)  (Pair)      (Multi)  →  (More Data)  →  (Polish)
+Phase 1  →  Phase 2  →  Phase 3  →  Phase 4  →  Phase 5  →  Phase 6    →  Phase 7  →  Phase 8  →  Phase 9      →  Phase 10   →  Phase 11       →  Phase 12
+(Data)      (Scaffold)  (D3 Core)   (Map)       (Data)      (Individual)  (Pair)      (Multi)  →  (More Data)  →  (SQLize)   →  (1990 Data)    →  (Polish)
 ```
 
-Phases 2 and 3 can be developed in parallel once Phase 1 is complete. Phases 5, 6, and 7 depend on Phase 3 being complete. Phases 8 and 9 should be developed after Phase 7 is complete. Phase 10 should be developed after Phase 9 is complete.
+Phases 2 and 3 can be developed in parallel once Phase 1 is complete. Phases 5, 6, and 7 depend on Phase 3 being complete. Phases 8 and 9 should be developed after Phase 7 is complete. Phase 10 should be developed after Phase 9 is complete. Phases 11 and 12 should follow.

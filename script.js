@@ -3245,7 +3245,8 @@ function wireControls() {
     const scrollUpMapBtn = document.getElementById('scroll-up-map-btn');
     if (scrollUpMapBtn) {
         scrollUpMapBtn.addEventListener('click', () => {
-            document.getElementById('page-toc').scrollIntoView({ behavior: 'instant' });
+            // Because TOC is gone, map is the top page, so scroll back to top of map or do nothing
+            document.getElementById('page-map').scrollIntoView({ behavior: 'instant' });
         });
     }
     const scrollDownBtn = document.getElementById('scroll-down-btn');
@@ -3292,19 +3293,12 @@ function wireControls() {
         });
     }
 
-    const scrollDownTocBtn = document.getElementById('scroll-down-toc-btn');
-    if (scrollDownTocBtn) {
-        scrollDownTocBtn.addEventListener('click', () => {
-            document.getElementById('page-map').scrollIntoView({ behavior: 'instant' });
-        });
-    }
-
-    // ── Table of Contents link click handlers ─────────────────────────────────
-    document.querySelectorAll('.toc-link').forEach(link => {
+    // Nav-link clicks from the new top navigation bar
+    document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = link.dataset.target;
-            const el = document.getElementById(target);
+            const targetId = link.getAttribute('href').substring(1);
+            const el = document.getElementById(targetId);
             if (el) el.scrollIntoView({ behavior: 'instant' });
         });
     });

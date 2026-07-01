@@ -29,95 +29,6 @@
 
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HEADER
-  ════════════════════════════════════════════════════════════════════════ -->
-  <header id="site-header" role="banner">
-    <div class="header-inner">
-      <div class="header-title-group">
-        <h1 id="site-title">U.S. Migration Explorer</h1>
-        <p id="site-subtitle">
-          IRS SOI tax data · domestic migration flows · 2008 – 2023
-        </p>
-      </div>
-    </div>
-  </header>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       MILESTONE 9.4 — TABLE OF CONTENTS
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section id="page-toc" aria-labelledby="page-toc-heading">
-
-    <div class="chart-section-header">
-      <div class="chart-section-title-group">
-        <h2 id="page-toc-heading" class="chart-section-heading">
-          Table of Contents
-        </h2>
-        <p class="chart-section-subtitle">
-          Jump to any section of the U.S. Migration Explorer.
-        </p>
-      </div>
-    </div>
-
-    <div class="toc-nav-row">
-      <button id="scroll-down-toc-btn" class="nav-arrow" aria-label="Scroll to choropleth map"
-        title="Go to Choropleth Map">↓</button>
-    </div>
-
-    <nav class="toc-card" aria-label="Table of contents">
-      <ol class="toc-list">
-        <li>
-          <a href="#page-toc" class="toc-link toc-link--active" data-target="page-toc">
-            <span class="toc-number">1</span>
-            <div class="toc-link-body">
-              <span class="toc-link-title">Table of Contents</span>
-              <span class="toc-link-desc">You are here.</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#page-map" class="toc-link" data-target="page-map">
-            <span class="toc-number">2</span>
-            <div class="toc-link-body">
-              <span class="toc-link-title">Choropleth Map</span>
-              <span class="toc-link-desc">Interactive U.S. migration map — explore state and county data by year,
-                category, and statistic.</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#chart-individual" class="toc-link" data-target="chart-individual">
-            <span class="toc-number">3</span>
-            <div class="toc-link-body">
-              <span class="toc-link-title">Individual Region Trend</span>
-              <span class="toc-link-desc">Compare migration trends for up to twelve states or counties on a single
-                time-series chart.</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#chart-pair" class="toc-link" data-target="chart-pair">
-            <span class="toc-number">4</span>
-            <div class="toc-link-body">
-              <span class="toc-link-title">Pairwise Comparison</span>
-              <span class="toc-link-desc">Chart the bilateral migration flow between two regions over time.</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#page-guide" class="toc-link" data-target="page-guide">
-            <span class="toc-number">5</span>
-            <div class="toc-link-body">
-              <span class="toc-link-title">Instructions &amp; Glossary</span>
-              <span class="toc-link-desc">Learn how to use the explorer and find definitions for every term on this
-                website.</span>
-            </div>
-          </a>
-        </li>
-      </ol>
-    </nav>
-
-  </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
        CHOROPLETH MAP PAGE
@@ -134,6 +45,13 @@
           Interactive U.S. migration map — explore state and county data by year, category, and statistic.
         </p>
       </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#page-map" class="nav-link active">Map</a>
+        <a href="#chart-individual" class="nav-link">Individual Trend</a>
+        <a href="#chart-pair" class="nav-link">Pairwise Comparison</a>
+        <a href="#page-guide" class="nav-link">Glossary</a>
+      </nav>
 
       <!-- Year slider -->
       <div id="year-control" class="control-group top-year-control">
@@ -271,12 +189,6 @@
             <span id="map-status-text">Hover over a state, county, or county equivalent to see details</span>
           </div>
 
-          <div class="map-nav-arrows">
-            <button id="scroll-up-map-btn" class="nav-arrow" aria-label="Scroll to table of contents"
-              title="Go to Table of Contents">↑</button>
-            <button id="scroll-down-btn" class="nav-arrow" aria-label="Scroll to individual trend chart"
-              title="Go to Individual Trend">↓</button>
-          </div>
 
         </section>
 
@@ -311,6 +223,12 @@
           Select a state or county and a metric to trace how a single state or county has changed over time.
         </p>
       </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#page-map" class="nav-link">Map</a>
+        <a href="#chart-individual" class="nav-link active">Individual Trend</a>
+        <a href="#chart-pair" class="nav-link">Pairwise Comparison</a>
+        <a href="#page-guide" class="nav-link">Glossary</a>
+      </nav>
     </div>
 
     <div class="chart-controls-wrapper">
@@ -360,9 +278,6 @@
         </button>
 
       </div>
-      <button id="scroll-up-btn" class="nav-arrow" aria-label="Scroll to map" title="Back to Map">↑</button>
-      <button id="scroll-down-ind-btn" class="nav-arrow" aria-label="Scroll to pairwise chart"
-        title="Go to Pairwise Comparison">↓</button>
     </div>
 
     <div id="ind-selected-regions" class="selected-regions-container" aria-live="polite"></div>
@@ -394,6 +309,12 @@
           Select two states or counties to view the migration flows between them over time.
         </p>
       </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#page-map" class="nav-link">Map</a>
+        <a href="#chart-individual" class="nav-link">Individual Trend</a>
+        <a href="#chart-pair" class="nav-link active">Pairwise Comparison</a>
+        <a href="#page-guide" class="nav-link">Glossary</a>
+      </nav>
     </div>
 
     <div class="chart-controls-wrapper">
@@ -456,10 +377,6 @@
         </button>
 
       </div>
-      <button id="scroll-up-pair-btn" class="nav-arrow" aria-label="Scroll to individual chart"
-        title="Back to Individual Trend">↑</button>
-      <button id="scroll-down-pair-btn" class="nav-arrow" aria-label="Scroll to instructions and glossary"
-        title="Go to Instructions &amp; Glossary">↓</button>
     </div>
 
     <div id="pair-selected-regions" class="selected-regions-container" aria-live="polite"></div>
@@ -490,12 +407,15 @@
           Learn how to use the explorer and find definitions for all terms used on this website.
         </p>
       </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#page-map" class="nav-link">Map</a>
+        <a href="#chart-individual" class="nav-link">Individual Trend</a>
+        <a href="#chart-pair" class="nav-link">Pairwise Comparison</a>
+        <a href="#page-guide" class="nav-link active">Glossary</a>
+      </nav>
     </div>
 
-    <div class="guide-nav-row">
-      <button id="scroll-up-guide-btn" class="nav-arrow" aria-label="Scroll to pairwise chart"
-        title="Back to Pairwise Comparison">↑</button>
-    </div>
+
 
     <div class="guide-content-scroll">
       <div class="guide-columns">

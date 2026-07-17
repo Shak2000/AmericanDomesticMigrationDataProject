@@ -550,8 +550,8 @@ Each milestone follows the same steps:
 > handle any format quirks encountered.
 
 ### Milestone 11.1 – 2007-08
-- [ ] Download and enrich state and county inflow/outflow data for 2007-08
-- [ ] Rebuild SQLite DB and verify the year appears in the app
+- [x] Download and enrich state and county inflow/outflow data for 2007-08
+- [x] Rebuild SQLite DB and verify the year appears in the app
 
 ### Milestone 11.2 – 2006-07
 - [ ] Download and enrich state and county inflow/outflow data for 2006-07

@@ -35,13 +35,13 @@ let sqlDb = null; // Global reference to the VFS database
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
@@ -443,7 +443,7 @@ async function loadStateData() {
             config: {
                 serverMode: "chunked",
                 requestChunkSize: 4096,
-                databaseLengthBytes: 464830464,
+                databaseLengthBytes: 501501952,
                 serverChunkSize: 41943040,
                 urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
                 suffixLength: 3
@@ -1161,7 +1161,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 14,
+    yearIndex: 15,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,
@@ -3419,6 +3419,8 @@ function initUI() {
     const slider = document.getElementById('year-slider');
     const yearLabel = document.getElementById('year-display');
     if (slider && yearLabel) {
+        // Dynamically sync the slider range to the YEARS array length
+        slider.max = YEARS.length - 1;
         slider.value = appState.yearIndex;
         const tag = currentYear();
         yearLabel.textContent = YEAR_LABELS[tag];

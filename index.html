@@ -8,7 +8,7 @@
   <!-- SEO -->
   <title>U.S. Migration Explorer — IRS SOI Data</title>
   <meta name="description" content="Interactive visualization of U.S. domestic migration patterns using IRS
-                 Statistics of Income (SOI) tax data from 2008 to 2023. Explore population,
+                 Statistics of Income (SOI) tax data from 2007 to 2023. Explore population,
                  household, and income flows at the state and county level." />
 
   <!-- Google Fonts: Inter -->
@@ -57,8 +57,9 @@
       <div id="year-control" class="control-group top-year-control">
         <label for="year-slider" class="control-label">Year: <span id="year-display"></span></label>
         <div class="slider-track-container">
-          <input type="range" id="year-slider" min="0" max="14" value="14" aria-label="Select migration year">
+          <input type="range" id="year-slider" min="0" max="15" value="15" aria-label="Select migration year">
           <div class="slider-ticks" aria-hidden="true">
+            <div class="tick"><span class="tick-label">2007-<br>2008</span></div>
             <div class="tick"><span class="tick-label">2008-<br>2009</span></div>
             <div class="tick"><span class="tick-label">2009-<br>2010</span></div>
             <div class="tick"><span class="tick-label">2010-<br>2011</span></div>
@@ -432,7 +433,7 @@
             </p>
             <ul>
               <li><strong>Level</strong> — switch between <em>State</em> and <em>County</em> granularity.</li>
-              <li><strong>Year</strong> — drag the slider to view any tax year from 2008–2009 through 2022–2023.</li>
+              <li><strong>Year</strong> — drag the slider to view any tax year from 2007–2008 through 2022–2023.</li>
               <li><strong>Category &amp; Statistic</strong> — choose a data category (Population, Households, or AGI)
                 and then pick a specific statistic within that category.</li>
               <li><strong>Zoom / Pan</strong> — zoom in and pan horizontally or vertically to focus on a specific

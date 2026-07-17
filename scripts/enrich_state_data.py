@@ -40,6 +40,7 @@ STATE_FIPS_CSV = Path("data/fips/state_fips.csv")
 
 BATCH_FILES: list[tuple[str, str]] = [
     # Inflow
+    ("data/original/state_inflow/stateinflow0708.csv",    "data/enriched/state_inflow/stateinflow0708_enriched.csv"),
     ("data/original/state_inflow/stateinflow0809.csv",    "data/enriched/state_inflow/stateinflow0809_enriched.csv"),
     ("data/original/state_inflow/stateinflow0910.csv",    "data/enriched/state_inflow/stateinflow0910_enriched.csv"),
     ("data/original/state_inflow/stateinflow1011.csv",    "data/enriched/state_inflow/stateinflow1011_enriched.csv"),
@@ -56,6 +57,7 @@ BATCH_FILES: list[tuple[str, str]] = [
     ("data/original/state_inflow/stateinflow2122.csv",    "data/enriched/state_inflow/stateinflow2122_enriched.csv"),
     ("data/original/state_inflow/stateinflow2223.csv",    "data/enriched/state_inflow/stateinflow2223_enriched.csv"),
     # Outflow
+    ("data/original/state_outflow/stateoutflow0708.csv",  "data/enriched/state_outflow/stateoutflow0708_enriched.csv"),
     ("data/original/state_outflow/stateoutflow0809.csv",  "data/enriched/state_outflow/stateoutflow0809_enriched.csv"),
     ("data/original/state_outflow/stateoutflow0910.csv",  "data/enriched/state_outflow/stateoutflow0910_enriched.csv"),
     ("data/original/state_outflow/stateoutflow1011.csv",  "data/enriched/state_outflow/stateoutflow1011_enriched.csv"),
@@ -109,6 +111,57 @@ def get_state_info(raw_fips: str, lookup: dict[str, tuple[str, str]]) -> tuple[s
 
 
 # ---------------------------------------------------------------------------
+# Column normalization for pre-0809 IRS format
+# ---------------------------------------------------------------------------
+
+# Pre-0809 IRS state files use different column names.
+# Inflow files:  State_Code_Dest (y2), County_Code_Dest, State_Code_Origin (y1),
+#                County_Code_Origin, State_Abbrv (y1_state), State_Name (y1_state_name),
+#                Return_Num (n1), Exmpt_Num (n2), Aggr_AGI (AGI)
+# Outflow files: State_Code_Origin (y1), County_Code_Origin, State_Code_Dest (y2),
+#                County_Code_Dest, State_Abbrv (y2_state), State_Name (y2_state_name),
+#                Return_Num (n1), Exmpt_Num (n2), Aggr_AGI (AGI)
+
+def is_legacy_format(fieldnames: list[str]) -> bool:
+    """Return True if the file uses pre-0809 IRS column names."""
+    return "State_Code_Dest" in fieldnames or "State_Code_Origin" in fieldnames
+
+
+def detect_legacy_direction(fieldnames: list[str]) -> str:
+    """Detect direction from pre-0809 column order.
+    Inflow:  first column = State_Code_Dest
+    Outflow: first column = State_Code_Origin
+    """
+    if fieldnames[0] == "State_Code_Dest":
+        return "inflow"
+    return "outflow"
+
+
+def normalize_legacy_state_row(row: dict, direction: str) -> dict:
+    """Map pre-0809 column names to the standard y1/y2 naming convention."""
+    if direction == "inflow":
+        return {
+            "y2_statefips": row["State_Code_Dest"],
+            "y1_statefips": row["State_Code_Origin"],
+            "y1_state":     row.get("State_Abbrv", ""),
+            "y1_state_name": row.get("State_Name", ""),
+            "n1":           row["Return_Num"],
+            "n2":           row["Exmpt_Num"],
+            "AGI":          row["Aggr_AGI"],
+        }
+    else:  # outflow
+        return {
+            "y1_statefips": row["State_Code_Origin"],
+            "y2_statefips": row["State_Code_Dest"],
+            "y2_state":     row.get("State_Abbrv", ""),
+            "y2_state_name": row.get("State_Name", ""),
+            "n1":           row["Return_Num"],
+            "n2":           row["Exmpt_Num"],
+            "AGI":          row["Aggr_AGI"],
+        }
+
+
+# ---------------------------------------------------------------------------
 # Direction detection
 # ---------------------------------------------------------------------------
 def detect_direction(fieldnames: list[str]) -> str:
@@ -120,6 +173,10 @@ def detect_direction(fieldnames: list[str]) -> str:
     Outflow → raw file has y2_state / y2_state_name (destination info already there)
               but is missing y1_state / y1_state_name for the origin.
     """
+    # Pre-0809 legacy format detection
+    if is_legacy_format(fieldnames):
+        return detect_legacy_direction(fieldnames)
+
     has_y1_state = "y1_state" in fieldnames
     has_y2_state = "y2_state" in fieldnames
     if has_y1_state and not has_y2_state:
@@ -155,13 +212,19 @@ def enrich(
         if not reader.fieldnames:
             raise ValueError(f"Empty or header-less file: {input_path}")
 
-        direction = detect_direction(list(reader.fieldnames))
-        print(f"  [{direction}] {input_path.name}")
+        raw_fields = list(reader.fieldnames)
+        legacy = is_legacy_format(raw_fields)
+        direction = detect_direction(raw_fields)
+        fmt_tag = " [LEGACY]" if legacy else ""
+        print(f"  [{direction}]{fmt_tag} {input_path.name}")
 
         writer = csv.DictWriter(fh_out, fieldnames=OUTPUT_FIELDS)
         writer.writeheader()
 
-        for row in reader:
+        for raw_row in reader:
+            # Normalize legacy column names to the standard y1/y2 format
+            row = normalize_legacy_state_row(raw_row, direction) if legacy else raw_row
+
             # Zero-pad to canonical 2-digit width so the writer always
             # outputs a string like "01" rather than the raw integer "1".
             y2_sf = row["y2_statefips"].strip().zfill(2)

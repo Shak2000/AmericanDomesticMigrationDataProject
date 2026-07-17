@@ -535,11 +535,91 @@ them across all available years.
 
 ## Phase 11 — Extend Data Back to 1990-91
 
-### Milestone 11.1 – Data Collection and Parsing
-- [ ] Collect IRS data on migration dating as far back as 1990-91
-- [ ] Expand the Python data enrichment files in `data/original/` and `data/enriched/` to process this data, too
-- [ ] Note that the format of this data may be slightly different from the data from 2011-12 onwards, so the Python programs may need to be modified to handle this
-- [ ] Expand the `YEAR_LABELS` and `YEARS` constants in `script.js` to include the additional years
+**Goal:** Add one year of IRS migration data at a time, working backwards from 2007-08 to 1990-91.
+Each milestone follows the same steps:
+
+1. Download the raw IRS state/county inflow and outflow CSV/XLS files for that year into `data/original/`.
+2. Enrich the files using the Python pipeline (`enrich_state_data.py`, `enrich_county_data.py`), handling any format differences for that era.
+3. Rebuild the SQLite database (`scripts/build_sqlite_db.py`) so the new year is included.
+4. Update `YEARS` and `YEAR_LABELS` in `script.js` (if not already covering this year).
+5. Verify the new year loads correctly in the app (map, line charts, year slider).
+
+> **Note:** IRS data formats changed over the decades. Files from the mid-2000s are generally
+> similar to 2011-12, but earlier years (especially pre-1995) may use different column names,
+> XLS rather than CSV, or omit county-level data entirely. Each milestone should document and
+> handle any format quirks encountered.
+
+### Milestone 11.1 – 2007-08
+- [ ] Download and enrich state and county inflow/outflow data for 2007-08
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.2 – 2006-07
+- [ ] Download and enrich state and county inflow/outflow data for 2006-07
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.3 – 2005-06
+- [ ] Download and enrich state and county inflow/outflow data for 2005-06
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.4 – 2004-05
+- [ ] Download and enrich state and county inflow/outflow data for 2004-05
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.5 – 2003-04
+- [ ] Download and enrich state and county inflow/outflow data for 2003-04
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.6 – 2002-03
+- [ ] Download and enrich state and county inflow/outflow data for 2002-03
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.7 – 2001-02
+- [ ] Download and enrich state and county inflow/outflow data for 2001-02
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.8 – 2000-01
+- [ ] Download and enrich state and county inflow/outflow data for 2000-01
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.9 – 1999-00
+- [ ] Download and enrich state and county inflow/outflow data for 1999-00
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.10 – 1998-99
+- [ ] Download and enrich state and county inflow/outflow data for 1998-99
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.11 – 1997-98
+- [ ] Download and enrich state and county inflow/outflow data for 1997-98
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.12 – 1996-97
+- [ ] Download and enrich state and county inflow/outflow data for 1996-97
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.13 – 1995-96
+- [ ] Download and enrich state and county inflow/outflow data for 1995-96
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.14 – 1994-95
+- [ ] Download and enrich state and county inflow/outflow data for 1994-95
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.15 – 1993-94
+- [ ] Download and enrich state and county inflow/outflow data for 1993-94
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.16 – 1992-93
+- [ ] Download and enrich state and county inflow/outflow data for 1992-93
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.17 – 1991-92
+- [ ] Download and enrich state and county inflow/outflow data for 1991-92
+- [ ] Rebuild SQLite DB and verify the year appears in the app
+
+### Milestone 11.18 – 1990-91
+- [ ] Download and enrich state and county inflow/outflow data for 1990-91
+- [ ] Rebuild SQLite DB and verify the year appears in the app
 
 ---
 

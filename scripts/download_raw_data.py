@@ -29,7 +29,7 @@ FILE_TYPES = [
 # The years we currently support. When extending data back to 1990 (Milestone 11.1),
 # these lists can simply be expanded.
 YEARS = [
-    "0607", "0708", "0809", "0910", "1011", "1112", "1213", "1314", "1415", "1516",
+    "0506", "0607", "0708", "0809", "0910", "1011", "1112", "1213", "1314", "1415", "1516",
     "1617", "1718", "1819", "1920", "2021", "2122", "2223"
 ]
 

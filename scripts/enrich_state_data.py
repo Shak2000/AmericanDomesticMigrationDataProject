@@ -40,6 +40,7 @@ STATE_FIPS_CSV = Path("data/fips/state_fips.csv")
 
 BATCH_FILES: list[tuple[str, str]] = [
     # Inflow
+    ("data/original/state_inflow/stateinflow0506.csv",    "data/enriched/state_inflow/stateinflow0506_enriched.csv"),
     ("data/original/state_inflow/stateinflow0607.csv",    "data/enriched/state_inflow/stateinflow0607_enriched.csv"),
     ("data/original/state_inflow/stateinflow0708.csv",    "data/enriched/state_inflow/stateinflow0708_enriched.csv"),
     ("data/original/state_inflow/stateinflow0809.csv",    "data/enriched/state_inflow/stateinflow0809_enriched.csv"),
@@ -58,6 +59,7 @@ BATCH_FILES: list[tuple[str, str]] = [
     ("data/original/state_inflow/stateinflow2122.csv",    "data/enriched/state_inflow/stateinflow2122_enriched.csv"),
     ("data/original/state_inflow/stateinflow2223.csv",    "data/enriched/state_inflow/stateinflow2223_enriched.csv"),
     # Outflow
+    ("data/original/state_outflow/stateoutflow0506.csv",  "data/enriched/state_outflow/stateoutflow0506_enriched.csv"),
     ("data/original/state_outflow/stateoutflow0607.csv",  "data/enriched/state_outflow/stateoutflow0607_enriched.csv"),
     ("data/original/state_outflow/stateoutflow0708.csv",  "data/enriched/state_outflow/stateoutflow0708_enriched.csv"),
     ("data/original/state_outflow/stateoutflow0809.csv",  "data/enriched/state_outflow/stateoutflow0809_enriched.csv"),

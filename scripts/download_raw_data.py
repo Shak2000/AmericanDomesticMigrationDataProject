@@ -28,6 +28,11 @@ FILE_TYPES = [
 
 # The years we currently support. When extending data back to 1990 (Milestone 11.1),
 # these lists can simply be expanded.
+#
+# Note: years before 0405 are published by the IRS as ZIP archives of per-state
+# .xls workbooks rather than flat per-direction CSVs. Those years are NOT
+# fetched by this script — use scripts/convert_legacy_xls_data.py instead,
+# which downloads and converts them directly into data/original/.
 YEARS = [
     "0405", "0506", "0607", "0708", "0809", "0910", "1011", "1112", "1213", "1314", "1415", "1516",
     "1617", "1718", "1819", "1920", "2021", "2122", "2223"

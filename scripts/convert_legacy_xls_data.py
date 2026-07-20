@@ -59,6 +59,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "2000to2001statemigration.zip",
         "county": "2000to2001countymigration.zip",
     },
+    "9900": {
+        "state": "1999to2000statemigration.zip",
+        "county": "1999to2000countymigration.zip",
+    },
 }
 
 STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)

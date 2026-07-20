@@ -47,12 +47,19 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "2003to2004statemigration.zip",
         "county": "2003to2004countymigration.zip",
     },
+    "0203": {
+        "state": "2002to2003statemigration.zip",
+        "county": "2002to2003countymigration.zip",
+    },
 }
 
 STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)
 COUNTY_HEADER_DATA_ROW = 8  # first data row in county workbooks (0-indexed)
 
-TO_FROM_RE = re.compile(r"^\s*(?:TO|FROM):\s*(\d+)-", re.IGNORECASE)
+# The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
+# split across two or three cells (e.g. ['FROM:', '', '21-KENTUCKY']) —
+# depends on the year/file. Join the whole header row before matching.
+TO_FROM_RE = re.compile(r"(TO|FROM):\s*(\d+)-", re.IGNORECASE)
 
 
 def fetch_zip(url: str) -> zipfile.ZipFile:
@@ -84,12 +91,12 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
     wb = xlrd.open_workbook(file_contents=raw_bytes)
     sh = wb.sheet_by_index(0)
 
-    header_cell = str(sh.cell_value(3, 0))
-    m = TO_FROM_RE.match(header_cell)
+    header_row = " ".join(str(v) for v in sh.row_values(3))
+    m = TO_FROM_RE.search(header_row)
     if not m:
-        raise ValueError(f"Could not parse header cell: {header_cell!r}")
-    fixed_fips = m.group(1).zfill(2)
-    direction = "inflow" if header_cell.strip().upper().startswith("TO") else "outflow"
+        raise ValueError(f"Could not parse header row: {header_row!r}")
+    direction = "inflow" if m.group(1).upper() == "TO" else "outflow"
+    fixed_fips = m.group(2).zfill(2)
 
     rows = []
     for r in range(STATE_HEADER_DATA_ROW, sh.nrows):
@@ -198,10 +205,18 @@ def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
         base = Path(name).name
         if not base.lower().endswith(".xls"):
             continue
-        lower = base.lower()
-        if lower.endswith("i.xls"):
+        lower_path = name.lower()
+        lower_base = base.lower()
+        # Prefer the containing folder name (e.g. ".../CountyMigrationInflow/...")
+        # over the filename suffix, since filenames have typos across years
+        # (e.g. "co0304OH0.xls" for outflow instead of the usual "...o.xls").
+        if "inflow" in lower_path:
             direction = "inflow"
-        elif lower.endswith("o.xls") or lower[-5] == "0":  # co0304OH0.xls typo
+        elif "outflow" in lower_path:
+            direction = "outflow"
+        elif lower_base.endswith("i.xls"):
+            direction = "inflow"
+        elif lower_base.endswith("o.xls"):
             direction = "outflow"
         else:
             print(f"    WARNING: could not classify direction for {base}, skipping")

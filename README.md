@@ -28,7 +28,7 @@ tax data from 2008 to 2023. Explore population, household, and income flows at t
 |---|---|---|
 | **Python** | 3.10 or later | Only the standard library is used — no `pip install` required |
 | **A modern web browser** | Chrome, Firefox, Safari, or Edge | D3.js v7 is loaded from a CDN |
-| **A local HTTP server** | Any (see below) | Required to load CSV files via `fetch()` — opening `index.html` directly with `file://` will be blocked by CORS |
+| **A local HTTP server** | One that supports HTTP `Range` requests (see below) | Required to load the SQLite database — opening `index.html` directly with `file://` will be blocked by CORS, and servers without `Range` support (e.g. Python's `http.server`) silently corrupt county-level data |
 
 ---
 
@@ -193,18 +193,19 @@ python scripts/validate_data.py --quick
 Because `script.js` loads data via `fetch()`, you need a local HTTP server — opening
 `index.html` directly with `file://` will fail due to browser CORS restrictions.
 
-**Option A — Python (no extra install):**
-```bash
-python -m http.server 8080
-```
-Then open [http://localhost:8080](http://localhost:8080) in your browser.
+**Important:** the app queries `data/database.sqlite` remotely via `sql.js-httpvfs`,
+which reads the database in chunks using HTTP `Range` requests. Your local server
+**must** support `Range` requests (return `206 Partial Content`), or county-level
+data will silently fail to load (state data still works, since its reads happen to
+land near the start of the file). Python's built-in `http.server` does **not**
+support `Range` requests — avoid it for this project.
 
-**Option B — Node.js `serve` (if Node is installed):**
+**Option A — Node.js `serve` (recommended):**
 ```bash
 npx serve .
 ```
 
-**Option C — VS Code Live Server extension:**
+**Option B — VS Code Live Server extension:**
 Right-click `index.html` → *Open with Live Server*.
 
 ---

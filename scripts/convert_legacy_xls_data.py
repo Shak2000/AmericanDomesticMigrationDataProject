@@ -51,6 +51,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "2002to2003statemigration.zip",
         "county": "2002to2003countymigration.zip",
     },
+    "0102": {
+        "state": "2001to2002statemigration.zip",
+        "county": "2001to2002countymigration.zip",
+    },
 }
 
 STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)
@@ -170,20 +174,48 @@ COUNTY_OUTFLOW_FIELDS = ["State_Code_Origin", "County_Code_Origin", "State_Code_
                           "Return_Num", "Exmpt_Num", "Aggr_AGI"]
 
 
+def find_county_data_start(sh) -> int:
+    """
+    Locate the first data row by scanning for the first row whose Return_Num
+    column (index 6) is numeric. Most years fix this at row 8, but some
+    single-file national-aggregate workbooks (e.g. "United States" outflow)
+    use a shorter header block and start at row 6 instead — with a header
+    row count that can't be assumed, scanning is more robust than a constant.
+    """
+    for r in range(sh.nrows):
+        if sh.cell_type(r, 6) == xlrd.XL_CELL_NUMBER:
+            return r
+    raise ValueError("Could not locate data start row (no numeric Return_Num column found)")
+
+
 def parse_county_workbook(raw_bytes: bytes, direction: str) -> tuple[str, list[dict]]:
     wb = xlrd.open_workbook(file_contents=raw_bytes)
     sh = wb.sheet_by_index(0)
 
     fields = COUNTY_INFLOW_FIELDS if direction == "inflow" else COUNTY_OUTFLOW_FIELDS
-    fixed_fips = cell_fips(sh.cell_value(COUNTY_HEADER_DATA_ROW, 0), 2)
+    data_start = find_county_data_start(sh)
+
+    # The "fixed" state (column 0) is constant for every row in the file, but
+    # a handful of source files leave it blank on just the very first data
+    # row (an IRS data-entry defect — e.g. Ohio/Texas outflow for 2001-02).
+    # Scan forward for the first non-blank value instead of trusting row 0.
+    fixed_fips = None
+    for r in range(data_start, sh.nrows):
+        v = str(sh.cell_value(r, 0)).strip()
+        if v:
+            fixed_fips = cell_fips(sh.cell_value(r, 0), 2)
+            break
+    if fixed_fips is None:
+        raise ValueError("Could not determine fixed state FIPS (column 0 blank throughout)")
 
     rows = []
-    for r in range(COUNTY_HEADER_DATA_ROW, sh.nrows):
+    for r in range(data_start, sh.nrows):
         row_vals = sh.row_values(r)
         if not any(str(v).strip() for v in row_vals):
             continue
+        col0 = cell_fips(row_vals[0], 2) if str(row_vals[0]).strip() else fixed_fips
         rows.append({
-            fields[0]: cell_fips(row_vals[0], 2),
+            fields[0]: col0,
             fields[1]: cell_fips(row_vals[1], 3),
             fields[2]: cell_fips(row_vals[2], 2),
             fields[3]: cell_fips(row_vals[3], 3),

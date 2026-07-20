@@ -26,6 +26,56 @@ const wasmUrl = new URL("./libs/sql.js-httpvfs/sql-wasm.wasm", import.meta.url);
 
 let sqlDb = null; // Global reference to the VFS database
 
+/**
+ * The root cause of the "doXHR failed (bug)!" crash (see libs/sql.js-httpvfs/README-PATCH.md)
+ * is patched at the library level. This queue is defense-in-depth: sql.js-httpvfs's
+ * connection is not designed for concurrent `.query()` calls, so route every
+ * query through here to keep only one in flight at a time.
+ */
+let dbQueryQueue = Promise.resolve();
+
+/**
+ * Open (or reopen) the sql.js-httpvfs worker connection against the chunked
+ * remote database.
+ */
+async function openDbWorker() {
+    const worker = await createDbWorker(
+        [{
+            from: "inline",
+            config: {
+                serverMode: "chunked",
+                requestChunkSize: 4096,
+                databaseLengthBytes: 815083520,
+                serverChunkSize: 41943040,
+                urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
+                suffixLength: 3
+            }
+        }],
+        workerUrl.toString(),
+        wasmUrl.toString()
+    );
+    return worker.db;
+}
+
+/**
+ * Run a query against the shared connection, one at a time (see note above).
+ * If a query somehow still throws "doXHR failed (bug)!", reopen the
+ * connection (a few KB of header reads) and retry once, as a safety net.
+ */
+async function queryDb(sql) {
+    const run = () => sqlDb.query(sql);
+    const result = dbQueryQueue.then(run).catch(async (err) => {
+        if (String(err?.message).includes('doXHR failed')) {
+            console.warn('[Data] sql.js-httpvfs cache corrupted, reopening connection and retrying …', err);
+            sqlDb = await openDbWorker();
+            return run();
+        }
+        throw err;
+    });
+    dbQueryQueue = result.catch(() => {}); // keep the chain alive even if a query rejects
+    return result;
+}
+
 /* ════════════════════════════════════════════════════════════════════════════
    SECTION 1 — CONSTANTS & MANIFEST
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -35,13 +85,13 @@ let sqlDb = null; // Global reference to the VFS database
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
@@ -437,25 +487,10 @@ function processCountyRows(rows, year, direction) {
  */
 async function loadStateData() {
     console.log('[Data] Initializing sql.js-httpvfs database …');
-    const worker = await createDbWorker(
-        [{
-            from: "inline",
-            config: {
-                serverMode: "chunked",
-                requestChunkSize: 4096,
-                databaseLengthBytes: 780910592,
-                serverChunkSize: 41943040,
-                urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
-                suffixLength: 3
-            }
-        }],
-        workerUrl.toString(),
-        wasmUrl.toString()
-    );
-    sqlDb = worker.db;
+    sqlDb = await openDbWorker();
 
     console.log('[Data] Loading all state data from VFS …');
-    const rows = await sqlDb.query("SELECT * FROM state_flows");
+    const rows = await queryDb("SELECT * FROM state_flows");
     
     // Group by year and direction so processStateRows can parse them natively
     const grouped = {};
@@ -486,7 +521,7 @@ function loadCountyData() {
     if (countyDataLoading) return countyDataLoading;
 
     console.log('[Data] Loading county metadata from VFS …');
-    countyDataLoading = sqlDb.query("SELECT DISTINCT y1_statefips, y1_countyfips, y1_state, y1_state_name, y1_county_name FROM county_flows WHERE year='2122' AND direction='outflow'").then(rows => {
+    countyDataLoading = queryDb("SELECT DISTINCT y1_statefips, y1_countyfips, y1_state, y1_state_name, y1_county_name FROM county_flows WHERE year='2122' AND direction='outflow'").then(rows => {
         for (const row of rows) {
             const key = `${row.y1_statefips}_${row.y1_countyfips}`;
             if (isRealCounty(row.y1_statefips, row.y1_countyfips)) {
@@ -513,7 +548,7 @@ async function ensureCountyYearData(yearTag) {
     
     setLoadingState(true, `Loading county data for ${YEAR_LABELS[yearTag]}…`);
     try {
-        const rows = await sqlDb.query(`SELECT * FROM county_flows WHERE year='${yearTag}'`);
+        const rows = await queryDb(`SELECT * FROM county_flows WHERE year='${yearTag}'`);
         const inflows = rows.filter(r => r.direction === 'inflow');
         const outflows = rows.filter(r => r.direction === 'outflow');
         processCountyRows(inflows, yearTag, 'inflow');
@@ -538,7 +573,7 @@ async function ensureCountyRegionData(key) {
     const [sf, cf] = key.split('_');
     setLoadingState(true, `Loading data for county...`);
     try {
-        const rows = await sqlDb.query(`SELECT * FROM county_flows WHERE (y1_statefips='${sf}' AND y1_countyfips='${cf}') OR (y2_statefips='${sf}' AND y2_countyfips='${cf}')`);
+        const rows = await queryDb(`SELECT * FROM county_flows WHERE (y1_statefips='${sf}' AND y1_countyfips='${cf}') OR (y2_statefips='${sf}' AND y2_countyfips='${cf}')`);
 
         const grouped = {};
         for (const row of rows) {
@@ -1160,7 +1195,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 23,
+    yearIndex: 24,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,

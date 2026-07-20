@@ -3,3 +3,4 @@ errors.txt
 *.png
 *.txt
 data/database.sqlite
+*.orig

@@ -63,6 +63,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1999to2000statemigration.zip",
         "county": "1999to2000countymigration.zip",
     },
+    "9899": {
+        "state": "1998to1999statemigration.zip",
+        "county": "1998to1999countymigration.zip",
+    },
 }
 
 STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)
@@ -105,10 +109,31 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
 
     header_row = " ".join(str(v) for v in sh.row_values(3))
     m = TO_FROM_RE.search(header_row)
-    if not m:
-        raise ValueError(f"Could not parse header row: {header_row!r}")
-    direction = "inflow" if m.group(1).upper() == "TO" else "outflow"
-    fixed_fips = m.group(2).zfill(2)
+    if m:
+        direction = "inflow" if m.group(1).upper() == "TO" else "outflow"
+        fixed_fips = m.group(2).zfill(2)
+    else:
+        # A handful of files (e.g. New Hampshire, 1998-99 outflow) omit the
+        # "TO: NN-STATE" / "FROM: NN-STATE" FIPS entirely, leaving only the
+        # keyword. Direction is still readable from the keyword; the state's
+        # own FIPS is recovered from its "Non-Migrants" row, where the row's
+        # own FIPS (col 0) necessarily equals the fixed state.
+        header_upper = header_row.upper()
+        if "FROM" in header_upper:
+            direction = "outflow"
+        elif "TO" in header_upper:
+            direction = "inflow"
+        else:
+            raise ValueError(f"Could not parse header row: {header_row!r}")
+
+        fixed_fips = None
+        for r in range(STATE_HEADER_DATA_ROW, sh.nrows):
+            row_vals = sh.row_values(r)
+            if len(row_vals) > 2 and "non-migrant" in str(row_vals[2]).lower():
+                fixed_fips = cell_fips(row_vals[0], 2)
+                break
+        if fixed_fips is None:
+            raise ValueError(f"Could not recover FIPS for headerless workbook (no Non-Migrants row found)")
 
     rows = []
     for r in range(STATE_HEADER_DATA_ROW, sh.nrows):

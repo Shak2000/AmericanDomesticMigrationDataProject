@@ -52,6 +52,7 @@ COUNTY_FIPS_CSV = Path("data/fips/county_fips.csv")
 
 BATCH_FILES: list[tuple[str, str]] = [
     # Inflow
+    ("data/original/county_inflow/countyinflow0001.csv",    "data/enriched/county_inflow/countyinflow0001_enriched.csv"),
     ("data/original/county_inflow/countyinflow0102.csv",    "data/enriched/county_inflow/countyinflow0102_enriched.csv"),
     ("data/original/county_inflow/countyinflow0203.csv",    "data/enriched/county_inflow/countyinflow0203_enriched.csv"),
     ("data/original/county_inflow/countyinflow0304.csv",    "data/enriched/county_inflow/countyinflow0304_enriched.csv"),
@@ -75,6 +76,7 @@ BATCH_FILES: list[tuple[str, str]] = [
     ("data/original/county_inflow/countyinflow2122.csv",    "data/enriched/county_inflow/countyinflow2122_enriched.csv"),
     ("data/original/county_inflow/countyinflow2223.csv",    "data/enriched/county_inflow/countyinflow2223_enriched.csv"),
     # Outflow
+    ("data/original/county_outflow/countyoutflow0001.csv",  "data/enriched/county_outflow/countyoutflow0001_enriched.csv"),
     ("data/original/county_outflow/countyoutflow0102.csv",  "data/enriched/county_outflow/countyoutflow0102_enriched.csv"),
     ("data/original/county_outflow/countyoutflow0203.csv",  "data/enriched/county_outflow/countyoutflow0203_enriched.csv"),
     ("data/original/county_outflow/countyoutflow0304.csv",  "data/enriched/county_outflow/countyoutflow0304_enriched.csv"),

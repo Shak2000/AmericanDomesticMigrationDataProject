@@ -45,7 +45,7 @@ async function openDbWorker() {
             config: {
                 serverMode: "chunked",
                 requestChunkSize: 4096,
-                databaseLengthBytes: 882425856,
+                databaseLengthBytes: 915435520,
                 serverChunkSize: 41943040,
                 urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
                 suffixLength: 3
@@ -85,13 +85,13 @@ async function queryDb(sql) {
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '9596', '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '9596': '1995–1996', '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
@@ -384,6 +384,35 @@ function processStateRows(rows, year, direction) {
 }
 
 /**
+ * Determine what a single county row contributes to totals: which county
+ * key it belongs to (refKey), and whether it's a US-aggregate row that
+ * additionally counts toward the plain inflow/outflow total (isTotal).
+ * Returns null if the row doesn't reference a real county at all.
+ * Pure function — no shared state — so it's safe to reuse from any caller.
+ */
+function countyRowContribution(y1sf, y1cf, y2sf, y2cf, direction) {
+    const y1Key = `${y1sf}_${y1cf}`, y2Key = `${y2sf}_${y2cf}`;
+    const isNonMigrant = (y1sf === y2sf && y1cf === y2cf);
+    const y1IsRealCounty = isRealCounty(y1sf, y1cf);
+    const y2IsRealCounty = isRealCounty(y2sf, y2cf);
+
+    // The "self" side is the county whose totals this row counts toward:
+    // for inflow it's the destination (y2), for outflow it's the origin (y1).
+    const selfKey = direction === 'inflow' ? y2Key : y1Key;
+    const selfIsRealCounty = direction === 'inflow' ? y2IsRealCounty : y1IsRealCounty;
+    const otherSf = direction === 'inflow' ? y1sf : y2sf;
+    const otherKey = direction === 'inflow' ? y1Key : y2Key;
+    const otherIsRealCounty = direction === 'inflow' ? y1IsRealCounty : y2IsRealCounty;
+    const selfSf = direction === 'inflow' ? y2sf : y1sf;
+
+    if (selfIsRealCounty && otherSf === '96') return { refKey: selfKey, isTotal: true };
+    if (otherIsRealCounty && selfSf === '96') return { refKey: otherKey, isTotal: true };
+    if (y1IsRealCounty && isNonMigrant) return { refKey: y1Key, isTotal: false };
+    if (y2IsRealCounty && isNonMigrant) return { refKey: y2Key, isTotal: false };
+    return null;
+}
+
+/**
  * Process one batch of rows from a county enriched CSV.
  * Populates countyFlows, countyTotals, and countyMeta.
  */
@@ -418,74 +447,66 @@ function processCountyRows(rows, year, direction) {
 
         if (alreadySeen) continue;
 
-        // Robust FIPS-based checks instead of fragile string matching
-        const isNonMigrant = (y1sf === y2sf && y1cf === y2cf);
+        const contribution = countyRowContribution(y1sf, y1cf, y2sf, y2cf, direction);
+        if (!contribution) continue;
+        const { refKey, isTotal } = contribution;
 
-        if (direction === 'inflow') {
-            let refKey = null;
-            let isTotal = false;
+        if (!countyTotals[year][refKey]) countyTotals[year][refKey] = {};
+        const baseField = direction === 'inflow' ? 'base_inflow' : 'base_outflow';
+        const totalField = direction;
 
-            if (isRealCounty(y2sf, y2cf) && y1sf === '96') {
-                refKey = y2Key;
-                isTotal = true;
-            } else if (isRealCounty(y1sf, y1cf) && y2sf === '96') {
-                refKey = y1Key;
-                isTotal = true;
-            } else if (isRealCounty(y1sf, y1cf) && isNonMigrant) {
-                refKey = y1Key;
-            } else if (isRealCounty(y2sf, y2cf) && isNonMigrant) {
-                refKey = y2Key;
-            }
+        if (!countyTotals[year][refKey][baseField]) countyTotals[year][refKey][baseField] = { n1: 0, n2: 0, AGI: 0 };
+        countyTotals[year][refKey][baseField].n1 += rec.n1;
+        countyTotals[year][refKey][baseField].n2 += rec.n2;
+        countyTotals[year][refKey][baseField].AGI += rec.AGI;
 
-            if (refKey) {
-                if (!countyTotals[year][refKey]) countyTotals[year][refKey] = {};
+        if (isTotal) {
+            if (!countyTotals[year][refKey][totalField]) countyTotals[year][refKey][totalField] = { n1: 0, n2: 0, AGI: 0 };
+            countyTotals[year][refKey][totalField].n1 += rec.n1;
+            countyTotals[year][refKey][totalField].n2 += rec.n2;
+            countyTotals[year][refKey][totalField].AGI += rec.AGI;
+        }
+    }
+}
 
-                if (!countyTotals[year][refKey].base_inflow) countyTotals[year][refKey].base_inflow = { n1: 0, n2: 0, AGI: 0 };
-                countyTotals[year][refKey].base_inflow.n1 += rec.n1;
-                countyTotals[year][refKey].base_inflow.n2 += rec.n2;
-                countyTotals[year][refKey].base_inflow.AGI += rec.AGI;
+/**
+ * Compute one county's totals directly from its own complete cross-year
+ * query result (grouped[year][direction] = rows[]) and write them into
+ * countyTotals, OVERWRITING any existing entry for this county/year.
+ *
+ * This is independent of whatever the Map's per-year loading has or hasn't
+ * touched — every year present in `grouped` gets a freshly, completely
+ * computed total, so a trend chart's data can never end up limited to just
+ * the years the Map happened to load first.
+ */
+function setCountyTotalsFromRows(key, grouped) {
+    for (const year in grouped) {
+        if (!countyTotals[year]) countyTotals[year] = {};
+        const local = {};
+        for (const direction of ['inflow', 'outflow']) {
+            for (const row of grouped[year][direction] ?? []) {
+                const y1sf = row.y1_statefips, y1cf = row.y1_countyfips;
+                const y2sf = row.y2_statefips, y2cf = row.y2_countyfips;
+                const contribution = countyRowContribution(y1sf, y1cf, y2sf, y2cf, direction);
+                if (!contribution || contribution.refKey !== key) continue;
 
-                if (isTotal) {
-                    if (!countyTotals[year][refKey].inflow) countyTotals[year][refKey].inflow = { n1: 0, n2: 0, AGI: 0 };
-                    countyTotals[year][refKey].inflow.n1 += rec.n1;
-                    countyTotals[year][refKey].inflow.n2 += rec.n2;
-                    countyTotals[year][refKey].inflow.AGI += rec.AGI;
+                const rec = { n1: parseNum(row.n1), n2: parseNum(row.n2), AGI: parseNum(row.AGI) };
+                const baseField = direction === 'inflow' ? 'base_inflow' : 'base_outflow';
+
+                if (!local[baseField]) local[baseField] = { n1: 0, n2: 0, AGI: 0 };
+                local[baseField].n1 += rec.n1;
+                local[baseField].n2 += rec.n2;
+                local[baseField].AGI += rec.AGI;
+
+                if (contribution.isTotal) {
+                    if (!local[direction]) local[direction] = { n1: 0, n2: 0, AGI: 0 };
+                    local[direction].n1 += rec.n1;
+                    local[direction].n2 += rec.n2;
+                    local[direction].AGI += rec.AGI;
                 }
             }
         }
-
-        if (direction === 'outflow') {
-            let refKey = null;
-            let isTotal = false;
-
-            if (isRealCounty(y1sf, y1cf) && y2sf === '96') {
-                refKey = y1Key;
-                isTotal = true;
-            } else if (isRealCounty(y2sf, y2cf) && y1sf === '96') {
-                refKey = y2Key;
-                isTotal = true;
-            } else if (isRealCounty(y1sf, y1cf) && isNonMigrant) {
-                refKey = y1Key;
-            } else if (isRealCounty(y2sf, y2cf) && isNonMigrant) {
-                refKey = y2Key;
-            }
-
-            if (refKey) {
-                if (!countyTotals[year][refKey]) countyTotals[year][refKey] = {};
-
-                if (!countyTotals[year][refKey].base_outflow) countyTotals[year][refKey].base_outflow = { n1: 0, n2: 0, AGI: 0 };
-                countyTotals[year][refKey].base_outflow.n1 += rec.n1;
-                countyTotals[year][refKey].base_outflow.n2 += rec.n2;
-                countyTotals[year][refKey].base_outflow.AGI += rec.AGI;
-
-                if (isTotal) {
-                    if (!countyTotals[year][refKey].outflow) countyTotals[year][refKey].outflow = { n1: 0, n2: 0, AGI: 0 };
-                    countyTotals[year][refKey].outflow.n1 += rec.n1;
-                    countyTotals[year][refKey].outflow.n2 += rec.n2;
-                    countyTotals[year][refKey].outflow.AGI += rec.AGI;
-                }
-            }
-        }
+        countyTotals[year][key] = local;
     }
 }
 
@@ -579,15 +600,14 @@ const countyDataLoadedForKey = {};
  * Lazy load all cross-year flow data for a specific county.
  * This fetches ~15MB from the SQLite chunks.
  *
- * `containerId` scopes the loading spinner to whichever chart triggered
- * this fetch (Individual Trend vs. Pairwise Comparison) — this has nothing
- * to do with the Map, so it must never show a spinner there.
+ * The caller is expected to disable its own "Add" button for the duration
+ * (no loading overlay here — a fetch for one chart shouldn't visibly affect
+ * anything else on the page, the Map included).
  */
-async function ensureCountyRegionData(key, containerId) {
+async function ensureCountyRegionData(key) {
     if (!key || countyDataLoadedForKey[key]) return;
 
     const [sf, cf] = key.split('_');
-    setLoadingState(true, `Loading data for county...`, containerId);
     try {
         const rows = await queryDb(`SELECT * FROM county_flows WHERE (y1_statefips='${sf}' AND y1_countyfips='${cf}') OR (y2_statefips='${sf}' AND y2_countyfips='${cf}')`);
 
@@ -604,11 +624,15 @@ async function ensureCountyRegionData(key, containerId) {
                 processCountyRows(grouped[y][d], y, d);
             }
         }
+        // Belt-and-suspenders: recompute this county's totals directly from
+        // its own complete result set, overwriting whatever processCountyRows
+        // (or the Map, loading separately) left in place. Guarantees every
+        // year in `grouped` — i.e. every year in the database — ends up with
+        // correct data for this county, regardless of load order or timing.
+        setCountyTotalsFromRows(key, grouped);
         countyDataLoadedForKey[key] = true;
     } catch (err) {
         console.error('[Data] Failed to load region cross-year:', err);
-    } finally {
-        setLoadingState(false, '', containerId);
     }
 }
 
@@ -1211,7 +1235,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 26,
+    yearIndex: 27,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,
@@ -3244,9 +3268,13 @@ function wireControls() {
                     }
                 }
 
-                // Lazy load data across all years for line chart
+                // Lazy load data across all years for line chart. Disable
+                // Add for the duration instead of showing any loading UI —
+                // this fetch is local to this chart and shouldn't visibly
+                // affect anything else on the page.
                 if (indChartState.stagedLevel === 'county') {
-                    await ensureCountyRegionData(addedKey, 'chart-individual-area');
+                    indAddBtn.disabled = true;
+                    await ensureCountyRegionData(addedKey);
                 }
 
                 // Clear the input and staged values
@@ -3385,9 +3413,14 @@ function wireControls() {
                     }
                 }
                 
-                // Lazy load data across all years for pair chart
-                if (addedALevel === 'county') await ensureCountyRegionData(addedAKey, 'chart-pair-area');
-                if (addedBLevel === 'county') await ensureCountyRegionData(addedBKey, 'chart-pair-area');
+                // Lazy load data across all years for pair chart. Disable
+                // Add for the duration instead of showing any loading UI —
+                // this fetch is local to this chart and shouldn't visibly
+                // affect anything else on the page.
+                if (addedALevel === 'county' || addedBLevel === 'county') pairAddBtn.disabled = true;
+                if (addedALevel === 'county') await ensureCountyRegionData(addedAKey);
+                if (addedBLevel === 'county') await ensureCountyRegionData(addedBKey);
+                pairAddBtn.disabled = false;
 
                 // Clear staged inputs
                 pairChartState.stagedAKey = null;

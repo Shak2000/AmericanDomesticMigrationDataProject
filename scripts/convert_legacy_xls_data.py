@@ -75,10 +75,11 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1996to1997statemigration.zip",
         "county": "1996to1997countymigration.zip",
     },
+    "9596": {
+        "state": "1995to1996statemigration.zip",
+        "county": "1995to1996countymigration.zip",
+    },
 }
-
-STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)
-COUNTY_HEADER_DATA_ROW = 8  # first data row in county workbooks (0-indexed)
 
 # The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
 # split across two or three cells (e.g. ['FROM:', '', '21-KENTUCKY']) —
@@ -110,12 +111,37 @@ def cell_int(value) -> str:
 # ---------------------------------------------------------------------------
 # State workbooks
 # ---------------------------------------------------------------------------
+def find_state_header_row(sh) -> int:
+    """
+    Locate the "TO:"/"FROM:" header row. Normally row 3, but at least one
+    file (Alaska, 1995-96 outflow) has several extra blank rows inserted
+    above it, shifting everything down — scan instead of assuming a constant.
+    """
+    for r in range(sh.nrows):
+        row_upper = " ".join(str(v) for v in sh.row_values(r)).upper()
+        if "TO:" in row_upper or "FROM:" in row_upper:
+            return r
+    raise ValueError("Could not locate TO:/FROM: header row")
+
+
+def find_state_data_start(sh) -> int:
+    """Locate the first data row by scanning for the first numeric Return_Num
+    column (index 3) — mirrors find_county_data_start's approach, since the
+    header block length isn't reliably a fixed number of rows across files."""
+    for r in range(sh.nrows):
+        if sh.cell_type(r, 3) == xlrd.XL_CELL_NUMBER:
+            return r
+    raise ValueError("Could not locate data start row (no numeric Return_Num column found)")
+
+
 def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
     """Return (direction, fixed_fips, rows) for one state workbook."""
     wb = xlrd.open_workbook(file_contents=raw_bytes)
     sh = wb.sheet_by_index(0)
 
-    header_row = " ".join(str(v) for v in sh.row_values(3))
+    header_r = find_state_header_row(sh)
+    data_start = find_state_data_start(sh)
+    header_row = " ".join(str(v) for v in sh.row_values(header_r))
     m = TO_FROM_RE.search(header_row)
     header_upper = header_row.upper()
     if "FROM" in header_upper:
@@ -136,7 +162,7 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
     # not New Jersey's). The Non-Migrants row can't be corrupted this way
     # since it's a self-referential row, so it's the authoritative source.
     fixed_fips = None
-    for r in range(STATE_HEADER_DATA_ROW, sh.nrows):
+    for r in range(data_start, sh.nrows):
         row_vals = sh.row_values(r)
         if len(row_vals) > 2 and "non-migrant" in str(row_vals[2]).lower():
             fixed_fips = cell_fips(row_vals[0], 2)
@@ -147,7 +173,7 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
         fixed_fips = m.group(2).zfill(2)
 
     rows = []
-    for r in range(STATE_HEADER_DATA_ROW, sh.nrows):
+    for r in range(data_start, sh.nrows):
         row_vals = sh.row_values(r)
         if not any(str(v).strip() for v in row_vals):
             continue

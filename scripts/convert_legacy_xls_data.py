@@ -79,6 +79,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1995to1996statemigration.zip",
         "county": "1995to1996countymigration.zip",
     },
+    "9495": {
+        "state": "1994to1995statemigration.zip",
+        "county": "1994to1995countymigration.zip",
+    },
 }
 
 # The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
@@ -184,6 +188,20 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
         n2 = cell_int(row_vals[4])
         agi = cell_int(row_vals[5])
 
+        # 1994-95 uses a different aggregation convention than every other
+        # year: instead of separate "Total Mig - US & For" / "US" / "Foreign"
+        # rows keyed by the standard 96/97/98 codes, there's a single lump
+        # "Total Inflow"/"Total Outflow" row, self-referential (origin FIPS
+        # == the state's own FIPS) rather than using an aggregate code at
+        # all. Left as-is, downstream enrichment would misread it as a
+        # "Non-Migrants" row (same-FIPS check) and the app would never see
+        # any "Total Migration-US and Foreign" label — the default Population
+        # metric would be blank for every state this year. Rewrite it to the
+        # standard 96 aggregate code; enrich_state_data.py's FIPS-based
+        # lookup then labels it correctly on its own.
+        if other_fips == fixed_fips and name.lower() in ("total inflow", "total outflow"):
+            other_fips = "96"
+
         if direction == "inflow":
             rows.append({
                 "State_Code_Dest": fixed_fips, "County_Code_Dest": "000",
@@ -284,11 +302,22 @@ def parse_county_workbook(raw_bytes: bytes, direction: str) -> tuple[str, list[d
         if not any(str(v).strip() for v in row_vals):
             continue
         col0 = cell_fips(row_vals[0], 2) if str(row_vals[0]).strip() else fixed_fips
+        other_sf = cell_fips(row_vals[2], 2)
+        other_cf = cell_fips(row_vals[3], 3)
+
+        # 1994-95's county-level "Total Inflow"/"Total Outflow" aggregate row
+        # (the county-level counterpart of the state-level quirk above) uses
+        # a special "00"/"001" marker on the other side instead of the
+        # standard 96/000 aggregate convention every other year uses. Rewrite
+        # it so enrich_county_data.py's lookup resolves it correctly.
+        if other_sf == "00":
+            other_sf, other_cf = "96", "000"
+
         rows.append({
             fields[0]: col0,
             fields[1]: cell_fips(row_vals[1], 3),
-            fields[2]: cell_fips(row_vals[2], 2),
-            fields[3]: cell_fips(row_vals[3], 3),
+            fields[2]: other_sf,
+            fields[3]: other_cf,
             fields[4]: str(row_vals[4]).strip(),
             fields[5]: str(row_vals[5]).strip(),
             fields[6]: cell_int(row_vals[6]),

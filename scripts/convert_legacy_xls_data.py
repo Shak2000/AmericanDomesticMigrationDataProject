@@ -71,6 +71,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1997to1998statemigration.zip",
         "county": "1997to1998countymigration.zip",
     },
+    "9697": {
+        "state": "1996to1997statemigration.zip",
+        "county": "1996to1997countymigration.zip",
+    },
 }
 
 STATE_HEADER_DATA_ROW = 8   # first data row in state workbooks (0-indexed)
@@ -270,8 +274,18 @@ def parse_county_workbook(raw_bytes: bytes, direction: str) -> tuple[str, list[d
 
 
 def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
-    inflow_rows: dict[str, list[dict]] = {}
-    outflow_rows: dict[str, list[dict]] = {}
+    # Deduplicate at the row level (by the 4 FIPS columns), not at the file
+    # level. A file-level dedup (keyed on the first data row's FIPS) breaks
+    # when a file straddles two geographies — e.g. 1996-97's Alabama inflow
+    # workbook erroneously has the national aggregate's rows duplicated as a
+    # prefix before Alabama's own data, so the file's "first row" FIPS is
+    # "00" (national), not "01" (Alabama). Deduping whole files by that
+    # value would either collide with the real national file (dropping
+    # Alabama's unique per-county rows entirely) or vice versa. Row-level
+    # identity handles this correctly regardless of which file a stray
+    # duplicate block ends up attached to.
+    inflow_rows: dict[tuple, dict] = {}
+    outflow_rows: dict[tuple, dict] = {}
 
     for name in zf.namelist():
         base = Path(name).name
@@ -294,21 +308,20 @@ def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
             print(f"    WARNING: could not classify direction for {base}, skipping")
             continue
 
-        fixed_fips, rows = parse_county_workbook(zf.read(name), direction)
+        fields = COUNTY_INFLOW_FIELDS if direction == "inflow" else COUNTY_OUTFLOW_FIELDS
+        _fixed_fips, rows = parse_county_workbook(zf.read(name), direction)
         target = inflow_rows if direction == "inflow" else outflow_rows
-        if fixed_fips in target:
-            continue  # duplicate/typo-named file for a state already processed
-        target[fixed_fips] = rows
+        for row in rows:
+            key = (row[fields[0]], row[fields[1]], row[fields[2]], row[fields[3]])
+            target.setdefault(key, row)  # first occurrence wins; later duplicates ignored
 
     write_csv(out_dir / "county_inflow" / f"countyinflow{year}.csv", COUNTY_INFLOW_FIELDS,
-               [row for fips in sorted(inflow_rows) for row in inflow_rows[fips]])
+               list(inflow_rows.values()))
     write_csv(out_dir / "county_outflow" / f"countyoutflow{year}.csv", COUNTY_OUTFLOW_FIELDS,
-               [row for fips in sorted(outflow_rows) for row in outflow_rows[fips]])
+               list(outflow_rows.values()))
 
-    print(f"  County: {sum(len(v) for v in inflow_rows.values()):,} inflow rows "
-          f"({len(inflow_rows)} states), "
-          f"{sum(len(v) for v in outflow_rows.values()):,} outflow rows "
-          f"({len(outflow_rows)} states)")
+    print(f"  County: {len(inflow_rows):,} inflow rows, "
+          f"{len(outflow_rows):,} outflow rows")
 
 
 # ---------------------------------------------------------------------------

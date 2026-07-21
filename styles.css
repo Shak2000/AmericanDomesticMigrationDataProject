@@ -717,7 +717,7 @@ select:focus {
 /* ────────────────────────────────────────────────────────────
    11. LOADING OVERLAY (injected by script.js)
 ──────────────────────────────────────────────────────────── */
-#loading-overlay {
+.loading-overlay {
   position: absolute;
   inset: 0;
   background: rgba(255, 250, 250, 0.82);
@@ -730,7 +730,7 @@ select:focus {
   z-index: 50;
 }
 
-#loading-overlay[hidden] {
+.loading-overlay[hidden] {
   display: none;
 }
 

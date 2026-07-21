@@ -45,7 +45,7 @@ async function openDbWorker() {
             config: {
                 serverMode: "chunked",
                 requestChunkSize: 4096,
-                databaseLengthBytes: 815083520,
+                databaseLengthBytes: 848846848,
                 serverChunkSize: 41943040,
                 urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
                 suffixLength: 3
@@ -85,13 +85,13 @@ async function queryDb(sql) {
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
@@ -400,11 +400,23 @@ function processCountyRows(rows, year, direction) {
         const y1Key = `${y1sf}_${y1cf}`, y2Key = `${y2sf}_${y2cf}`;
         const rec = { n1: parseNum(row.n1), n2: parseNum(row.n2), AGI: parseNum(row.AGI) };
 
+        // The Map (per-year, all counties) and the trend charts (per-county,
+        // all years) both lazily load into these same shared stores, and
+        // their fetches can overlap on the same (year, direction, county
+        // pair) — e.g. a county already loaded for a chart gets re-fetched
+        // when the Map later loads that same year for every county. countyTotals
+        // is a running `+=` accumulator, so re-processing an already-seen row
+        // would double-count it. Skip rows already present in countyFlows;
+        // countyFlows itself is a plain overwrite so it doesn't need this guard.
+        const alreadySeen = !!dirMap[y1Key]?.[y2Key];
+
         if (!dirMap[y1Key]) dirMap[y1Key] = {};
         dirMap[y1Key][y2Key] = rec;
 
         if (isRealCounty(y2sf, y2cf)) countyMeta[y2Key] = { statefips: y2sf, countyfips: y2cf, countyName: row.y2_county_name, stateName: row.y2_state_name, statePostal: row.y2_state };
         if (isRealCounty(y1sf, y1cf)) countyMeta[y1Key] = { statefips: y1sf, countyfips: y1cf, countyName: row.y1_county_name, stateName: row.y1_state_name, statePostal: row.y1_state };
+
+        if (alreadySeen) continue;
 
         // Robust FIPS-based checks instead of fragile string matching
         const isNonMigrant = (y1sf === y2sf && y1cf === y2cf);
@@ -566,12 +578,16 @@ const countyDataLoadedForKey = {};
 /**
  * Lazy load all cross-year flow data for a specific county.
  * This fetches ~15MB from the SQLite chunks.
+ *
+ * `containerId` scopes the loading spinner to whichever chart triggered
+ * this fetch (Individual Trend vs. Pairwise Comparison) — this has nothing
+ * to do with the Map, so it must never show a spinner there.
  */
-async function ensureCountyRegionData(key) {
+async function ensureCountyRegionData(key, containerId) {
     if (!key || countyDataLoadedForKey[key]) return;
 
     const [sf, cf] = key.split('_');
-    setLoadingState(true, `Loading data for county...`);
+    setLoadingState(true, `Loading data for county...`, containerId);
     try {
         const rows = await queryDb(`SELECT * FROM county_flows WHERE (y1_statefips='${sf}' AND y1_countyfips='${cf}') OR (y2_statefips='${sf}' AND y2_countyfips='${cf}')`);
 
@@ -592,7 +608,7 @@ async function ensureCountyRegionData(key) {
     } catch (err) {
         console.error('[Data] Failed to load region cross-year:', err);
     } finally {
-        setLoadingState(false);
+        setLoadingState(false, '', containerId);
     }
 }
 
@@ -1195,7 +1211,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 24,
+    yearIndex: 25,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,
@@ -3230,7 +3246,7 @@ function wireControls() {
 
                 // Lazy load data across all years for line chart
                 if (indChartState.stagedLevel === 'county') {
-                    await ensureCountyRegionData(addedKey);
+                    await ensureCountyRegionData(addedKey, 'chart-individual-area');
                 }
 
                 // Clear the input and staged values
@@ -3370,8 +3386,8 @@ function wireControls() {
                 }
                 
                 // Lazy load data across all years for pair chart
-                if (addedALevel === 'county') await ensureCountyRegionData(addedAKey);
-                if (addedBLevel === 'county') await ensureCountyRegionData(addedBKey);
+                if (addedALevel === 'county') await ensureCountyRegionData(addedAKey, 'chart-pair-area');
+                if (addedBLevel === 'county') await ensureCountyRegionData(addedBKey, 'chart-pair-area');
 
                 // Clear staged inputs
                 pairChartState.stagedAKey = null;
@@ -3551,17 +3567,26 @@ function updateMapStatusText() {
     statusText.textContent = `Selected: ${pLabel}${sLabel}`;
 }
 
-/** Show or hide a loading overlay on the map. */
-function setLoadingState(loading, message = '') {
-    let overlay = document.getElementById('loading-overlay');
+/**
+ * Show or hide a loading overlay scoped to a single container, keyed by
+ * `containerId` (defaults to the map). Each view gets its own independent
+ * overlay/id so, e.g., a trend chart's county fetch never shows a spinner
+ * on the map (or vice versa) — they're unrelated to the user.
+ */
+function setLoadingState(loading, message = '', containerId = 'map') {
+    const overlayId = `loading-overlay-${containerId}`;
+    let overlay = document.getElementById(overlayId);
     if (loading) {
         if (!overlay) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
             overlay = document.createElement('div');
-            overlay.id = 'loading-overlay';
+            overlay.id = overlayId;
+            overlay.className = 'loading-overlay';
             overlay.setAttribute('role', 'status');
             overlay.setAttribute('aria-live', 'polite');
             overlay.innerHTML = `<div class="loading-spinner"></div><p class="loading-msg"></p>`;
-            document.getElementById('map').appendChild(overlay);
+            container.appendChild(overlay);
         }
         overlay.querySelector('.loading-msg').textContent = message;
         overlay.hidden = false;

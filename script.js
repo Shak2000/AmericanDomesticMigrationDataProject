@@ -38,6 +38,8 @@ let dbQueryQueue = Promise.resolve();
  * Open (or reopen) the sql.js-httpvfs worker connection against the chunked
  * remote database.
  */
+const DB_LENGTH_BYTES = 945491968;
+
 async function openDbWorker() {
     const worker = await createDbWorker(
         [{
@@ -45,10 +47,22 @@ async function openDbWorker() {
             config: {
                 serverMode: "chunked",
                 requestChunkSize: 4096,
-                databaseLengthBytes: 915435520,
+                databaseLengthBytes: DB_LENGTH_BYTES,
                 serverChunkSize: 41943040,
                 urlPrefix: new URL("data/db_chunks/database.sqlite.", window.location.href).toString(),
-                suffixLength: 3
+                suffixLength: 3,
+                // Every milestone rebuilds the whole database from scratch,
+                // rewriting every chunk file's content — but sql.js-httpvfs
+                // reads them via HTTP Range requests, and browser cache
+                // validation for range responses doesn't reliably revalidate
+                // against ETags the way a plain GET does. A tab left open
+                // (or even just reloaded normally) across a rebuild can keep
+                // serving old cached bytes under the new file's identity,
+                // silently corrupting reads. DB_LENGTH_BYTES changes on
+                // every rebuild (it's the exact file size), so using it as
+                // the cache-buster guarantees a genuinely new URL — and
+                // therefore a fresh fetch — every time the data changes.
+                cacheBust: String(DB_LENGTH_BYTES),
             }
         }],
         workerUrl.toString(),
@@ -85,13 +99,13 @@ async function queryDb(sql) {
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '9596', '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '9495', '9596', '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '9596': '1995–1996', '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '9495': '1994–1995', '9596': '1995–1996', '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
@@ -1235,7 +1249,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 27,
+    yearIndex: 28,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,

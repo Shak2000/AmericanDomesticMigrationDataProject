@@ -83,6 +83,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1994to1995statemigration.zip",
         "county": "1994to1995countymigration.zip",
     },
+    "9394": {
+        "state": "1993to1994statemigration.zip",
+        "county": "1993to1994countymigration.zip",
+    },
 }
 
 # The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
@@ -157,23 +161,30 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
     else:
         raise ValueError(f"Could not parse header row: {header_row!r}")
 
-    # The state's own FIPS is read from its "Non-Migrants" row (self-to-self
-    # flow) rather than trusting the header text, which has been wrong twice
-    # so far: some files omit the "TO: NN-STATE" FIPS entirely (e.g. New
-    # Hampshire, 1998-99 outflow), and at least one has a stale copy-pasted
-    # FIPS from a different state's template (New Jersey, 1997-98 inflow:
-    # header reads "TO: 12-FLORIDA 34-NEW JERSEY" — 12 is Florida's FIPS,
-    # not New Jersey's). The Non-Migrants row can't be corrupted this way
-    # since it's a self-referential row, so it's the authoritative source.
+    # The state's own FIPS is read from its self-referential row (a
+    # "Non-Migrants" row, or — in years using the "Total Inflow"/"Total
+    # Outflow" aggregate convention — that row itself, which is always
+    # self-to-self) rather than trusting the header text, which has been
+    # wrong more than once: some files omit the "TO: NN-STATE" FIPS entirely
+    # (e.g. New Hampshire, 1998-99 outflow), at least one has a stale
+    # copy-pasted FIPS from a different state's template (New Jersey,
+    # 1997-98 inflow: header reads "TO: 12-FLORIDA 34-NEW JERSEY" — 12 is
+    # Florida's FIPS, not New Jersey's), and at least one state simply lacks
+    # a "Non-Migrants" row at all (Alaska, 1993-94 outflow — only its "Total
+    # Outflow" row is present). A self-referential row can't be corrupted by
+    # any of these, so it's the authoritative source whenever one exists.
     fixed_fips = None
     for r in range(data_start, sh.nrows):
         row_vals = sh.row_values(r)
-        if len(row_vals) > 2 and "non-migrant" in str(row_vals[2]).lower():
+        if len(row_vals) <= 2:
+            continue
+        name_lower = str(row_vals[2]).lower()
+        if "non-migrant" in name_lower or name_lower in ("total inflow", "total outflow"):
             fixed_fips = cell_fips(row_vals[0], 2)
             break
     if fixed_fips is None:
         if not m:
-            raise ValueError(f"Could not recover FIPS for headerless workbook (no Non-Migrants row found)")
+            raise ValueError(f"Could not recover FIPS for headerless workbook (no self-referential row found)")
         fixed_fips = m.group(2).zfill(2)
 
     rows = []
@@ -283,25 +294,49 @@ def parse_county_workbook(raw_bytes: bytes, direction: str) -> tuple[str, list[d
     fields = COUNTY_INFLOW_FIELDS if direction == "inflow" else COUNTY_OUTFLOW_FIELDS
     data_start = find_county_data_start(sh)
 
-    # The "fixed" state (column 0) is constant for every row in the file, but
-    # a handful of source files leave it blank on just the very first data
-    # row (an IRS data-entry defect — e.g. Ohio/Texas outflow for 2001-02).
-    # Scan forward for the first non-blank value instead of trusting row 0.
-    fixed_fips = None
+    # The "fixed" state (column 0) is constant for every row in the file — the
+    # county code in column 1 varies (one destination/origin county at a
+    # time), but the state itself never does. Some source files leave it
+    # blank on just the first data row (e.g. Ohio/Texas outflow, 2001-02);
+    # at least one (Wyoming, 1993-94 inflow) has scattered rows where it's
+    # silently overwritten with a stray value copied from another column,
+    # rather than left blank — a handful of rows out of hundreds, no
+    # detectable pattern to when it happens. Since a *blank* value is easy to
+    # tell apart from a *wrong* one, don't trust column 0 on any individual
+    # row at all: take the file-wide majority value instead, and reuse it for
+    # every row regardless of what that row's own column 0 happens to hold.
+    fips_counts: dict[str, int] = {}
     for r in range(data_start, sh.nrows):
         v = str(sh.cell_value(r, 0)).strip()
         if v:
-            fixed_fips = cell_fips(sh.cell_value(r, 0), 2)
-            break
-    if fixed_fips is None:
+            fips = cell_fips(sh.cell_value(r, 0), 2)
+            fips_counts[fips] = fips_counts.get(fips, 0) + 1
+    if not fips_counts:
         raise ValueError("Could not determine fixed state FIPS (column 0 blank throughout)")
+    fixed_fips = max(fips_counts, key=fips_counts.get)
 
     rows = []
     for r in range(data_start, sh.nrows):
         row_vals = sh.row_values(r)
         if not any(str(v).strip() for v in row_vals):
             continue
-        col0 = cell_fips(row_vals[0], 2) if str(row_vals[0]).strip() else fixed_fips
+
+        # Use the row's own value only if it's blank, already correct, or one
+        # of the recognized special aggregate codes (e.g. a whole erroneous
+        # duplicate national-aggregate block, as in Alabama's 1996-97 inflow
+        # file — those rows carry "00" and must keep it, since a downstream
+        # row-identity dedup relies on it matching the standalone national
+        # file's own copy of the same rows). Anything else non-blank is
+        # exactly the Wyoming-style corruption: some other real state/county
+        # number leaking in from a different column — replace with the
+        # file-wide majority value.
+        raw_col0 = str(row_vals[0]).strip()
+        if raw_col0:
+            candidate = cell_fips(row_vals[0], 2)
+            col0 = candidate if candidate == fixed_fips or candidate in ("00", "96", "97", "98", "57") else fixed_fips
+        else:
+            col0 = fixed_fips
+
         other_sf = cell_fips(row_vals[2], 2)
         other_cf = cell_fips(row_vals[3], 3)
 

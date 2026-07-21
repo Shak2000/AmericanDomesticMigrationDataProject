@@ -606,8 +606,8 @@ Each milestone follows the same steps:
 - [x] Rebuild SQLite DB and verify the year appears in the app
 
 ### Milestone 11.15 – 1993-94
-- [ ] Download and enrich state and county inflow/outflow data for 1993-94
-- [ ] Rebuild SQLite DB and verify the year appears in the app
+- [x] Download and enrich state and county inflow/outflow data for 1993-94
+- [x] Rebuild SQLite DB and verify the year appears in the app
 
 ### Milestone 11.16 – 1992-93
 - [ ] Download and enrich state and county inflow/outflow data for 1992-93

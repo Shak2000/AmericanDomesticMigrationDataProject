@@ -87,6 +87,10 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1993to1994statemigration.zip",
         "county": "1993to1994countymigration.zip",
     },
+    "9293": {
+        "state": "1992to1993statemigration.zip",
+        "county": "1992to1993countymigration.zip",
+    },
 }
 
 # The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
@@ -211,6 +215,13 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
         # standard 96 aggregate code; enrich_state_data.py's FIPS-based
         # lookup then labels it correctly on its own.
         if other_fips == fixed_fips and name.lower() in ("total inflow", "total outflow"):
+            other_fips = "96"
+
+        # 1992-93 uses yet another aggregate marker for the same kind of row:
+        # origin FIPS "63" with abbreviation "XX" (real FIPS codes never
+        # exceed 56, so this pair is unambiguous), name equal to the state's
+        # own name rather than "Total Inflow"/"Total Outflow". Same fix.
+        if other_fips == "63" and abbrv.upper() == "XX":
             other_fips = "96"
 
         if direction == "inflow":

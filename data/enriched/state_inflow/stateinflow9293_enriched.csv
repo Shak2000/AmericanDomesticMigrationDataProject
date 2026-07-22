@@ -1,0 +1,2756 @@
+y2_state,y2_state_name,y2_statefips,y1_statefips,y1_state,y1_state_name,n1,n2,AGI
+AL,Alabama,01,96,US+FO,Total Migration-US and Foreign,47503,106325,1308623
+AL,Alabama,01,13,GA,Georgia,6574,14353,166510
+AL,Alabama,01,12,FL,Florida,6440,13881,154216
+AL,Alabama,01,57,FR,Foreign,3350,7631,81179
+AL,Alabama,01,48,TX,Texas,3107,7479,98292
+AL,Alabama,01,47,TN,Tennessee,2936,6248,81977
+AL,Alabama,01,28,MS,Mississippi,2610,5716,63472
+AL,Alabama,01,06,CA,California,2353,5310,71035
+AL,Alabama,01,22,LA,Louisiana,1740,3956,54036
+AL,Alabama,01,37,NC,North Carolina,1515,3392,41530
+AL,Alabama,01,51,VA,Virginia,1451,3517,46705
+AL,Alabama,01,17,IL,Illinois,1271,2793,37267
+AL,Alabama,01,36,NY,New York,1169,2365,31320
+AL,Alabama,01,45,SC,South Carolina,1068,2586,31254
+AL,Alabama,01,39,OH,Ohio,1060,2277,30652
+AL,Alabama,01,26,MI,Michigan,1032,2159,24026
+AL,Alabama,01,21,KY,Kentucky,775,1821,22712
+AL,Alabama,01,18,IN,Indiana,692,1491,17070
+AL,Alabama,01,42,PA,Pennsylvania,672,1495,22105
+AL,Alabama,01,29,MO,Missouri,576,1330,17370
+AL,Alabama,01,24,MD,Maryland,548,1240,19134
+AL,Alabama,01,08,CO,Colorado,502,1202,16229
+AL,Alabama,01,05,AR,Arkansas,501,1140,13489
+AL,Alabama,01,40,OK,Oklahoma,485,1154,12972
+AL,Alabama,01,34,NJ,New Jersey,459,1049,17202
+AL,Alabama,01,53,WA,Washington,439,981,11509
+AL,Alabama,01,20,KS,Kansas,389,1041,12517
+AL,Alabama,01,25,MA,Massachusetts,365,770,12257
+AL,Alabama,01,04,AZ,Arizona,355,770,9584
+AL,Alabama,01,15,HI,Hawaii,337,883,9368
+AL,Alabama,01,55,WI,Wisconsin,283,619,8561
+AL,Alabama,01,02,AK,Alaska,236,642,7453
+AL,Alabama,01,09,CT,Connecticut,208,459,6993
+AL,Alabama,01,35,NM,New Mexico,187,464,6106
+AL,Alabama,01,54,WV,West Virginia,182,426,5611
+AL,Alabama,01,31,NE,Nebraska,172,450,5753
+AL,Alabama,01,27,MN,Minnesota,170,337,4709
+AL,Alabama,01,32,NV,Nevada,159,341,3362
+AL,Alabama,01,19,IA,Iowa,154,343,4814
+AL,Alabama,01,49,UT,Utah,119,302,4092
+AL,Alabama,01,23,ME,Maine,110,264,3354
+AL,Alabama,01,41,OR,Oregon,99,208,2473
+AL,Alabama,01,33,NH,New Hampshire,97,182,3058
+AL,Alabama,01,10,DE,Delaware,81,162,2433
+AL,Alabama,01,38,ND,North Dakota,76,170,2061
+AL,Alabama,01,11,DC,District of Columbia,73,128,2115
+AL,Alabama,01,44,RI,Rhode Island,64,148,1618
+AL,Alabama,01,30,MT,Montana,63,166,1674
+AL,Alabama,01,16,ID,Idaho,63,154,1794
+AL,Alabama,01,46,SD,South Dakota,57,157,1902
+AL,Alabama,01,56,WY,Wyoming,49,115,1037
+AL,Alabama,01,50,VT,Vermont,30,58,661
+AL,Alabama,01,01,AL,AL Non-migrants,1374133,3232884,41638920
+AK,Alaska,02,96,US+FO,Total Migration-US and Foreign,17702,37874,444802
+AK,Alaska,02,06,CA,California,2206,4483,56715
+AK,Alaska,02,53,WA,Washington,1973,3863,53736
+AK,Alaska,02,48,TX,Texas,1106,2690,31922
+AK,Alaska,02,41,OR,Oregon,951,1875,21834
+AK,Alaska,02,57,FR,Foreign,791,1796,22621
+AK,Alaska,02,12,FL,Florida,754,1567,17697
+AK,Alaska,02,08,CO,Colorado,606,1259,15516
+AK,Alaska,02,13,GA,Georgia,559,1457,13137
+AK,Alaska,02,04,AZ,Arizona,518,1103,13203
+AK,Alaska,02,37,NC,North Carolina,508,1281,10961
+AK,Alaska,02,36,NY,New York,416,819,8588
+AK,Alaska,02,51,VA,Virginia,395,911,11267
+AK,Alaska,02,40,OK,Oklahoma,338,832,8746
+AK,Alaska,02,26,MI,Michigan,330,640,7448
+AK,Alaska,02,30,MT,Montana,318,666,7694
+AK,Alaska,02,17,IL,Illinois,296,603,6363
+AK,Alaska,02,27,MN,Minnesota,287,484,6168
+AK,Alaska,02,16,ID,Idaho,283,594,6898
+AK,Alaska,02,42,PA,Pennsylvania,280,468,6276
+AK,Alaska,02,39,OH,Ohio,278,475,6696
+AK,Alaska,02,01,AL,Alabama,249,639,6340
+AK,Alaska,02,29,MO,Missouri,237,541,4947
+AK,Alaska,02,21,KY,Kentucky,231,604,4661
+AK,Alaska,02,20,KS,Kansas,225,612,6755
+AK,Alaska,02,47,TN,Tennessee,224,549,6852
+AK,Alaska,02,15,HI,Hawaii,217,434,6148
+AK,Alaska,02,35,NM,New Mexico,212,452,5473
+AK,Alaska,02,55,WI,Wisconsin,212,362,4207
+AK,Alaska,02,22,LA,Louisiana,205,507,5485
+AK,Alaska,02,32,NV,Nevada,203,454,6054
+AK,Alaska,02,25,MA,Massachusetts,202,343,4199
+AK,Alaska,02,49,UT,Utah,196,463,4957
+AK,Alaska,02,45,SC,South Carolina,194,501,4547
+AK,Alaska,02,24,MD,Maryland,162,377,4685
+AK,Alaska,02,34,NJ,New Jersey,162,371,4007
+AK,Alaska,02,18,IN,Indiana,154,302,3226
+AK,Alaska,02,05,AR,Arkansas,145,321,3156
+AK,Alaska,02,31,NE,Nebraska,123,299,3232
+AK,Alaska,02,56,WY,Wyoming,117,220,3329
+AK,Alaska,02,28,MS,Mississippi,108,252,2658
+AK,Alaska,02,23,ME,Maine,102,205,2125
+AK,Alaska,02,38,ND,North Dakota,100,188,2461
+AK,Alaska,02,19,IA,Iowa,94,161,1740
+AK,Alaska,02,46,SD,South Dakota,92,214,2351
+AK,Alaska,02,09,CT,Connecticut,85,146,1753
+AK,Alaska,02,33,NH,New Hampshire,71,115,1278
+AK,Alaska,02,50,VT,Vermont,59,103,1223
+AK,Alaska,02,54,WV,West Virginia,45,86,913
+AK,Alaska,02,10,DE,Delaware,30,86,790
+AK,Alaska,02,44,RI,Rhode Island,27,53,825
+AK,Alaska,02,11,DC,District of Columbia,26,48,939
+AK,Alaska,02,02,AK,AK Non-migrants,183618,424179,7472048
+AZ,Arizona,04,96,US+FO,Total Migration-US and Foreign,86586,175622,2428693
+AZ,Arizona,04,06,CA,California,23796,50823,701646
+AZ,Arizona,04,48,TX,Texas,4874,10446,143668
+AZ,Arizona,04,35,NM,New Mexico,4032,10715,85932
+AZ,Arizona,04,57,FR,Foreign,4028,8273,91161
+AZ,Arizona,04,17,IL,Illinois,3727,6757,137036
+AZ,Arizona,04,08,CO,Colorado,3519,6679,94432
+AZ,Arizona,04,36,NY,New York,2785,5137,87741
+AZ,Arizona,04,32,NV,Nevada,2617,5249,61172
+AZ,Arizona,04,53,WA,Washington,2614,5070,65883
+AZ,Arizona,04,26,MI,Michigan,2432,4315,66030
+AZ,Arizona,04,12,FL,Florida,2404,4598,65266
+AZ,Arizona,04,39,OH,Ohio,1848,3338,52938
+AZ,Arizona,04,42,PA,Pennsylvania,1581,2836,47325
+AZ,Arizona,04,27,MN,Minnesota,1532,2557,45359
+AZ,Arizona,04,49,UT,Utah,1504,3626,34777
+AZ,Arizona,04,55,WI,Wisconsin,1468,2529,38951
+AZ,Arizona,04,41,OR,Oregon,1453,2883,32154
+AZ,Arizona,04,34,NJ,New Jersey,1311,2416,56874
+AZ,Arizona,04,18,IN,Indiana,1239,2329,34756
+AZ,Arizona,04,29,MO,Missouri,1178,2187,28678
+AZ,Arizona,04,25,MA,Massachusetts,1102,2025,34253
+AZ,Arizona,04,51,VA,Virginia,1094,2236,37355
+AZ,Arizona,04,19,IA,Iowa,1033,1784,27868
+AZ,Arizona,04,37,NC,North Carolina,951,2112,27150
+AZ,Arizona,04,40,OK,Oklahoma,921,1951,22242
+AZ,Arizona,04,20,KS,Kansas,854,1642,23100
+AZ,Arizona,04,15,HI,Hawaii,832,1722,24178
+AZ,Arizona,04,13,GA,Georgia,806,1722,26105
+AZ,Arizona,04,31,NE,Nebraska,710,1359,17935
+AZ,Arizona,04,09,CT,Connecticut,698,1172,24045
+AZ,Arizona,04,24,MD,Maryland,670,1286,26051
+AZ,Arizona,04,16,ID,Idaho,656,1493,12939
+AZ,Arizona,04,02,AK,Alaska,575,1135,14744
+AZ,Arizona,04,47,TN,Tennessee,544,1131,13694
+AZ,Arizona,04,30,MT,Montana,538,979,11089
+AZ,Arizona,04,45,SC,South Carolina,501,1080,11839
+AZ,Arizona,04,22,LA,Louisiana,487,1088,13376
+AZ,Arizona,04,56,WY,Wyoming,442,813,9880
+AZ,Arizona,04,05,AR,Arkansas,413,834,8089
+AZ,Arizona,04,21,KY,Kentucky,405,781,11159
+AZ,Arizona,04,33,NH,New Hampshire,361,600,7917
+AZ,Arizona,04,46,SD,South Dakota,348,657,7338
+AZ,Arizona,04,01,AL,Alabama,342,729,9231
+AZ,Arizona,04,23,ME,Maine,283,516,7308
+AZ,Arizona,04,38,ND,North Dakota,272,477,6696
+AZ,Arizona,04,28,MS,Mississippi,187,433,4094
+AZ,Arizona,04,44,RI,Rhode Island,144,254,4864
+AZ,Arizona,04,50,VT,Vermont,143,241,3272
+AZ,Arizona,04,54,WV,West Virginia,126,253,2768
+AZ,Arizona,04,11,DC,District of Columbia,108,183,3707
+AZ,Arizona,04,10,DE,Delaware,98,171,2628
+AZ,Arizona,04,04,AZ,AZ Non-migrants,1253666,2881955,39924185
+AR,Arkansas,05,96,US+FO,Total Migration-US and Foreign,34591,77466,880801
+AR,Arkansas,05,48,TX,Texas,5678,13119,150428
+AR,Arkansas,05,06,CA,California,3431,7650,81958
+AR,Arkansas,05,40,OK,Oklahoma,2791,6359,61979
+AR,Arkansas,05,29,MO,Missouri,2588,5812,59381
+AR,Arkansas,05,47,TN,Tennessee,1769,3867,43313
+AR,Arkansas,05,22,LA,Louisiana,1686,3924,44903
+AR,Arkansas,05,17,IL,Illinois,1627,3433,45046
+AR,Arkansas,05,57,FR,Foreign,1525,2852,29900
+AR,Arkansas,05,12,FL,Florida,1366,2954,29142
+AR,Arkansas,05,28,MS,Mississippi,1008,2426,25981
+AR,Arkansas,05,20,KS,Kansas,950,2080,23907
+AR,Arkansas,05,26,MI,Michigan,647,1413,15197
+AR,Arkansas,05,13,GA,Georgia,631,1464,17637
+AR,Arkansas,05,37,NC,North Carolina,591,1413,15148
+AR,Arkansas,05,08,CO,Colorado,539,1270,16208
+AR,Arkansas,05,04,AZ,Arizona,531,1239,12726
+AR,Arkansas,05,18,IN,Indiana,511,1162,12566
+AR,Arkansas,05,51,VA,Virginia,472,1061,13287
+AR,Arkansas,05,55,WI,Wisconsin,467,979,14177
+AR,Arkansas,05,19,IA,Iowa,453,959,13101
+AR,Arkansas,05,01,AL,Alabama,435,1022,12256
+AR,Arkansas,05,39,OH,Ohio,433,946,13811
+AR,Arkansas,05,53,WA,Washington,382,891,8750
+AR,Arkansas,05,36,NY,New York,370,808,11066
+AR,Arkansas,05,21,KY,Kentucky,339,771,11226
+AR,Arkansas,05,42,PA,Pennsylvania,288,604,9769
+AR,Arkansas,05,45,SC,South Carolina,280,725,7657
+AR,Arkansas,05,27,MN,Minnesota,246,497,7206
+AR,Arkansas,05,31,NE,Nebraska,240,591,7745
+AR,Arkansas,05,35,NM,New Mexico,238,565,5248
+AR,Arkansas,05,32,NV,Nevada,223,474,4417
+AR,Arkansas,05,24,MD,Maryland,205,473,6511
+AR,Arkansas,05,41,OR,Oregon,204,458,4479
+AR,Arkansas,05,34,NJ,New Jersey,184,394,6568
+AR,Arkansas,05,02,AK,Alaska,160,342,4639
+AR,Arkansas,05,15,HI,Hawaii,154,360,4436
+AR,Arkansas,05,25,MA,Massachusetts,118,234,3818
+AR,Arkansas,05,09,CT,Connecticut,107,215,5212
+AR,Arkansas,05,56,WY,Wyoming,104,223,2454
+AR,Arkansas,05,49,UT,Utah,93,260,2714
+AR,Arkansas,05,16,ID,Idaho,83,186,1460
+AR,Arkansas,05,46,SD,South Dakota,76,174,2901
+AR,Arkansas,05,54,WV,West Virginia,64,131,1785
+AR,Arkansas,05,23,ME,Maine,53,113,1039
+AR,Arkansas,05,30,MT,Montana,53,137,1493
+AR,Arkansas,05,38,ND,North Dakota,52,139,1641
+AR,Arkansas,05,10,DE,Delaware,42,93,1170
+AR,Arkansas,05,33,NH,New Hampshire,32,73,1096
+AR,Arkansas,05,11,DC,District of Columbia,29,49,961
+AR,Arkansas,05,44,RI,Rhode Island,28,58,943
+AR,Arkansas,05,50,VT,Vermont,15,24,345
+AR,Arkansas,05,05,AR,AR Non-migrants,781732,1831316,21724168
+CA,California,06,96,US+FO,Total Migration-US and Foreign,205155,372838,5601655
+CA,California,06,57,FR,Foreign,30686,52872,579116
+CA,California,06,48,TX,Texas,14593,29367,425415
+CA,California,06,36,NY,New York,11678,18194,418644
+CA,California,06,04,AZ,Arizona,10243,20063,255757
+CA,California,06,53,WA,Washington,10049,20114,258178
+CA,California,06,12,FL,Florida,8956,16447,243269
+CA,California,06,17,IL,Illinois,8713,15617,302758
+CA,California,06,32,NV,Nevada,7222,13466,173252
+CA,California,06,41,OR,Oregon,6541,12336,140359
+CA,California,06,08,CO,Colorado,5833,10420,163625
+CA,California,06,25,MA,Massachusetts,5603,8196,191937
+CA,California,06,51,VA,Virginia,5578,11244,189874
+CA,California,06,15,HI,Hawaii,5430,10736,137811
+CA,California,06,26,MI,Michigan,4893,8231,139913
+CA,California,06,34,NJ,New Jersey,4803,8276,211993
+CA,California,06,42,PA,Pennsylvania,4782,7847,149837
+CA,California,06,39,OH,Ohio,4542,7633,138970
+CA,California,06,37,NC,North Carolina,3601,7357,90660
+CA,California,06,24,MD,Maryland,3393,6181,121798
+CA,California,06,13,GA,Georgia,3289,6289,102591
+CA,California,06,29,MO,Missouri,2836,5075,77046
+CA,California,06,09,CT,Connecticut,2753,4433,121366
+CA,California,06,49,UT,Utah,2632,5414,64866
+CA,California,06,27,MN,Minnesota,2509,3938,74535
+CA,California,06,22,LA,Louisiana,2442,4836,56759
+CA,California,06,40,OK,Oklahoma,2326,4488,53130
+CA,California,06,35,NM,New Mexico,2304,4306,53726
+CA,California,06,18,IN,Indiana,2288,3871,61092
+CA,California,06,47,TN,Tennessee,2188,4075,52179
+CA,California,06,55,WI,Wisconsin,2171,3393,54135
+CA,California,06,20,KS,Kansas,1747,3379,48951
+CA,California,06,16,ID,Idaho,1558,3341,30988
+CA,California,06,02,AK,Alaska,1525,3209,43777
+CA,California,06,45,SC,South Carolina,1476,3116,39409
+CA,California,06,19,IA,Iowa,1390,2282,28687
+CA,California,06,01,AL,Alabama,1257,2462,31991
+CA,California,06,05,AR,Arkansas,1169,2326,22260
+CA,California,06,21,KY,Kentucky,1165,2138,29895
+CA,California,06,31,NE,Nebraska,1106,2135,24160
+CA,California,06,28,MS,Mississippi,1015,2127,20978
+CA,California,06,11,DC,District of Columbia,1002,1381,34434
+CA,California,06,30,MT,Montana,917,1657,18825
+CA,California,06,33,NH,New Hampshire,913,1370,23925
+CA,California,06,23,ME,Maine,775,1359,16571
+CA,California,06,44,RI,Rhode Island,695,1222,20219
+CA,California,06,56,WY,Wyoming,593,1098,13246
+CA,California,06,46,SD,South Dakota,488,937,10327
+CA,California,06,38,ND,North Dakota,429,843,10796
+CA,California,06,50,VT,Vermont,366,518,8305
+CA,California,06,54,WV,West Virginia,358,628,7423
+CA,California,06,10,DE,Delaware,334,595,11897
+CA,California,06,06,CA,CA Non-migrants,10211198,23236233,387309800
+CO,Colorado,08,96,US+FO,Total Migration-US and Foreign,87565,173346,2542047
+CO,Colorado,08,06,CA,California,15818,32698,530787
+CO,Colorado,08,48,TX,Texas,6885,15162,226823
+CO,Colorado,08,57,FR,Foreign,5455,11555,122404
+CO,Colorado,08,04,AZ,Arizona,3690,7407,96737
+CO,Colorado,08,12,FL,Florida,3472,6506,86571
+CO,Colorado,08,17,IL,Illinois,3112,5734,100584
+CO,Colorado,08,36,NY,New York,2759,4541,87206
+CO,Colorado,08,35,NM,New Mexico,2456,5271,58029
+CO,Colorado,08,20,KS,Kansas,2184,4665,60060
+CO,Colorado,08,51,VA,Virginia,2157,4442,85697
+CO,Colorado,08,53,WA,Washington,2048,4081,67655
+CO,Colorado,08,26,MI,Michigan,1884,3393,48108
+CO,Colorado,08,31,NE,Nebraska,1830,3593,43356
+CO,Colorado,08,39,OH,Ohio,1762,3213,57545
+CO,Colorado,08,56,WY,Wyoming,1670,3304,40305
+CO,Colorado,08,42,PA,Pennsylvania,1645,2773,48090
+CO,Colorado,08,40,OK,Oklahoma,1617,3636,42035
+CO,Colorado,08,29,MO,Missouri,1586,3015,42923
+CO,Colorado,08,27,MN,Minnesota,1530,2544,41042
+CO,Colorado,08,32,NV,Nevada,1444,2919,36132
+CO,Colorado,08,25,MA,Massachusetts,1396,2162,38345
+CO,Colorado,08,34,NJ,New Jersey,1307,2250,45870
+CO,Colorado,08,49,UT,Utah,1297,3076,34990
+CO,Colorado,08,13,GA,Georgia,1263,2555,39441
+CO,Colorado,08,19,IA,Iowa,1220,2097,32543
+CO,Colorado,08,55,WI,Wisconsin,1206,1973,26381
+CO,Colorado,08,24,MD,Maryland,1160,2235,41995
+CO,Colorado,08,37,NC,North Carolina,1127,2205,28146
+CO,Colorado,08,41,OR,Oregon,1056,2038,25720
+CO,Colorado,08,18,IN,Indiana,1047,1921,29489
+CO,Colorado,08,09,CT,Connecticut,883,1397,27698
+CO,Colorado,08,15,HI,Hawaii,845,1875,24174
+CO,Colorado,08,22,LA,Louisiana,830,1821,23844
+CO,Colorado,08,47,TN,Tennessee,705,1376,22678
+CO,Colorado,08,30,MT,Montana,701,1307,15591
+CO,Colorado,08,46,SD,South Dakota,651,1238,14706
+CO,Colorado,08,02,AK,Alaska,644,1403,20125
+CO,Colorado,08,01,AL,Alabama,593,1279,16222
+CO,Colorado,08,45,SC,South Carolina,542,1140,14082
+CO,Colorado,08,16,ID,Idaho,516,1069,14028
+CO,Colorado,08,21,KY,Kentucky,512,1124,13583
+CO,Colorado,08,38,ND,North Dakota,499,904,10725
+CO,Colorado,08,05,AR,Arkansas,490,961,10628
+CO,Colorado,08,33,NH,New Hampshire,480,779,12534
+CO,Colorado,08,28,MS,Mississippi,346,694,7059
+CO,Colorado,08,50,VT,Vermont,317,468,6642
+CO,Colorado,08,23,ME,Maine,303,514,5884
+CO,Colorado,08,11,DC,District of Columbia,197,280,6844
+CO,Colorado,08,54,WV,West Virginia,166,304,3083
+CO,Colorado,08,44,RI,Rhode Island,146,237,3397
+CO,Colorado,08,10,DE,Delaware,116,212,3511
+CO,Colorado,08,08,CO,CO Non-migrants,1229354,2695662,43498471
+CT,Connecticut,09,96,US+FO,Total Migration-US and Foreign,33195,60452,1681451
+CT,Connecticut,09,36,NY,New York,8148,15032,575510
+CT,Connecticut,09,25,MA,Massachusetts,4234,6781,167919
+CT,Connecticut,09,12,FL,Florida,2494,4406,74089
+CT,Connecticut,09,06,CA,California,1995,3697,119984
+CT,Connecticut,09,57,FR,Foreign,1888,3019,80315
+CT,Connecticut,09,34,NJ,New Jersey,1789,3392,118156
+CT,Connecticut,09,42,PA,Pennsylvania,1197,2233,58789
+CT,Connecticut,09,44,RI,Rhode Island,956,1696,29002
+CT,Connecticut,09,51,VA,Virginia,913,1847,39246
+CT,Connecticut,09,48,TX,Texas,816,1643,46786
+CT,Connecticut,09,17,IL,Illinois,703,1481,52324
+CT,Connecticut,09,37,NC,North Carolina,604,1143,18970
+CT,Connecticut,09,39,OH,Ohio,595,1145,37734
+CT,Connecticut,09,33,NH,New Hampshire,580,966,17605
+CT,Connecticut,09,24,MD,Maryland,522,1028,24814
+CT,Connecticut,09,13,GA,Georgia,496,1013,22617
+CT,Connecticut,09,23,ME,Maine,494,873,11702
+CT,Connecticut,09,45,SC,South Carolina,391,889,9786
+CT,Connecticut,09,26,MI,Michigan,372,689,15921
+CT,Connecticut,09,50,VT,Vermont,341,561,9205
+CT,Connecticut,09,08,CO,Colorado,294,500,11639
+CT,Connecticut,09,53,WA,Washington,287,596,11445
+CT,Connecticut,09,04,AZ,Arizona,259,492,9192
+CT,Connecticut,09,18,IN,Indiana,213,440,14369
+CT,Connecticut,09,47,TN,Tennessee,194,407,8591
+CT,Connecticut,09,29,MO,Missouri,193,378,8942
+CT,Connecticut,09,27,MN,Minnesota,176,333,12787
+CT,Connecticut,09,55,WI,Wisconsin,170,297,6464
+CT,Connecticut,09,11,DC,District of Columbia,148,201,6500
+CT,Connecticut,09,22,LA,Louisiana,141,280,4757
+CT,Connecticut,09,01,AL,Alabama,130,248,3683
+CT,Connecticut,09,20,KS,Kansas,128,278,6750
+CT,Connecticut,09,41,OR,Oregon,125,199,6374
+CT,Connecticut,09,21,KY,Kentucky,120,233,5677
+CT,Connecticut,09,15,HI,Hawaii,110,216,3264
+CT,Connecticut,09,40,OK,Oklahoma,102,222,3370
+CT,Connecticut,09,19,IA,Iowa,100,152,2731
+CT,Connecticut,09,32,NV,Nevada,100,196,2663
+CT,Connecticut,09,10,DE,Delaware,91,172,4049
+CT,Connecticut,09,35,NM,New Mexico,74,130,1961
+CT,Connecticut,09,49,UT,Utah,72,161,2555
+CT,Connecticut,09,05,AR,Arkansas,72,111,1605
+CT,Connecticut,09,28,MS,Mississippi,60,133,3399
+CT,Connecticut,09,54,WV,West Virginia,59,122,2415
+CT,Connecticut,09,31,NE,Nebraska,56,97,1673
+CT,Connecticut,09,16,ID,Idaho,52,97,1216
+CT,Connecticut,09,02,AK,Alaska,37,51,836
+CT,Connecticut,09,30,MT,Montana,31,47,364
+CT,Connecticut,09,46,SD,South Dakota,30,45,472
+CT,Connecticut,09,38,ND,North Dakota,25,48,784
+CT,Connecticut,09,56,WY,Wyoming,18,36,450
+CT,Connecticut,09,09,CT,CT Non-migrants,1233330,2574811,58081271
+DE,Delaware,10,96,US+FO,Total Migration-US and Foreign,12238,23854,398870
+DE,Delaware,10,42,PA,Pennsylvania,3110,5665,100438
+DE,Delaware,10,24,MD,Maryland,2078,3911,58167
+DE,Delaware,10,34,NJ,New Jersey,1164,2057,36411
+DE,Delaware,10,36,NY,New York,696,1403,29775
+DE,Delaware,10,12,FL,Florida,688,1446,18337
+DE,Delaware,10,57,FR,Foreign,544,1112,17288
+DE,Delaware,10,51,VA,Virginia,542,1016,16711
+DE,Delaware,10,06,CA,California,397,859,13079
+DE,Delaware,10,48,TX,Texas,352,809,13604
+DE,Delaware,10,37,NC,North Carolina,282,575,9841
+DE,Delaware,10,39,OH,Ohio,189,355,6046
+DE,Delaware,10,26,MI,Michigan,159,357,6192
+DE,Delaware,10,13,GA,Georgia,149,309,4447
+DE,Delaware,10,45,SC,South Carolina,148,341,4717
+DE,Delaware,10,25,MA,Massachusetts,134,262,5170
+DE,Delaware,10,17,IL,Illinois,124,273,5738
+DE,Delaware,10,09,CT,Connecticut,111,213,4429
+DE,Delaware,10,47,TN,Tennessee,83,162,2583
+DE,Delaware,10,22,LA,Louisiana,81,189,3072
+DE,Delaware,10,40,OK,Oklahoma,80,188,2580
+DE,Delaware,10,11,DC,District of Columbia,76,107,6814
+DE,Delaware,10,29,MO,Missouri,73,186,4117
+DE,Delaware,10,54,WV,West Virginia,72,139,2389
+DE,Delaware,10,08,CO,Colorado,67,135,2048
+DE,Delaware,10,04,AZ,Arizona,64,130,2101
+DE,Delaware,10,53,WA,Washington,61,135,1748
+DE,Delaware,10,18,IN,Indiana,60,125,1666
+DE,Delaware,10,01,AL,Alabama,59,129,2086
+DE,Delaware,10,28,MS,Mississippi,54,101,1214
+DE,Delaware,10,21,KY,Kentucky,44,84,1450
+DE,Delaware,10,55,WI,Wisconsin,44,99,1875
+DE,Delaware,10,32,NV,Nevada,41,99,1001
+DE,Delaware,10,05,AR,Arkansas,40,91,1195
+DE,Delaware,10,15,HI,Hawaii,38,81,1057
+DE,Delaware,10,23,ME,Maine,38,76,917
+DE,Delaware,10,20,KS,Kansas,31,61,855
+DE,Delaware,10,33,NH,New Hampshire,30,66,1169
+DE,Delaware,10,44,RI,Rhode Island,29,48,510
+DE,Delaware,10,27,MN,Minnesota,27,41,782
+DE,Delaware,10,02,AK,Alaska,25,80,692
+DE,Delaware,10,35,NM,New Mexico,23,56,722
+DE,Delaware,10,49,UT,Utah,21,44,545
+DE,Delaware,10,19,IA,Iowa,21,35,840
+DE,Delaware,10,31,NE,Nebraska,19,47,474
+DE,Delaware,10,50,VT,Vermont,18,35,784
+DE,Delaware,10,41,OR,Oregon,13,25,332
+DE,Delaware,10,38,ND,North Dakota,10,24,224
+DE,Delaware,10,46,SD,South Dakota,10,19,162
+DE,Delaware,10,16,ID,Idaho,8,25,148
+DE,Delaware,10,56,WY,Wyoming,7,18,177
+DE,Delaware,10,30,MT,Montana,4,11,151
+DE,Delaware,10,10,DE,DE Non-migrants,255924,558120,9647193
+DC,District of Columbia,11,96,US+FO,Total Migration-US and Foreign,22411,34567,602086
+DC,District of Columbia,11,24,MD,Maryland,6724,12428,169865
+DC,District of Columbia,11,51,VA,Virginia,3630,5682,112867
+DC,District of Columbia,11,57,FR,Foreign,2180,3224,54943
+DC,District of Columbia,11,36,NY,New York,1266,1609,43852
+DC,District of Columbia,11,06,CA,California,1171,1592,34246
+DC,District of Columbia,11,25,MA,Massachusetts,720,838,18906
+DC,District of Columbia,11,42,PA,Pennsylvania,689,812,15794
+DC,District of Columbia,11,12,FL,Florida,574,815,15333
+DC,District of Columbia,11,34,NJ,New Jersey,521,657,14498
+DC,District of Columbia,11,37,NC,North Carolina,467,758,8834
+DC,District of Columbia,11,48,TX,Texas,457,728,12096
+DC,District of Columbia,11,17,IL,Illinois,402,518,14552
+DC,District of Columbia,11,09,CT,Connecticut,303,370,7505
+DC,District of Columbia,11,13,GA,Georgia,263,367,6138
+DC,District of Columbia,11,26,MI,Michigan,256,308,5529
+DC,District of Columbia,11,39,OH,Ohio,250,306,5127
+DC,District of Columbia,11,45,SC,South Carolina,188,328,3859
+DC,District of Columbia,11,55,WI,Wisconsin,182,193,2871
+DC,District of Columbia,11,53,WA,Washington,161,229,4276
+DC,District of Columbia,11,08,CO,Colorado,152,215,4081
+DC,District of Columbia,11,29,MO,Missouri,127,172,3107
+DC,District of Columbia,11,27,MN,Minnesota,120,137,3120
+DC,District of Columbia,11,22,LA,Louisiana,110,174,3222
+DC,District of Columbia,11,41,OR,Oregon,102,128,2180
+DC,District of Columbia,11,47,TN,Tennessee,101,142,2522
+DC,District of Columbia,11,04,AZ,Arizona,92,130,3864
+DC,District of Columbia,11,18,IN,Indiana,86,102,1500
+DC,District of Columbia,11,23,ME,Maine,80,88,1790
+DC,District of Columbia,11,01,AL,Alabama,78,120,1854
+DC,District of Columbia,11,33,NH,New Hampshire,73,96,2527
+DC,District of Columbia,11,44,RI,Rhode Island,72,84,1205
+DC,District of Columbia,11,40,OK,Oklahoma,69,121,1693
+DC,District of Columbia,11,10,DE,Delaware,66,94,1519
+DC,District of Columbia,11,15,HI,Hawaii,62,128,2050
+DC,District of Columbia,11,21,KY,Kentucky,56,64,1241
+DC,District of Columbia,11,20,KS,Kansas,55,85,1500
+DC,District of Columbia,11,35,NM,New Mexico,55,74,1276
+DC,District of Columbia,11,49,UT,Utah,51,69,962
+DC,District of Columbia,11,50,VT,Vermont,51,73,1431
+DC,District of Columbia,11,19,IA,Iowa,50,69,949
+DC,District of Columbia,11,28,MS,Mississippi,49,69,893
+DC,District of Columbia,11,54,WV,West Virginia,45,52,1169
+DC,District of Columbia,11,32,NV,Nevada,42,65,1146
+DC,District of Columbia,11,05,AR,Arkansas,39,60,1238
+DC,District of Columbia,11,31,NE,Nebraska,32,54,628
+DC,District of Columbia,11,02,AK,Alaska,26,52,910
+DC,District of Columbia,11,16,ID,Idaho,16,23,241
+DC,District of Columbia,11,46,SD,South Dakota,14,19,379
+DC,District of Columbia,11,30,MT,Montana,13,14,252
+DC,District of Columbia,11,38,ND,North Dakota,13,20,318
+DC,District of Columbia,11,56,WY,Wyoming,10,12,228
+DC,District of Columbia,11,11,DC,DC Non-migrants,216308,401167,7813084
+FL,Florida,12,96,US+FO,Total Migration-US and Foreign,233566,454438,7486361
+FL,Florida,12,36,NY,New York,31139,59523,1037545
+FL,Florida,12,34,NJ,New Jersey,13611,25886,544886
+FL,Florida,12,06,CA,California,13154,26901,421044
+FL,Florida,12,57,FR,Foreign,13137,26109,322313
+FL,Florida,12,13,GA,Georgia,12842,25890,383205
+FL,Florida,12,48,TX,Texas,10453,22733,318074
+FL,Florida,12,39,OH,Ohio,10401,19019,352578
+FL,Florida,12,42,PA,Pennsylvania,10250,18497,372679
+FL,Florida,12,17,IL,Illinois,9252,17426,357447
+FL,Florida,12,26,MI,Michigan,9023,16290,318208
+FL,Florida,12,51,VA,Virginia,8858,18341,281908
+FL,Florida,12,25,MA,Massachusetts,8524,15079,257040
+FL,Florida,12,37,NC,North Carolina,7271,14774,184817
+FL,Florida,12,09,CT,Connecticut,6469,11821,262357
+FL,Florida,12,24,MD,Maryland,6447,12513,270825
+FL,Florida,12,18,IN,Indiana,5325,9826,153216
+FL,Florida,12,01,AL,Alabama,5319,10961,127481
+FL,Florida,12,45,SC,South Carolina,4537,9776,114066
+FL,Florida,12,47,TN,Tennessee,4465,8841,120467
+FL,Florida,12,22,LA,Louisiana,3115,6517,79720
+FL,Florida,12,21,KY,Kentucky,3085,6163,96478
+FL,Florida,12,08,CO,Colorado,2748,5314,76279
+FL,Florida,12,29,MO,Missouri,2685,5175,113011
+FL,Florida,12,55,WI,Wisconsin,2596,4529,88800
+FL,Florida,12,33,NH,New Hampshire,2070,3615,49536
+FL,Florida,12,04,AZ,Arizona,2008,3958,54672
+FL,Florida,12,28,MS,Mississippi,1967,4108,48797
+FL,Florida,12,23,ME,Maine,1951,3583,58740
+FL,Florida,12,53,WA,Washington,1861,3830,55316
+FL,Florida,12,44,RI,Rhode Island,1857,3524,57284
+FL,Florida,12,27,MN,Minnesota,1658,2948,76740
+FL,Florida,12,40,OK,Oklahoma,1461,3022,35657
+FL,Florida,12,54,WV,West Virginia,1293,2463,33534
+FL,Florida,12,15,HI,Hawaii,1244,2700,37838
+FL,Florida,12,20,KS,Kansas,1209,2508,43299
+FL,Florida,12,32,NV,Nevada,1188,2238,27900
+FL,Florida,12,05,AR,Arkansas,1158,2477,28363
+FL,Florida,12,35,NM,New Mexico,1139,2535,28728
+FL,Florida,12,19,IA,Iowa,1000,1714,32120
+FL,Florida,12,50,VT,Vermont,856,1503,22167
+FL,Florida,12,10,DE,Delaware,731,1351,23913
+FL,Florida,12,41,OR,Oregon,682,1244,14050
+FL,Florida,12,31,NE,Nebraska,635,1351,19927
+FL,Florida,12,02,AK,Alaska,628,1316,16746
+FL,Florida,12,11,DC,District of Columbia,566,941,23336
+FL,Florida,12,49,UT,Utah,458,1011,12740
+FL,Florida,12,16,ID,Idaho,272,625,6020
+FL,Florida,12,38,ND,North Dakota,260,554,7609
+FL,Florida,12,46,SD,South Dakota,258,502,5905
+FL,Florida,12,30,MT,Montana,249,497,5676
+FL,Florida,12,56,WY,Wyoming,201,416,5304
+FL,Florida,12,12,FL,FL Non-migrants,4783656,10041286,154898732
+GA,Georgia,13,96,US+FO,Total Migration-US and Foreign,113040,236910,3412551
+GA,Georgia,13,12,FL,Florida,18119,36444,482748
+GA,Georgia,13,57,FR,Foreign,8211,18762,204980
+GA,Georgia,13,06,CA,California,6895,14949,248978
+GA,Georgia,13,01,AL,Alabama,6485,13510,165128
+GA,Georgia,13,45,SC,South Carolina,6221,12639,155610
+GA,Georgia,13,48,TX,Texas,6131,14008,204896
+GA,Georgia,13,37,NC,North Carolina,5910,12153,167736
+GA,Georgia,13,47,TN,Tennessee,5747,11802,163435
+GA,Georgia,13,36,NY,New York,5215,10336,173401
+GA,Georgia,13,51,VA,Virginia,4074,8639,135883
+GA,Georgia,13,39,OH,Ohio,3313,6435,104026
+GA,Georgia,13,17,IL,Illinois,3236,6838,128704
+GA,Georgia,13,34,NJ,New Jersey,2610,5372,116646
+GA,Georgia,13,26,MI,Michigan,2478,4745,67580
+GA,Georgia,13,42,PA,Pennsylvania,2413,4817,88824
+GA,Georgia,13,22,LA,Louisiana,2271,5106,58636
+GA,Georgia,13,24,MD,Maryland,2034,4287,75652
+GA,Georgia,13,21,KY,Kentucky,1622,3487,46504
+GA,Georgia,13,25,MA,Massachusetts,1562,2837,55205
+GA,Georgia,13,28,MS,Mississippi,1559,3266,34806
+GA,Georgia,13,09,CT,Connecticut,1556,3214,70015
+GA,Georgia,13,18,IN,Indiana,1463,2928,38161
+GA,Georgia,13,29,MO,Missouri,1427,3007,50975
+GA,Georgia,13,08,CO,Colorado,1204,2585,37200
+GA,Georgia,13,40,OK,Oklahoma,979,2213,26357
+GA,Georgia,13,53,WA,Washington,935,2124,29216
+GA,Georgia,13,04,AZ,Arizona,915,2019,27322
+GA,Georgia,13,20,KS,Kansas,810,2004,30896
+GA,Georgia,13,55,WI,Wisconsin,775,1533,24351
+GA,Georgia,13,15,HI,Hawaii,741,1961,19971
+GA,Georgia,13,05,AR,Arkansas,740,1723,20171
+GA,Georgia,13,27,MN,Minnesota,558,1086,24806
+GA,Georgia,13,54,WV,West Virginia,468,893,11116
+GA,Georgia,13,02,AK,Alaska,434,1191,13018
+GA,Georgia,13,19,IA,Iowa,381,754,10190
+GA,Georgia,13,35,NM,New Mexico,356,790,10059
+GA,Georgia,13,32,NV,Nevada,308,611,6798
+GA,Georgia,13,33,NH,New Hampshire,306,566,10258
+GA,Georgia,13,41,OR,Oregon,299,576,8260
+GA,Georgia,13,11,DC,District of Columbia,291,448,8954
+GA,Georgia,13,49,UT,Utah,283,703,9023
+GA,Georgia,13,31,NE,Nebraska,281,618,8570
+GA,Georgia,13,23,ME,Maine,267,525,6749
+GA,Georgia,13,10,DE,Delaware,263,542,9445
+GA,Georgia,13,44,RI,Rhode Island,245,506,6488
+GA,Georgia,13,16,ID,Idaho,128,284,2781
+GA,Georgia,13,30,MT,Montana,111,210,2434
+GA,Georgia,13,50,VT,Vermont,110,194,2577
+GA,Georgia,13,38,ND,North Dakota,108,260,2600
+GA,Georgia,13,46,SD,South Dakota,100,219,2355
+GA,Georgia,13,56,WY,Wyoming,92,191,2057
+GA,Georgia,13,13,GA,GA Non-migrants,2240996,5141907,75593083
+HI,Hawaii,15,96,US+FO,Total Migration-US and Foreign,28032,54928,685572
+HI,Hawaii,15,06,CA,California,7146,13351,192567
+HI,Hawaii,15,57,FR,Foreign,3654,6536,74348
+HI,Hawaii,15,48,TX,Texas,1611,3499,38425
+HI,Hawaii,15,53,WA,Washington,1229,2443,30439
+HI,Hawaii,15,12,FL,Florida,1018,1908,27150
+HI,Hawaii,15,51,VA,Virginia,941,2359,28410
+HI,Hawaii,15,36,NY,New York,809,1391,18325
+HI,Hawaii,15,37,NC,North Carolina,800,1950,17212
+HI,Hawaii,15,13,GA,Georgia,694,1746,16028
+HI,Hawaii,15,17,IL,Illinois,558,1003,13233
+HI,Hawaii,15,04,AZ,Arizona,539,1071,12890
+HI,Hawaii,15,08,CO,Colorado,533,1067,12647
+HI,Hawaii,15,41,OR,Oregon,495,788,10485
+HI,Hawaii,15,26,MI,Michigan,440,672,9366
+HI,Hawaii,15,42,PA,Pennsylvania,436,738,10049
+HI,Hawaii,15,24,MD,Maryland,429,982,13326
+HI,Hawaii,15,25,MA,Massachusetts,427,709,10628
+HI,Hawaii,15,39,OH,Ohio,397,658,7578
+HI,Hawaii,15,45,SC,South Carolina,396,944,9451
+HI,Hawaii,15,34,NJ,New Jersey,360,710,11521
+HI,Hawaii,15,32,NV,Nevada,330,576,7591
+HI,Hawaii,15,29,MO,Missouri,329,721,8661
+HI,Hawaii,15,01,AL,Alabama,307,702,7054
+HI,Hawaii,15,40,OK,Oklahoma,286,693,6451
+HI,Hawaii,15,21,KY,Kentucky,285,756,5878
+HI,Hawaii,15,22,LA,Louisiana,280,610,6000
+HI,Hawaii,15,47,TN,Tennessee,277,600,6365
+HI,Hawaii,15,02,AK,Alaska,269,575,7738
+HI,Hawaii,15,18,IN,Indiana,263,445,5810
+HI,Hawaii,15,20,KS,Kansas,257,647,6264
+HI,Hawaii,15,27,MN,Minnesota,248,401,6127
+HI,Hawaii,15,55,WI,Wisconsin,233,352,4976
+HI,Hawaii,15,09,CT,Connecticut,195,330,5610
+HI,Hawaii,15,49,UT,Utah,178,372,4642
+HI,Hawaii,15,35,NM,New Mexico,174,371,4818
+HI,Hawaii,15,16,ID,Idaho,135,244,3413
+HI,Hawaii,15,28,MS,Mississippi,119,263,2355
+HI,Hawaii,15,31,NE,Nebraska,115,257,3211
+HI,Hawaii,15,19,IA,Iowa,102,181,1863
+HI,Hawaii,15,05,AR,Arkansas,101,194,1995
+HI,Hawaii,15,23,ME,Maine,93,172,1840
+HI,Hawaii,15,33,NH,New Hampshire,77,120,1440
+HI,Hawaii,15,44,RI,Rhode Island,77,162,2342
+HI,Hawaii,15,30,MT,Montana,69,114,1388
+HI,Hawaii,15,46,SD,South Dakota,54,80,1035
+HI,Hawaii,15,11,DC,District of Columbia,53,90,1379
+HI,Hawaii,15,10,DE,Delaware,50,91,1414
+HI,Hawaii,15,54,WV,West Virginia,49,97,1179
+HI,Hawaii,15,38,ND,North Dakota,39,70,936
+HI,Hawaii,15,50,VT,Vermont,39,54,820
+HI,Hawaii,15,56,WY,Wyoming,37,63,899
+HI,Hawaii,15,15,HI,HI Non-migrants,423538,892122,15208111
+ID,Idaho,16,96,US+FO,Total Migration-US and Foreign,24005,54812,626908
+ID,Idaho,16,06,CA,California,6032,14469,183116
+ID,Idaho,16,53,WA,Washington,3574,7508,92200
+ID,Idaho,16,41,OR,Oregon,1909,4191,41948
+ID,Idaho,16,49,UT,Utah,1493,3917,31785
+ID,Idaho,16,57,FR,Foreign,924,2094,19839
+ID,Idaho,16,32,NV,Nevada,920,2077,20351
+ID,Idaho,16,04,AZ,Arizona,806,1873,17471
+ID,Idaho,16,30,MT,Montana,796,1676,16285
+ID,Idaho,16,48,TX,Texas,772,2042,20193
+ID,Idaho,16,08,CO,Colorado,697,1561,20298
+ID,Idaho,16,12,FL,Florida,610,1251,13801
+ID,Idaho,16,02,AK,Alaska,425,1012,13410
+ID,Idaho,16,56,WY,Wyoming,402,884,9490
+ID,Idaho,16,35,NM,New Mexico,272,672,7365
+ID,Idaho,16,26,MI,Michigan,247,588,6818
+ID,Idaho,16,36,NY,New York,247,485,6743
+ID,Idaho,16,17,IL,Illinois,242,534,7339
+ID,Idaho,16,51,VA,Virginia,221,512,6818
+ID,Idaho,16,27,MN,Minnesota,202,380,4972
+ID,Idaho,16,37,NC,North Carolina,200,465,4877
+ID,Idaho,16,42,PA,Pennsylvania,190,393,5000
+ID,Idaho,16,39,OH,Ohio,177,396,5146
+ID,Idaho,16,20,KS,Kansas,166,406,4314
+ID,Idaho,16,15,HI,Hawaii,164,364,4609
+ID,Idaho,16,29,MO,Missouri,155,339,5550
+ID,Idaho,16,13,GA,Georgia,149,313,3756
+ID,Idaho,16,55,WI,Wisconsin,145,279,4115
+ID,Idaho,16,22,LA,Louisiana,125,298,3074
+ID,Idaho,16,45,SC,South Carolina,124,291,3321
+ID,Idaho,16,31,NE,Nebraska,124,313,3184
+ID,Idaho,16,18,IN,Indiana,120,265,3047
+ID,Idaho,16,19,IA,Iowa,115,240,3002
+ID,Idaho,16,38,ND,North Dakota,114,246,2736
+ID,Idaho,16,24,MD,Maryland,109,237,4031
+ID,Idaho,16,40,OK,Oklahoma,108,250,2222
+ID,Idaho,16,47,TN,Tennessee,101,228,2529
+ID,Idaho,16,25,MA,Massachusetts,99,200,3056
+ID,Idaho,16,46,SD,South Dakota,89,204,1865
+ID,Idaho,16,34,NJ,New Jersey,84,180,2778
+ID,Idaho,16,05,AR,Arkansas,83,202,1934
+ID,Idaho,16,09,CT,Connecticut,78,152,2276
+ID,Idaho,16,21,KY,Kentucky,78,184,1974
+ID,Idaho,16,01,AL,Alabama,75,199,2111
+ID,Idaho,16,28,MS,Mississippi,63,132,1287
+ID,Idaho,16,23,ME,Maine,42,85,967
+ID,Idaho,16,33,NH,New Hampshire,36,56,801
+ID,Idaho,16,54,WV,West Virginia,24,46,1167
+ID,Idaho,16,44,RI,Rhode Island,22,33,369
+ID,Idaho,16,50,VT,Vermont,21,29,463
+ID,Idaho,16,11,DC,District of Columbia,17,29,573
+ID,Idaho,16,10,DE,Delaware,17,32,532
+ID,Idaho,16,16,ID,ID Non-migrants,340027,858690,10507719
+IL,Illinois,17,96,US+FO,Total Migration-US and Foreign,96732,184579,3033789
+IL,Illinois,17,06,CA,California,9934,20606,330407
+IL,Illinois,17,57,FR,Foreign,7426,11832,138800
+IL,Illinois,17,18,IN,Indiana,6563,12103,189208
+IL,Illinois,17,29,MO,Missouri,5933,11576,174891
+IL,Illinois,17,55,WI,Wisconsin,5775,10147,166399
+IL,Illinois,17,12,FL,Florida,5670,10447,156485
+IL,Illinois,17,48,TX,Texas,5287,11736,177743
+IL,Illinois,17,26,MI,Michigan,5017,8474,160313
+IL,Illinois,17,19,IA,Iowa,3846,7044,105968
+IL,Illinois,17,39,OH,Ohio,3787,6906,147146
+IL,Illinois,17,36,NY,New York,3031,5287,165243
+IL,Illinois,17,51,VA,Virginia,2075,4382,71504
+IL,Illinois,17,27,MN,Minnesota,2052,3716,76474
+IL,Illinois,17,04,AZ,Arizona,2050,3867,51445
+IL,Illinois,17,13,GA,Georgia,1961,4018,62305
+IL,Illinois,17,42,PA,Pennsylvania,1943,3681,80204
+IL,Illinois,17,37,NC,North Carolina,1794,3589,49373
+IL,Illinois,17,08,CO,Colorado,1765,3276,50654
+IL,Illinois,17,47,TN,Tennessee,1607,3304,41888
+IL,Illinois,17,34,NJ,New Jersey,1565,3119,84968
+IL,Illinois,17,21,KY,Kentucky,1372,2743,35678
+IL,Illinois,17,25,MA,Massachusetts,1357,2261,56890
+IL,Illinois,17,20,KS,Kansas,1103,2190,36983
+IL,Illinois,17,53,WA,Washington,1086,2268,31069
+IL,Illinois,17,24,MD,Maryland,1081,2068,45984
+IL,Illinois,17,09,CT,Connecticut,935,1828,60942
+IL,Illinois,17,40,OK,Oklahoma,899,1883,24882
+IL,Illinois,17,22,LA,Louisiana,847,1803,22823
+IL,Illinois,17,05,AR,Arkansas,844,1724,16740
+IL,Illinois,17,31,NE,Nebraska,819,1825,26744
+IL,Illinois,17,32,NV,Nevada,816,1548,20461
+IL,Illinois,17,28,MS,Mississippi,812,1775,12205
+IL,Illinois,17,45,SC,South Carolina,775,1674,21539
+IL,Illinois,17,01,AL,Alabama,716,1472,18056
+IL,Illinois,17,15,HI,Hawaii,563,1175,14479
+IL,Illinois,17,35,NM,New Mexico,409,847,9902
+IL,Illinois,17,41,OR,Oregon,395,734,9844
+IL,Illinois,17,11,DC,District of Columbia,312,409,11043
+IL,Illinois,17,49,UT,Utah,311,672,10023
+IL,Illinois,17,46,SD,South Dakota,251,501,6843
+IL,Illinois,17,38,ND,North Dakota,236,502,5920
+IL,Illinois,17,02,AK,Alaska,221,502,6132
+IL,Illinois,17,54,WV,West Virginia,209,420,6353
+IL,Illinois,17,33,NH,New Hampshire,204,408,7700
+IL,Illinois,17,23,ME,Maine,188,353,4957
+IL,Illinois,17,16,ID,Idaho,173,387,4143
+IL,Illinois,17,56,WY,Wyoming,165,375,4179
+IL,Illinois,17,10,DE,Delaware,160,353,8910
+IL,Illinois,17,44,RI,Rhode Island,159,312,4312
+IL,Illinois,17,30,MT,Montana,136,277,3690
+IL,Illinois,17,50,VT,Vermont,97,180,2945
+IL,Illinois,17,17,IL,IL Non-migrants,4171526,9313163,161625489
+IN,Indiana,18,96,US+FO,Total Migration-US and Foreign,57160,120224,1676012
+IN,Indiana,18,17,IL,Illinois,8842,18848,290066
+IN,Indiana,18,39,OH,Ohio,5573,11550,172077
+IN,Indiana,18,26,MI,Michigan,4594,9328,140751
+IN,Indiana,18,21,KY,Kentucky,4300,8962,110574
+IN,Indiana,18,12,FL,Florida,4171,8210,95212
+IN,Indiana,18,06,CA,California,3578,7485,107146
+IN,Indiana,18,57,FR,Foreign,3163,5446,58804
+IN,Indiana,18,48,TX,Texas,2558,5744,76787
+IN,Indiana,18,47,TN,Tennessee,1312,2888,37293
+IN,Indiana,18,29,MO,Missouri,1296,2954,42434
+IN,Indiana,18,51,VA,Virginia,1233,2767,37266
+IN,Indiana,18,42,PA,Pennsylvania,1229,2796,58076
+IN,Indiana,18,37,NC,North Carolina,1157,2556,29413
+IN,Indiana,18,13,GA,Georgia,1092,2393,30306
+IN,Indiana,18,36,NY,New York,1089,2152,35775
+IN,Indiana,18,55,WI,Wisconsin,965,2098,31179
+IN,Indiana,18,04,AZ,Arizona,906,1914,22836
+IN,Indiana,18,08,CO,Colorado,750,1590,18206
+IN,Indiana,18,45,SC,South Carolina,554,1206,14120
+IN,Indiana,18,24,MD,Maryland,552,1213,19192
+IN,Indiana,18,34,NJ,New Jersey,539,1143,23609
+IN,Indiana,18,40,OK,Oklahoma,528,1271,12982
+IN,Indiana,18,53,WA,Washington,527,1129,12877
+IN,Indiana,18,27,MN,Minnesota,523,1087,17771
+IN,Indiana,18,19,IA,Iowa,516,1161,16041
+IN,Indiana,18,01,AL,Alabama,499,1101,12354
+IN,Indiana,18,20,KS,Kansas,492,1208,15632
+IN,Indiana,18,22,LA,Louisiana,424,986,11841
+IN,Indiana,18,25,MA,Massachusetts,417,800,14229
+IN,Indiana,18,05,AR,Arkansas,392,873,8588
+IN,Indiana,18,09,CT,Connecticut,323,661,21014
+IN,Indiana,18,28,MS,Mississippi,316,730,5924
+IN,Indiana,18,32,NV,Nevada,285,571,6675
+IN,Indiana,18,31,NE,Nebraska,257,561,7732
+IN,Indiana,18,15,HI,Hawaii,254,573,6146
+IN,Indiana,18,54,WV,West Virginia,232,488,6410
+IN,Indiana,18,35,NM,New Mexico,227,488,5421
+IN,Indiana,18,41,OR,Oregon,192,388,5515
+IN,Indiana,18,49,UT,Utah,153,412,4338
+IN,Indiana,18,02,AK,Alaska,143,343,3711
+IN,Indiana,18,23,ME,Maine,123,260,3639
+IN,Indiana,18,38,ND,North Dakota,119,253,3273
+IN,Indiana,18,33,NH,New Hampshire,105,246,3789
+IN,Indiana,18,46,SD,South Dakota,98,206,2284
+IN,Indiana,18,56,WY,Wyoming,96,244,3725
+IN,Indiana,18,30,MT,Montana,91,202,1863
+IN,Indiana,18,11,DC,District of Columbia,86,122,2610
+IN,Indiana,18,44,RI,Rhode Island,83,168,2565
+IN,Indiana,18,10,DE,Delaware,80,182,2926
+IN,Indiana,18,16,ID,Idaho,80,176,1707
+IN,Indiana,18,50,VT,Vermont,46,91,1308
+IN,Indiana,18,18,IN,IN Non-migrants,2031730,4650142,69271165
+IA,Iowa,19,96,US+FO,Total Migration-US and Foreign,29125,59439,730520
+IA,Iowa,19,17,IL,Illinois,3698,7437,96393
+IA,Iowa,19,31,NE,Nebraska,2764,5732,65806
+IA,Iowa,19,06,CA,California,2599,5551,68471
+IA,Iowa,19,57,FR,Foreign,2029,2870,23877
+IA,Iowa,19,27,MN,Minnesota,1943,3803,49496
+IA,Iowa,19,29,MO,Missouri,1545,3233,38725
+IA,Iowa,19,48,TX,Texas,1504,3470,42270
+IA,Iowa,19,55,WI,Wisconsin,1175,2288,32290
+IA,Iowa,19,12,FL,Florida,893,1787,20095
+IA,Iowa,19,08,CO,Colorado,886,1824,21288
+IA,Iowa,19,04,AZ,Arizona,817,1624,17669
+IA,Iowa,19,46,SD,South Dakota,785,1554,17351
+IA,Iowa,19,20,KS,Kansas,752,1641,20614
+IA,Iowa,19,26,MI,Michigan,492,1050,14786
+IA,Iowa,19,39,OH,Ohio,479,1028,16843
+IA,Iowa,19,18,IN,Indiana,454,985,14032
+IA,Iowa,19,53,WA,Washington,445,926,10173
+IA,Iowa,19,51,VA,Virginia,419,946,12470
+IA,Iowa,19,36,NY,New York,405,762,11249
+IA,Iowa,19,37,NC,North Carolina,355,795,9720
+IA,Iowa,19,13,GA,Georgia,337,808,9824
+IA,Iowa,19,40,OK,Oklahoma,328,738,6890
+IA,Iowa,19,42,PA,Pennsylvania,305,696,10748
+IA,Iowa,19,32,NV,Nevada,270,567,5906
+IA,Iowa,19,47,TN,Tennessee,249,580,6804
+IA,Iowa,19,05,AR,Arkansas,248,517,4287
+IA,Iowa,19,24,MD,Maryland,208,425,6973
+IA,Iowa,19,41,OR,Oregon,203,405,5261
+IA,Iowa,19,21,KY,Kentucky,197,428,5453
+IA,Iowa,19,38,ND,North Dakota,192,402,5073
+IA,Iowa,19,25,MA,Massachusetts,191,329,5217
+IA,Iowa,19,22,LA,Louisiana,190,446,5208
+IA,Iowa,19,34,NJ,New Jersey,170,338,6203
+IA,Iowa,19,45,SC,South Carolina,164,383,4154
+IA,Iowa,19,35,NM,New Mexico,156,296,3324
+IA,Iowa,19,15,HI,Hawaii,137,272,3133
+IA,Iowa,19,49,UT,Utah,136,344,3447
+IA,Iowa,19,01,AL,Alabama,130,277,3694
+IA,Iowa,19,30,MT,Montana,110,217,2028
+IA,Iowa,19,09,CT,Connecticut,110,242,4414
+IA,Iowa,19,56,WY,Wyoming,106,234,2451
+IA,Iowa,19,28,MS,Mississippi,105,231,2048
+IA,Iowa,19,02,AK,Alaska,96,194,2452
+IA,Iowa,19,16,ID,Idaho,86,217,3705
+IA,Iowa,19,23,ME,Maine,68,143,1765
+IA,Iowa,19,54,WV,West Virginia,43,95,1594
+IA,Iowa,19,10,DE,Delaware,33,77,1425
+IA,Iowa,19,44,RI,Rhode Island,32,51,790
+IA,Iowa,19,50,VT,Vermont,31,69,1083
+IA,Iowa,19,11,DC,District of Columbia,30,50,969
+IA,Iowa,19,33,NH,New Hampshire,25,62,579
+IA,Iowa,19,19,IA,IA Non-migrants,1010719,2317878,32685618
+KS,Kansas,20,96,US+FO,Total Migration-US and Foreign,39273,84299,1089043
+KS,Kansas,20,29,MO,Missouri,7931,15017,226198
+KS,Kansas,20,48,TX,Texas,3457,8100,98457
+KS,Kansas,20,57,FR,Foreign,3452,7318,69442
+KS,Kansas,20,06,CA,California,3120,6924,93904
+KS,Kansas,20,40,OK,Oklahoma,2522,5632,68602
+KS,Kansas,20,08,CO,Colorado,1765,3859,41286
+KS,Kansas,20,31,NE,Nebraska,1347,2733,31811
+KS,Kansas,20,17,IL,Illinois,1094,2298,35074
+KS,Kansas,20,12,FL,Florida,1001,2063,24256
+KS,Kansas,20,19,IA,Iowa,899,1762,23764
+KS,Kansas,20,04,AZ,Arizona,772,1673,19737
+KS,Kansas,20,51,VA,Virginia,685,1702,22691
+KS,Kansas,20,39,OH,Ohio,652,1455,24662
+KS,Kansas,20,36,NY,New York,638,1372,19505
+KS,Kansas,20,05,AR,Arkansas,624,1448,13007
+KS,Kansas,20,53,WA,Washington,571,1315,15482
+KS,Kansas,20,13,GA,Georgia,556,1298,15877
+KS,Kansas,20,26,MI,Michigan,534,1119,16211
+KS,Kansas,20,37,NC,North Carolina,520,1197,14714
+KS,Kansas,20,18,IN,Indiana,471,1040,15445
+KS,Kansas,20,42,PA,Pennsylvania,458,949,16483
+KS,Kansas,20,27,MN,Minnesota,447,948,17222
+KS,Kansas,20,35,NM,New Mexico,426,1017,10015
+KS,Kansas,20,22,LA,Louisiana,417,1001,11125
+KS,Kansas,20,47,TN,Tennessee,406,921,13478
+KS,Kansas,20,21,KY,Kentucky,382,984,12987
+KS,Kansas,20,01,AL,Alabama,333,796,9580
+KS,Kansas,20,55,WI,Wisconsin,314,668,9132
+KS,Kansas,20,24,MD,Maryland,296,617,10959
+KS,Kansas,20,32,NV,Nevada,268,570,5971
+KS,Kansas,20,34,NJ,New Jersey,250,563,11474
+KS,Kansas,20,45,SC,South Carolina,241,558,6922
+KS,Kansas,20,15,HI,Hawaii,225,614,7407
+KS,Kansas,20,28,MS,Mississippi,218,517,4997
+KS,Kansas,20,41,OR,Oregon,215,434,4500
+KS,Kansas,20,02,AK,Alaska,215,597,6934
+KS,Kansas,20,25,MA,Massachusetts,210,376,5927
+KS,Kansas,20,46,SD,South Dakota,194,373,4211
+KS,Kansas,20,56,WY,Wyoming,171,387,3730
+KS,Kansas,20,09,CT,Connecticut,147,299,6542
+KS,Kansas,20,49,UT,Utah,141,356,3564
+KS,Kansas,20,38,ND,North Dakota,130,263,3099
+KS,Kansas,20,30,MT,Montana,104,225,2070
+KS,Kansas,20,16,ID,Idaho,97,218,2060
+KS,Kansas,20,54,WV,West Virginia,81,171,2278
+KS,Kansas,20,33,NH,New Hampshire,67,137,1519
+KS,Kansas,20,23,ME,Maine,58,118,1221
+KS,Kansas,20,11,DC,District of Columbia,50,97,1367
+KS,Kansas,20,44,RI,Rhode Island,35,70,688
+KS,Kansas,20,10,DE,Delaware,34,71,889
+KS,Kansas,20,50,VT,Vermont,32,59,567
+KS,Kansas,20,20,KS,KS Non-migrants,862775,1996309,30127570
+KY,Kentucky,21,96,US+FO,Total Migration-US and Foreign,44871,95831,1157659
+KY,Kentucky,21,39,OH,Ohio,6161,11943,159006
+KY,Kentucky,21,18,IN,Indiana,4233,8477,99010
+KY,Kentucky,21,47,TN,Tennessee,4151,10088,96782
+KY,Kentucky,21,57,FR,Foreign,3348,6803,63528
+KY,Kentucky,21,12,FL,Florida,3266,6484,70655
+KY,Kentucky,21,17,IL,Illinois,2189,4823,66082
+KY,Kentucky,21,06,CA,California,2120,4514,63147
+KY,Kentucky,21,48,TX,Texas,1983,4459,54210
+KY,Kentucky,21,13,GA,Georgia,1530,3434,38917
+KY,Kentucky,21,37,NC,North Carolina,1373,3029,34814
+KY,Kentucky,21,26,MI,Michigan,1337,2762,36039
+KY,Kentucky,21,51,VA,Virginia,1335,2948,37928
+KY,Kentucky,21,36,NY,New York,900,1793,29521
+KY,Kentucky,21,29,MO,Missouri,811,1762,24078
+KY,Kentucky,21,42,PA,Pennsylvania,809,1788,25777
+KY,Kentucky,21,54,WV,West Virginia,706,1617,19784
+KY,Kentucky,21,01,AL,Alabama,702,1587,18616
+KY,Kentucky,21,45,SC,South Carolina,654,1406,15451
+KY,Kentucky,21,22,LA,Louisiana,499,1218,12714
+KY,Kentucky,21,24,MD,Maryland,484,1077,15095
+KY,Kentucky,21,08,CO,Colorado,462,1101,12279
+KY,Kentucky,21,53,WA,Washington,422,898,9993
+KY,Kentucky,21,04,AZ,Arizona,419,961,10713
+KY,Kentucky,21,34,NJ,New Jersey,419,893,17128
+KY,Kentucky,21,55,WI,Wisconsin,375,786,11480
+KY,Kentucky,21,40,OK,Oklahoma,369,840,7685
+KY,Kentucky,21,20,KS,Kansas,335,820,9859
+KY,Kentucky,21,25,MA,Massachusetts,321,616,9925
+KY,Kentucky,21,05,AR,Arkansas,313,725,8023
+KY,Kentucky,21,28,MS,Mississippi,309,690,7544
+KY,Kentucky,21,15,HI,Hawaii,306,772,7254
+KY,Kentucky,21,27,MN,Minnesota,236,439,6608
+KY,Kentucky,21,19,IA,Iowa,224,461,6116
+KY,Kentucky,21,09,CT,Connecticut,206,416,10856
+KY,Kentucky,21,02,AK,Alaska,185,528,5849
+KY,Kentucky,21,32,NV,Nevada,178,327,4215
+KY,Kentucky,21,35,NM,New Mexico,144,323,3570
+KY,Kentucky,21,41,OR,Oregon,140,270,2823
+KY,Kentucky,21,31,NE,Nebraska,116,252,2752
+KY,Kentucky,21,49,UT,Utah,103,241,2510
+KY,Kentucky,21,33,NH,New Hampshire,88,194,3298
+KY,Kentucky,21,23,ME,Maine,87,180,2314
+KY,Kentucky,21,10,DE,Delaware,72,168,1781
+KY,Kentucky,21,44,RI,Rhode Island,71,147,2592
+KY,Kentucky,21,46,SD,South Dakota,65,122,1696
+KY,Kentucky,21,30,MT,Montana,60,131,1111
+KY,Kentucky,21,50,VT,Vermont,56,98,1244
+KY,Kentucky,21,56,WY,Wyoming,55,132,1233
+KY,Kentucky,21,16,ID,Idaho,52,113,1211
+KY,Kentucky,21,38,ND,North Dakota,48,106,1346
+KY,Kentucky,21,11,DC,District of Columbia,44,69,1497
+KY,Kentucky,21,21,KY,KY Non-migrants,1228497,2815569,37428704
+LA,Louisiana,22,96,US+FO,Total Migration-US and Foreign,40963,87613,1044981
+LA,Louisiana,22,48,TX,Texas,8318,18542,242019
+LA,Louisiana,22,57,FR,Foreign,4064,8261,77037
+LA,Louisiana,22,06,CA,California,3346,7122,91145
+LA,Louisiana,22,28,MS,Mississippi,2937,6387,68253
+LA,Louisiana,22,12,FL,Florida,2726,5618,67731
+LA,Louisiana,22,13,GA,Georgia,1721,3683,37909
+LA,Louisiana,22,05,AR,Arkansas,1367,3153,33221
+LA,Louisiana,22,01,AL,Alabama,1259,2752,34748
+LA,Louisiana,22,37,NC,North Carolina,1081,2457,25266
+LA,Louisiana,22,51,VA,Virginia,1057,2327,27817
+LA,Louisiana,22,47,TN,Tennessee,964,2080,25144
+LA,Louisiana,22,17,IL,Illinois,862,1653,21444
+LA,Louisiana,22,36,NY,New York,794,1527,20449
+LA,Louisiana,22,40,OK,Oklahoma,731,1735,22418
+LA,Louisiana,22,45,SC,South Carolina,648,1509,15215
+LA,Louisiana,22,29,MO,Missouri,591,1272,14221
+LA,Louisiana,22,39,OH,Ohio,590,1147,16737
+LA,Louisiana,22,08,CO,Colorado,578,1166,14328
+LA,Louisiana,22,26,MI,Michigan,564,1201,13724
+LA,Louisiana,22,53,WA,Washington,529,1173,11141
+LA,Louisiana,22,42,PA,Pennsylvania,508,964,15488
+LA,Louisiana,22,24,MD,Maryland,459,978,11945
+LA,Louisiana,22,34,NJ,New Jersey,420,815,13342
+LA,Louisiana,22,20,KS,Kansas,397,918,10353
+LA,Louisiana,22,21,KY,Kentucky,392,876,9288
+LA,Louisiana,22,18,IN,Indiana,381,745,8667
+LA,Louisiana,22,04,AZ,Arizona,338,695,8112
+LA,Louisiana,22,25,MA,Massachusetts,307,565,7239
+LA,Louisiana,22,15,HI,Hawaii,291,693,6856
+LA,Louisiana,22,55,WI,Wisconsin,264,470,5594
+LA,Louisiana,22,32,NV,Nevada,254,515,4722
+LA,Louisiana,22,35,NM,New Mexico,231,512,5714
+LA,Louisiana,22,09,CT,Connecticut,225,427,7400
+LA,Louisiana,22,02,AK,Alaska,216,531,7820
+LA,Louisiana,22,27,MN,Minnesota,167,295,4309
+LA,Louisiana,22,31,NE,Nebraska,145,331,3658
+LA,Louisiana,22,41,OR,Oregon,144,281,3462
+LA,Louisiana,22,19,IA,Iowa,139,270,3138
+LA,Louisiana,22,54,WV,West Virginia,114,251,3704
+LA,Louisiana,22,23,ME,Maine,107,219,3050
+LA,Louisiana,22,11,DC,District of Columbia,105,177,3633
+LA,Louisiana,22,49,UT,Utah,99,231,2332
+LA,Louisiana,22,56,WY,Wyoming,77,176,2077
+LA,Louisiana,22,46,SD,South Dakota,74,158,1753
+LA,Louisiana,22,10,DE,Delaware,71,142,2521
+LA,Louisiana,22,33,NH,New Hampshire,70,118,1632
+LA,Louisiana,22,16,ID,Idaho,59,123,2421
+LA,Louisiana,22,30,MT,Montana,58,105,1353
+LA,Louisiana,22,44,RI,Rhode Island,52,108,1595
+LA,Louisiana,22,38,ND,North Dakota,45,101,1114
+LA,Louisiana,22,50,VT,Vermont,27,58,722
+LA,Louisiana,22,22,LA,LA Non-migrants,1327979,3216931,39275670
+ME,Maine,23,96,US+FO,Total Migration-US and Foreign,13877,26986,395760
+ME,Maine,23,25,MA,Massachusetts,2099,3710,67308
+ME,Maine,23,33,NH,New Hampshire,1597,2962,41682
+ME,Maine,23,12,FL,Florida,1184,2215,23522
+ME,Maine,23,09,CT,Connecticut,976,1863,32959
+ME,Maine,23,57,FR,Foreign,919,1945,19913
+ME,Maine,23,36,NY,New York,914,1746,30946
+ME,Maine,23,06,CA,California,755,1494,21331
+ME,Maine,23,51,VA,Virginia,441,1019,11863
+ME,Maine,23,42,PA,Pennsylvania,429,783,12884
+ME,Maine,23,34,NJ,New Jersey,361,662,16815
+ME,Maine,23,48,TX,Texas,329,741,8607
+ME,Maine,23,50,VT,Vermont,263,489,6699
+ME,Maine,23,37,NC,North Carolina,257,555,6585
+ME,Maine,23,44,RI,Rhode Island,256,526,7240
+ME,Maine,23,24,MD,Maryland,253,524,8694
+ME,Maine,23,39,OH,Ohio,203,372,5170
+ME,Maine,23,17,IL,Illinois,191,360,7667
+ME,Maine,23,26,MI,Michigan,170,343,4663
+ME,Maine,23,53,WA,Washington,170,364,4386
+ME,Maine,23,45,SC,South Carolina,157,349,3824
+ME,Maine,23,08,CO,Colorado,148,261,3229
+ME,Maine,23,13,GA,Georgia,145,288,5637
+ME,Maine,23,04,AZ,Arizona,123,242,2861
+ME,Maine,23,47,TN,Tennessee,110,238,2923
+ME,Maine,23,22,LA,Louisiana,93,206,2281
+ME,Maine,23,02,AK,Alaska,90,187,2026
+ME,Maine,23,18,IN,Indiana,81,149,2112
+ME,Maine,23,35,NM,New Mexico,80,146,1379
+ME,Maine,23,27,MN,Minnesota,75,137,2030
+ME,Maine,23,21,KY,Kentucky,73,169,1935
+ME,Maine,23,29,MO,Missouri,72,166,3491
+ME,Maine,23,15,HI,Hawaii,70,165,2193
+ME,Maine,23,55,WI,Wisconsin,67,138,1704
+ME,Maine,23,40,OK,Oklahoma,64,128,1618
+ME,Maine,23,41,OR,Oregon,57,100,1355
+ME,Maine,23,01,AL,Alabama,56,118,1680
+ME,Maine,23,32,NV,Nevada,52,113,1161
+ME,Maine,23,20,KS,Kansas,48,106,1345
+ME,Maine,23,49,UT,Utah,47,101,792
+ME,Maine,23,10,DE,Delaware,46,99,1553
+ME,Maine,23,11,DC,District of Columbia,45,76,2007
+ME,Maine,23,19,IA,Iowa,43,89,1453
+ME,Maine,23,05,AR,Arkansas,40,80,726
+ME,Maine,23,28,MS,Mississippi,40,89,660
+ME,Maine,23,31,NE,Nebraska,36,81,914
+ME,Maine,23,54,WV,West Virginia,31,62,578
+ME,Maine,23,38,ND,North Dakota,29,59,1218
+ME,Maine,23,30,MT,Montana,28,42,598
+ME,Maine,23,16,ID,Idaho,25,44,536
+ME,Maine,23,56,WY,Wyoming,22,53,526
+ME,Maine,23,46,SD,South Dakota,17,32,481
+ME,Maine,23,23,ME,ME Non-migrants,439736,974321,13381334
+MD,Maryland,24,96,US+FO,Total Migration-US and Foreign,71818,137377,2323078
+MD,Maryland,24,11,DC,District of Columbia,11914,24060,374551
+MD,Maryland,24,51,VA,Virginia,9995,17870,349534
+MD,Maryland,24,57,FR,Foreign,6055,12137,153004
+MD,Maryland,24,42,PA,Pennsylvania,6014,10215,179584
+MD,Maryland,24,36,NY,New York,4059,7136,136311
+MD,Maryland,24,06,CA,California,3836,7737,162419
+MD,Maryland,24,12,FL,Florida,3731,7016,106187
+MD,Maryland,24,34,NJ,New Jersey,2549,4763,104606
+MD,Maryland,24,37,NC,North Carolina,2160,4292,55960
+MD,Maryland,24,48,TX,Texas,2073,4522,77634
+MD,Maryland,24,10,DE,Delaware,1749,3360,47382
+MD,Maryland,24,39,OH,Ohio,1385,2500,48182
+MD,Maryland,24,13,GA,Georgia,1367,2791,41820
+MD,Maryland,24,25,MA,Massachusetts,1347,2386,51929
+MD,Maryland,24,17,IL,Illinois,1084,2061,45766
+MD,Maryland,24,54,WV,West Virginia,1058,1989,24466
+MD,Maryland,24,09,CT,Connecticut,928,1643,42054
+MD,Maryland,24,45,SC,South Carolina,842,1770,20092
+MD,Maryland,24,26,MI,Michigan,840,1486,26388
+MD,Maryland,24,08,CO,Colorado,649,1301,21187
+MD,Maryland,24,47,TN,Tennessee,616,1137,20558
+MD,Maryland,24,53,WA,Washington,547,1172,19877
+MD,Maryland,24,04,AZ,Arizona,486,957,14312
+MD,Maryland,24,15,HI,Hawaii,483,1171,15123
+MD,Maryland,24,29,MO,Missouri,480,885,17587
+MD,Maryland,24,18,IN,Indiana,461,886,15997
+MD,Maryland,24,01,AL,Alabama,449,911,13076
+MD,Maryland,24,22,LA,Louisiana,415,865,11120
+MD,Maryland,24,21,KY,Kentucky,371,739,10500
+MD,Maryland,24,23,ME,Maine,303,625,7118
+MD,Maryland,24,55,WI,Wisconsin,291,514,8265
+MD,Maryland,24,27,MN,Minnesota,288,496,10989
+MD,Maryland,24,20,KS,Kansas,274,642,10132
+MD,Maryland,24,44,RI,Rhode Island,268,464,7484
+MD,Maryland,24,40,OK,Oklahoma,265,562,7534
+MD,Maryland,24,33,NH,New Hampshire,250,424,8269
+MD,Maryland,24,35,NM,New Mexico,231,491,8041
+MD,Maryland,24,28,MS,Mississippi,215,442,4733
+MD,Maryland,24,02,AK,Alaska,171,433,5058
+MD,Maryland,24,19,IA,Iowa,169,307,5185
+MD,Maryland,24,41,OR,Oregon,159,303,5288
+MD,Maryland,24,32,NV,Nevada,147,274,4413
+MD,Maryland,24,49,UT,Utah,141,312,4591
+MD,Maryland,24,31,NE,Nebraska,138,272,3734
+MD,Maryland,24,05,AR,Arkansas,130,278,3673
+MD,Maryland,24,50,VT,Vermont,127,195,3295
+MD,Maryland,24,30,MT,Montana,71,129,1662
+MD,Maryland,24,16,ID,Idaho,67,150,2239
+MD,Maryland,24,38,ND,North Dakota,60,110,1369
+MD,Maryland,24,56,WY,Wyoming,55,87,1277
+MD,Maryland,24,46,SD,South Dakota,55,109,1523
+MD,Maryland,24,24,MD,MD Non-migrants,1802043,3915250,72530875
+MA,Massachusetts,25,96,US+FO,Total Migration-US and Foreign,56749,92664,1817264
+MA,Massachusetts,25,36,NY,New York,6377,9726,231668
+MA,Massachusetts,25,57,FR,Foreign,6017,8181,99356
+MA,Massachusetts,25,33,NH,New Hampshire,5377,9117,167417
+MA,Massachusetts,25,09,CT,Connecticut,4950,7725,185017
+MA,Massachusetts,25,06,CA,California,4371,7144,165723
+MA,Massachusetts,25,12,FL,Florida,3973,6554,80833
+MA,Massachusetts,25,44,RI,Rhode Island,3584,6311,115403
+MA,Massachusetts,25,34,NJ,New Jersey,2179,3724,103998
+MA,Massachusetts,25,42,PA,Pennsylvania,1939,3224,74230
+MA,Massachusetts,25,23,ME,Maine,1664,2549,39470
+MA,Massachusetts,25,48,TX,Texas,1397,2688,57152
+MA,Massachusetts,25,51,VA,Virginia,1361,2459,48516
+MA,Massachusetts,25,17,IL,Illinois,1130,1898,56005
+MA,Massachusetts,25,24,MD,Maryland,1040,1814,39636
+MA,Massachusetts,25,37,NC,North Carolina,957,1855,25454
+MA,Massachusetts,25,50,VT,Vermont,949,1476,22278
+MA,Massachusetts,25,39,OH,Ohio,929,1564,34744
+MA,Massachusetts,25,26,MI,Michigan,743,1237,26629
+MA,Massachusetts,25,13,GA,Georgia,686,1235,22311
+MA,Massachusetts,25,08,CO,Colorado,676,1103,21556
+MA,Massachusetts,25,53,WA,Washington,591,946,17234
+MA,Massachusetts,25,04,AZ,Arizona,470,795,12790
+MA,Massachusetts,25,11,DC,District of Columbia,424,529,15075
+MA,Massachusetts,25,27,MN,Minnesota,370,611,14819
+MA,Massachusetts,25,18,IN,Indiana,348,584,11684
+MA,Massachusetts,25,45,SC,South Carolina,341,642,8457
+MA,Massachusetts,25,29,MO,Missouri,339,616,14626
+MA,Massachusetts,25,55,WI,Wisconsin,323,514,10911
+MA,Massachusetts,25,47,TN,Tennessee,267,481,9034
+MA,Massachusetts,25,15,HI,Hawaii,260,501,6847
+MA,Massachusetts,25,22,LA,Louisiana,237,379,5873
+MA,Massachusetts,25,41,OR,Oregon,232,383,7749
+MA,Massachusetts,25,21,KY,Kentucky,217,393,6211
+MA,Massachusetts,25,01,AL,Alabama,202,373,5940
+MA,Massachusetts,25,20,KS,Kansas,179,356,8314
+MA,Massachusetts,25,40,OK,Oklahoma,169,338,5281
+MA,Massachusetts,25,35,NM,New Mexico,162,277,3722
+MA,Massachusetts,25,32,NV,Nevada,162,276,3462
+MA,Massachusetts,25,19,IA,Iowa,159,240,4166
+MA,Massachusetts,25,49,UT,Utah,154,305,4065
+MA,Massachusetts,25,10,DE,Delaware,139,250,5372
+MA,Massachusetts,25,02,AK,Alaska,131,274,3415
+MA,Massachusetts,25,28,MS,Mississippi,91,178,2883
+MA,Massachusetts,25,54,WV,West Virginia,89,147,2922
+MA,Massachusetts,25,31,NE,Nebraska,86,144,1702
+MA,Massachusetts,25,30,MT,Montana,62,97,1248
+MA,Massachusetts,25,05,AR,Arkansas,59,112,1700
+MA,Massachusetts,25,16,ID,Idaho,55,103,1379
+MA,Massachusetts,25,46,SD,South Dakota,49,81,1024
+MA,Massachusetts,25,38,ND,North Dakota,43,89,1167
+MA,Massachusetts,25,56,WY,Wyoming,40,66,796
+MA,Massachusetts,25,25,MA,MA Non-migrants,2211814,4556837,88297750
+MI,Michigan,26,96,US+FO,Total Migration-US and Foreign,57931,115205,1716560
+MI,Michigan,26,39,OH,Ohio,5253,10541,187922
+MI,Michigan,26,57,FR,Foreign,5165,8342,109591
+MI,Michigan,26,06,CA,California,5159,10136,153709
+MI,Michigan,26,12,FL,Florida,5104,9308,105417
+MI,Michigan,26,17,IL,Illinois,4098,7926,149329
+MI,Michigan,26,18,IN,Indiana,3739,7783,115222
+MI,Michigan,26,48,TX,Texas,3016,6624,84908
+MI,Michigan,26,36,NY,New York,1974,3908,71181
+MI,Michigan,26,55,WI,Wisconsin,1779,3630,51942
+MI,Michigan,26,51,VA,Virginia,1466,3165,45244
+MI,Michigan,26,42,PA,Pennsylvania,1463,3112,58105
+MI,Michigan,26,37,NC,North Carolina,1440,2993,35461
+MI,Michigan,26,13,GA,Georgia,1242,2605,33278
+MI,Michigan,26,04,AZ,Arizona,1224,2382,28622
+MI,Michigan,26,47,TN,Tennessee,1132,2396,33972
+MI,Michigan,26,08,CO,Colorado,1005,2019,26601
+MI,Michigan,26,29,MO,Missouri,934,1900,30897
+MI,Michigan,26,27,MN,Minnesota,836,1651,28119
+MI,Michigan,26,34,NJ,New Jersey,818,1750,41803
+MI,Michigan,26,21,KY,Kentucky,818,1816,21524
+MI,Michigan,26,53,WA,Washington,795,1619,20947
+MI,Michigan,26,25,MA,Massachusetts,738,1305,31736
+MI,Michigan,26,24,MD,Maryland,703,1388,24379
+MI,Michigan,26,45,SC,South Carolina,666,1425,17926
+MI,Michigan,26,01,AL,Alabama,515,1100,10077
+MI,Michigan,26,22,LA,Louisiana,514,1152,16503
+MI,Michigan,26,09,CT,Connecticut,503,1026,29552
+MI,Michigan,26,19,IA,Iowa,479,998,12980
+MI,Michigan,26,20,KS,Kansas,473,1053,15857
+MI,Michigan,26,40,OK,Oklahoma,471,1021,12403
+MI,Michigan,26,05,AR,Arkansas,415,929,7177
+MI,Michigan,26,15,HI,Hawaii,415,817,9247
+MI,Michigan,26,32,NV,Nevada,385,737,8775
+MI,Michigan,26,28,MS,Mississippi,345,726,5979
+MI,Michigan,26,02,AK,Alaska,280,630,7030
+MI,Michigan,26,41,OR,Oregon,268,509,7739
+MI,Michigan,26,35,NM,New Mexico,265,525,6172
+MI,Michigan,26,31,NE,Nebraska,237,518,8736
+MI,Michigan,26,54,WV,West Virginia,220,431,5653
+MI,Michigan,26,49,UT,Utah,203,503,5908
+MI,Michigan,26,33,NH,New Hampshire,184,365,6444
+MI,Michigan,26,23,ME,Maine,173,351,4687
+MI,Michigan,26,11,DC,District of Columbia,150,208,3411
+MI,Michigan,26,30,MT,Montana,135,288,2979
+MI,Michigan,26,38,ND,North Dakota,128,279,3118
+MI,Michigan,26,46,SD,South Dakota,123,271,2819
+MI,Michigan,26,56,WY,Wyoming,110,229,2586
+MI,Michigan,26,16,ID,Idaho,103,261,2577
+MI,Michigan,26,44,RI,Rhode Island,102,218,3355
+MI,Michigan,26,10,DE,Delaware,101,207,4792
+MI,Michigan,26,50,VT,Vermont,67,129,2169
+MI,Michigan,26,26,MI,MI Non-migrants,3252015,7279537,120090366
+MN,Minnesota,27,96,US+FO,Total Migration-US and Foreign,43975,83989,1347044
+MN,Minnesota,27,55,WI,Wisconsin,5668,9524,144328
+MN,Minnesota,27,06,CA,California,4240,8228,150846
+MN,Minnesota,27,17,IL,Illinois,3005,5841,109585
+MN,Minnesota,27,38,ND,North Dakota,2935,5348,68179
+MN,Minnesota,27,19,IA,Iowa,2796,5256,72205
+MN,Minnesota,27,57,FR,Foreign,2435,3796,55286
+MN,Minnesota,27,48,TX,Texas,2203,5034,62587
+MN,Minnesota,27,12,FL,Florida,1518,2757,45358
+MN,Minnesota,27,46,SD,South Dakota,1447,2642,35477
+MN,Minnesota,27,26,MI,Michigan,1250,2435,42172
+MN,Minnesota,27,08,CO,Colorado,1186,2345,34618
+MN,Minnesota,27,36,NY,New York,1146,2215,48839
+MN,Minnesota,27,04,AZ,Arizona,1140,2102,29297
+MN,Minnesota,27,53,WA,Washington,958,1918,28924
+MN,Minnesota,27,39,OH,Ohio,841,1717,35939
+MN,Minnesota,27,29,MO,Missouri,782,1638,27905
+MN,Minnesota,27,18,IN,Indiana,698,1479,24878
+MN,Minnesota,27,31,NE,Nebraska,672,1350,20681
+MN,Minnesota,27,51,VA,Virginia,662,1318,22938
+MN,Minnesota,27,42,PA,Pennsylvania,603,1242,25501
+MN,Minnesota,27,37,NC,North Carolina,518,1080,14618
+MN,Minnesota,27,20,KS,Kansas,515,1086,17894
+MN,Minnesota,27,13,GA,Georgia,491,1030,16873
+MN,Minnesota,27,25,MA,Massachusetts,469,851,23204
+MN,Minnesota,27,30,MT,Montana,408,845,10128
+MN,Minnesota,27,34,NJ,New Jersey,396,797,19238
+MN,Minnesota,27,24,MD,Maryland,385,740,15595
+MN,Minnesota,27,41,OR,Oregon,370,721,10454
+MN,Minnesota,27,32,NV,Nevada,365,696,8141
+MN,Minnesota,27,40,OK,Oklahoma,350,775,10762
+MN,Minnesota,27,47,TN,Tennessee,317,662,11324
+MN,Minnesota,27,09,CT,Connecticut,286,531,15667
+MN,Minnesota,27,02,AK,Alaska,282,592,7316
+MN,Minnesota,27,15,HI,Hawaii,255,484,6862
+MN,Minnesota,27,35,NM,New Mexico,253,510,8078
+MN,Minnesota,27,21,KY,Kentucky,231,484,7013
+MN,Minnesota,27,22,LA,Louisiana,209,412,5719
+MN,Minnesota,27,49,UT,Utah,201,489,6481
+MN,Minnesota,27,05,AR,Arkansas,169,377,3542
+MN,Minnesota,27,01,AL,Alabama,165,334,4545
+MN,Minnesota,27,45,SC,South Carolina,157,338,4161
+MN,Minnesota,27,16,ID,Idaho,147,321,4290
+MN,Minnesota,27,56,WY,Wyoming,145,282,3206
+MN,Minnesota,27,28,MS,Mississippi,142,331,3102
+MN,Minnesota,27,33,NH,New Hampshire,120,243,5175
+MN,Minnesota,27,11,DC,District of Columbia,118,179,5739
+MN,Minnesota,27,23,ME,Maine,92,166,3091
+MN,Minnesota,27,44,RI,Rhode Island,74,148,3868
+MN,Minnesota,27,50,VT,Vermont,62,111,1972
+MN,Minnesota,27,10,DE,Delaware,57,110,2017
+MN,Minnesota,27,54,WV,West Virginia,41,79,1426
+MN,Minnesota,27,27,MN,MN Non-migrants,1623682,3659275,60551310
+MS,Mississippi,28,96,US+FO,Total Migration-US and Foreign,30147,66553,727750
+MS,Mississippi,28,47,TN,Tennessee,3990,8695,103735
+MS,Mississippi,28,22,LA,Louisiana,3687,8403,91698
+MS,Mississippi,28,48,TX,Texas,2473,5688,64407
+MS,Mississippi,28,01,AL,Alabama,2228,4841,54793
+MS,Mississippi,28,12,FL,Florida,2073,4427,44663
+MS,Mississippi,28,57,FR,Foreign,1909,3817,35221
+MS,Mississippi,28,06,CA,California,1541,3413,38708
+MS,Mississippi,28,17,IL,Illinois,1354,3021,27988
+MS,Mississippi,28,13,GA,Georgia,1237,2695,29530
+MS,Mississippi,28,05,AR,Arkansas,823,1919,18661
+MS,Mississippi,28,51,VA,Virginia,748,1862,19457
+MS,Mississippi,28,37,NC,North Carolina,626,1467,15924
+MS,Mississippi,28,29,MO,Missouri,533,1170,10796
+MS,Mississippi,28,39,OH,Ohio,433,933,9496
+MS,Mississippi,28,26,MI,Michigan,431,920,9607
+MS,Mississippi,28,45,SC,South Carolina,422,1004,8979
+MS,Mississippi,28,32,NV,Nevada,413,822,11235
+MS,Mississippi,28,18,IN,Indiana,364,762,7462
+MS,Mississippi,28,40,OK,Oklahoma,346,812,9515
+MS,Mississippi,28,08,CO,Colorado,345,687,7464
+MS,Mississippi,28,21,KY,Kentucky,335,736,12006
+MS,Mississippi,28,36,NY,New York,321,682,7846
+MS,Mississippi,28,42,PA,Pennsylvania,305,624,8066
+MS,Mississippi,28,04,AZ,Arizona,278,590,6394
+MS,Mississippi,28,55,WI,Wisconsin,277,606,4321
+MS,Mississippi,28,24,MD,Maryland,254,568,7943
+MS,Mississippi,28,53,WA,Washington,234,538,4948
+MS,Mississippi,28,34,NJ,New Jersey,225,476,8373
+MS,Mississippi,28,19,IA,Iowa,203,393,5202
+MS,Mississippi,28,20,KS,Kansas,186,433,4313
+MS,Mississippi,28,15,HI,Hawaii,138,364,3548
+MS,Mississippi,28,25,MA,Massachusetts,134,279,3508
+MS,Mississippi,28,27,MN,Minnesota,129,241,2930
+MS,Mississippi,28,35,NM,New Mexico,124,298,2954
+MS,Mississippi,28,31,NE,Nebraska,110,270,2590
+MS,Mississippi,28,09,CT,Connecticut,109,219,3194
+MS,Mississippi,28,02,AK,Alaska,103,237,2813
+MS,Mississippi,28,41,OR,Oregon,95,188,2453
+MS,Mississippi,28,54,WV,West Virginia,76,155,1397
+MS,Mississippi,28,11,DC,District of Columbia,73,129,1405
+MS,Mississippi,28,23,ME,Maine,69,185,1713
+MS,Mississippi,28,44,RI,Rhode Island,60,155,1647
+MS,Mississippi,28,49,UT,Utah,60,171,1695
+MS,Mississippi,28,56,WY,Wyoming,43,118,1066
+MS,Mississippi,28,46,SD,South Dakota,42,90,1290
+MS,Mississippi,28,10,DE,Delaware,40,101,1449
+MS,Mississippi,28,16,ID,Idaho,38,95,741
+MS,Mississippi,28,38,ND,North Dakota,36,98,1006
+MS,Mississippi,28,30,MT,Montana,34,76,665
+MS,Mississippi,28,33,NH,New Hampshire,29,62,673
+MS,Mississippi,28,50,VT,Vermont,11,18,262
+MS,Mississippi,28,28,MS,MS Non-migrants,820032,1988706,21180510
+MO,Missouri,29,96,US+FO,Total Migration-US and Foreign,61937,127764,1710856
+MO,Missouri,29,20,KS,Kansas,8303,15963,222688
+MO,Missouri,29,17,IL,Illinois,7348,14003,205175
+MO,Missouri,29,06,CA,California,5610,12033,164553
+MO,Missouri,29,48,TX,Texas,4318,9536,127722
+MO,Missouri,29,57,FR,Foreign,3766,6830,63008
+MO,Missouri,29,05,AR,Arkansas,2377,5255,47430
+MO,Missouri,29,12,FL,Florida,2376,4679,59664
+MO,Missouri,29,19,IA,Iowa,2186,4324,56138
+MO,Missouri,29,40,OK,Oklahoma,2112,4720,53380
+MO,Missouri,29,08,CO,Colorado,1407,2982,38962
+MO,Missouri,29,39,OH,Ohio,1306,2672,47902
+MO,Missouri,29,18,IN,Indiana,1199,2581,39622
+MO,Missouri,29,47,TN,Tennessee,1181,2485,29933
+MO,Missouri,29,04,AZ,Arizona,1180,2480,28825
+MO,Missouri,29,26,MI,Michigan,1166,2398,34994
+MO,Missouri,29,51,VA,Virginia,1086,2401,38250
+MO,Missouri,29,31,NE,Nebraska,1080,2214,30989
+MO,Missouri,29,13,GA,Georgia,1064,2373,33444
+MO,Missouri,29,36,NY,New York,1018,2091,35719
+MO,Missouri,29,37,NC,North Carolina,926,2031,25417
+MO,Missouri,29,53,WA,Washington,771,1635,19687
+MO,Missouri,29,22,LA,Louisiana,768,1761,22866
+MO,Missouri,29,55,WI,Wisconsin,756,1628,23199
+MO,Missouri,29,42,PA,Pennsylvania,740,1512,26023
+MO,Missouri,29,27,MN,Minnesota,706,1482,25299
+MO,Missouri,29,21,KY,Kentucky,702,1551,19259
+MO,Missouri,29,24,MD,Maryland,523,1053,20426
+MO,Missouri,29,28,MS,Mississippi,511,1128,10591
+MO,Missouri,29,34,NJ,New Jersey,478,973,22276
+MO,Missouri,29,32,NV,Nevada,450,944,9444
+MO,Missouri,29,01,AL,Alabama,438,1021,11780
+MO,Missouri,29,45,SC,South Carolina,429,1037,12143
+MO,Missouri,29,25,MA,Massachusetts,415,797,14578
+MO,Missouri,29,35,NM,New Mexico,367,833,8744
+MO,Missouri,29,15,HI,Hawaii,357,858,9340
+MO,Missouri,29,41,OR,Oregon,305,645,5474
+MO,Missouri,29,09,CT,Connecticut,304,592,14132
+MO,Missouri,29,49,UT,Utah,270,642,6432
+MO,Missouri,29,02,AK,Alaska,264,662,7861
+MO,Missouri,29,46,SD,South Dakota,198,434,5250
+MO,Missouri,29,56,WY,Wyoming,177,390,4158
+MO,Missouri,29,30,MT,Montana,139,298,3061
+MO,Missouri,29,16,ID,Idaho,138,347,3056
+MO,Missouri,29,38,ND,North Dakota,138,298,3667
+MO,Missouri,29,33,NH,New Hampshire,108,196,3167
+MO,Missouri,29,54,WV,West Virginia,107,254,3705
+MO,Missouri,29,23,ME,Maine,100,216,2312
+MO,Missouri,29,11,DC,District of Columbia,79,125,2851
+MO,Missouri,29,10,DE,Delaware,75,168,2458
+MO,Missouri,29,44,RI,Rhode Island,60,137,2094
+MO,Missouri,29,50,VT,Vermont,55,96,1708
+MO,Missouri,29,29,MO,MO Non-migrants,1817806,4099814,60506416
+MT,Montana,30,96,US+FO,Total Migration-US and Foreign,16983,35209,407184
+MT,Montana,30,06,CA,California,2761,5733,71905
+MT,Montana,30,53,WA,Washington,2206,4598,51434
+MT,Montana,30,08,CO,Colorado,835,1706,21034
+MT,Montana,30,41,OR,Oregon,780,1670,18179
+MT,Montana,30,56,WY,Wyoming,773,1607,16511
+MT,Montana,30,16,ID,Idaho,759,1667,15155
+MT,Montana,30,57,FR,Foreign,691,1392,13239
+MT,Montana,30,48,TX,Texas,590,1354,16220
+MT,Montana,30,04,AZ,Arizona,555,1161,12258
+MT,Montana,30,38,ND,North Dakota,472,926,9569
+MT,Montana,30,32,NV,Nevada,444,923,10936
+MT,Montana,30,27,MN,Minnesota,422,835,12108
+MT,Montana,30,02,AK,Alaska,368,785,11273
+MT,Montana,30,12,FL,Florida,360,700,8194
+MT,Montana,30,49,UT,Utah,330,766,7694
+MT,Montana,30,17,IL,Illinois,300,587,7621
+MT,Montana,30,26,MI,Michigan,271,573,6237
+MT,Montana,30,46,SD,South Dakota,264,561,5367
+MT,Montana,30,36,NY,New York,253,424,4745
+MT,Montana,30,42,PA,Pennsylvania,248,436,5217
+MT,Montana,30,55,WI,Wisconsin,231,432,4543
+MT,Montana,30,39,OH,Ohio,225,436,6602
+MT,Montana,30,51,VA,Virginia,188,378,4856
+MT,Montana,30,35,NM,New Mexico,179,423,4821
+MT,Montana,30,37,NC,North Carolina,172,325,3484
+MT,Montana,30,31,NE,Nebraska,169,399,4395
+MT,Montana,30,29,MO,Missouri,165,352,3278
+MT,Montana,30,13,GA,Georgia,142,301,3846
+MT,Montana,30,19,IA,Iowa,141,273,3487
+MT,Montana,30,40,OK,Oklahoma,139,327,3877
+MT,Montana,30,25,MA,Massachusetts,132,223,3447
+MT,Montana,30,24,MD,Maryland,122,246,4046
+MT,Montana,30,15,HI,Hawaii,121,259,2885
+MT,Montana,30,34,NJ,New Jersey,118,237,4496
+MT,Montana,30,20,KS,Kansas,116,261,2892
+MT,Montana,30,18,IN,Indiana,109,226,2416
+MT,Montana,30,47,TN,Tennessee,86,179,2141
+MT,Montana,30,05,AR,Arkansas,82,186,1691
+MT,Montana,30,22,LA,Louisiana,82,202,1897
+MT,Montana,30,45,SC,South Carolina,77,180,1616
+MT,Montana,30,21,KY,Kentucky,74,155,1764
+MT,Montana,30,50,VT,Vermont,67,105,1071
+MT,Montana,30,09,CT,Connecticut,65,95,1954
+MT,Montana,30,01,AL,Alabama,63,145,1652
+MT,Montana,30,28,MS,Mississippi,54,120,1047
+MT,Montana,30,23,ME,Maine,47,85,750
+MT,Montana,30,33,NH,New Hampshire,46,84,927
+MT,Montana,30,54,WV,West Virginia,35,81,855
+MT,Montana,30,11,DC,District of Columbia,24,33,930
+MT,Montana,30,10,DE,Delaware,16,29,344
+MT,Montana,30,44,RI,Rhode Island,14,28,278
+MT,Montana,30,30,MT,MT Non-migrants,280048,641863,7849286
+NE,Nebraska,31,96,US+FO,Total Migration-US and Foreign,20573,44427,517099
+NE,Nebraska,31,19,IA,Iowa,2905,5669,67008
+NE,Nebraska,31,06,CA,California,2126,5041,52083
+NE,Nebraska,31,08,CO,Colorado,1427,3034,32180
+NE,Nebraska,31,57,FR,Foreign,1338,2557,22414
+NE,Nebraska,31,20,KS,Kansas,1261,2841,32293
+NE,Nebraska,31,48,TX,Texas,1190,2818,33645
+NE,Nebraska,31,29,MO,Missouri,855,1815,23267
+NE,Nebraska,31,46,SD,South Dakota,838,1689,16982
+NE,Nebraska,31,17,IL,Illinois,702,1513,22104
+NE,Nebraska,31,04,AZ,Arizona,578,1148,12451
+NE,Nebraska,31,27,MN,Minnesota,534,1118,16656
+NE,Nebraska,31,12,FL,Florida,516,1077,12007
+NE,Nebraska,31,56,WY,Wyoming,447,1017,9115
+NE,Nebraska,31,53,WA,Washington,358,804,9303
+NE,Nebraska,31,40,OK,Oklahoma,307,723,6482
+NE,Nebraska,31,51,VA,Virginia,292,715,9658
+NE,Nebraska,31,26,MI,Michigan,285,671,8719
+NE,Nebraska,31,36,NY,New York,251,500,7338
+NE,Nebraska,31,55,WI,Wisconsin,237,444,7103
+NE,Nebraska,31,39,OH,Ohio,236,465,6794
+NE,Nebraska,31,18,IN,Indiana,230,483,6423
+NE,Nebraska,31,37,NC,North Carolina,221,477,4767
+NE,Nebraska,31,32,NV,Nevada,215,493,4971
+NE,Nebraska,31,02,AK,Alaska,198,523,5863
+NE,Nebraska,31,13,GA,Georgia,197,460,5738
+NE,Nebraska,31,05,AR,Arkansas,190,434,4483
+NE,Nebraska,31,42,PA,Pennsylvania,180,394,6559
+NE,Nebraska,31,38,ND,North Dakota,179,418,5523
+NE,Nebraska,31,30,MT,Montana,178,449,4730
+NE,Nebraska,31,35,NM,New Mexico,168,382,4212
+NE,Nebraska,31,47,TN,Tennessee,159,335,4020
+NE,Nebraska,31,22,LA,Louisiana,158,370,4009
+NE,Nebraska,31,49,UT,Utah,148,350,3574
+NE,Nebraska,31,41,OR,Oregon,142,283,3016
+NE,Nebraska,31,24,MD,Maryland,140,305,4681
+NE,Nebraska,31,15,HI,Hawaii,139,298,3479
+NE,Nebraska,31,45,SC,South Carolina,124,339,3700
+NE,Nebraska,31,16,ID,Idaho,117,256,4700
+NE,Nebraska,31,34,NJ,New Jersey,117,227,4664
+NE,Nebraska,31,09,CT,Connecticut,111,236,4096
+NE,Nebraska,31,21,KY,Kentucky,110,232,3176
+NE,Nebraska,31,25,MA,Massachusetts,105,194,3191
+NE,Nebraska,31,01,AL,Alabama,93,233,2884
+NE,Nebraska,31,28,MS,Mississippi,91,233,1875
+NE,Nebraska,31,23,ME,Maine,41,91,936
+NE,Nebraska,31,11,DC,District of Columbia,32,46,1330
+NE,Nebraska,31,44,RI,Rhode Island,32,83,1080
+NE,Nebraska,31,54,WV,West Virginia,26,48,534
+NE,Nebraska,31,33,NH,New Hampshire,24,45,637
+NE,Nebraska,31,10,DE,Delaware,16,34,431
+NE,Nebraska,31,50,VT,Vermont,9,17,215
+NE,Nebraska,31,31,NE,NE Non-migrants,580181,1341748,18852064
+NV,Nevada,32,96,US+FO,Total Migration-US and Foreign,46691,91722,1330051
+NV,Nevada,32,06,CA,California,19216,38587,571135
+NV,Nevada,32,04,AZ,Arizona,2839,5698,79619
+NV,Nevada,32,48,TX,Texas,1904,3840,52497
+NV,Nevada,32,57,FR,Foreign,1593,3181,40222
+NV,Nevada,32,12,FL,Florida,1493,2749,42532
+NV,Nevada,32,36,NY,New York,1427,2608,41579
+NV,Nevada,32,08,CO,Colorado,1366,2584,39393
+NV,Nevada,32,49,UT,Utah,1311,3007,34250
+NV,Nevada,32,17,IL,Illinois,1274,2385,40364
+NV,Nevada,32,53,WA,Washington,1193,2293,28887
+NV,Nevada,32,41,OR,Oregon,937,1784,18922
+NV,Nevada,32,26,MI,Michigan,866,1533,23407
+NV,Nevada,32,15,HI,Hawaii,769,1546,23301
+NV,Nevada,32,35,NM,New Mexico,754,1677,20320
+NV,Nevada,32,39,OH,Ohio,708,1275,18958
+NV,Nevada,32,16,ID,Idaho,623,1331,14157
+NV,Nevada,32,34,NJ,New Jersey,569,1020,19520
+NV,Nevada,32,42,PA,Pennsylvania,505,850,13977
+NV,Nevada,32,55,WI,Wisconsin,445,762,10652
+NV,Nevada,32,29,MO,Missouri,444,798,13192
+NV,Nevada,32,27,MN,Minnesota,422,717,12869
+NV,Nevada,32,51,VA,Virginia,415,839,16462
+NV,Nevada,32,18,IN,Indiana,372,688,9158
+NV,Nevada,32,40,OK,Oklahoma,369,730,9630
+NV,Nevada,32,25,MA,Massachusetts,367,559,10092
+NV,Nevada,32,30,MT,Montana,342,687,8532
+NV,Nevada,32,56,WY,Wyoming,335,676,8535
+NV,Nevada,32,22,LA,Louisiana,307,629,7704
+NV,Nevada,32,13,GA,Georgia,287,567,8176
+NV,Nevada,32,37,NC,North Carolina,276,558,6503
+NV,Nevada,32,20,KS,Kansas,270,534,8432
+NV,Nevada,32,02,AK,Alaska,265,525,10452
+NV,Nevada,32,24,MD,Maryland,229,444,7661
+NV,Nevada,32,19,IA,Iowa,217,363,4472
+NV,Nevada,32,31,NE,Nebraska,215,392,6625
+NV,Nevada,32,47,TN,Tennessee,202,359,6016
+NV,Nevada,32,09,CT,Connecticut,190,317,6935
+NV,Nevada,32,05,AR,Arkansas,172,313,3406
+NV,Nevada,32,45,SC,South Carolina,160,366,4685
+NV,Nevada,32,21,KY,Kentucky,144,269,3246
+NV,Nevada,32,38,ND,North Dakota,139,252,3058
+NV,Nevada,32,46,SD,South Dakota,125,267,3167
+NV,Nevada,32,28,MS,Mississippi,108,219,2851
+NV,Nevada,32,01,AL,Alabama,107,230,2287
+NV,Nevada,32,33,NH,New Hampshire,92,145,2373
+NV,Nevada,32,44,RI,Rhode Island,90,139,3270
+NV,Nevada,32,23,ME,Maine,84,141,1620
+NV,Nevada,32,54,WV,West Virginia,56,106,1309
+NV,Nevada,32,11,DC,District of Columbia,37,64,1651
+NV,Nevada,32,50,VT,Vermont,34,61,913
+NV,Nevada,32,10,DE,Delaware,27,58,1077
+NV,Nevada,32,32,NV,NV Non-migrants,473284,1008864,16616610
+NH,New Hampshire,33,96,US+FO,Total Migration-US and Foreign,20087,37221,688737
+NH,New Hampshire,33,25,MA,Massachusetts,7912,14543,279388
+NH,New Hampshire,33,23,ME,Maine,1712,3026,43958
+NH,New Hampshire,33,50,VT,Vermont,1209,2153,33083
+NH,New Hampshire,33,12,FL,Florida,1128,2004,27026
+NH,New Hampshire,33,36,NY,New York,1071,1959,40510
+NH,New Hampshire,33,09,CT,Connecticut,863,1583,39572
+NH,New Hampshire,33,06,CA,California,760,1464,27840
+NH,New Hampshire,33,57,FR,Foreign,679,1122,16446
+NH,New Hampshire,33,34,NJ,New Jersey,414,758,20205
+NH,New Hampshire,33,42,PA,Pennsylvania,403,773,17209
+NH,New Hampshire,33,51,VA,Virginia,364,750,13722
+NH,New Hampshire,33,48,TX,Texas,324,709,16576
+NH,New Hampshire,33,44,RI,Rhode Island,298,535,15436
+NH,New Hampshire,33,37,NC,North Carolina,238,473,6426
+NH,New Hampshire,33,24,MD,Maryland,219,426,9131
+NH,New Hampshire,33,39,OH,Ohio,204,425,8241
+NH,New Hampshire,33,08,CO,Colorado,183,349,5491
+NH,New Hampshire,33,26,MI,Michigan,158,307,4841
+NH,New Hampshire,33,13,GA,Georgia,157,334,5274
+NH,New Hampshire,33,04,AZ,Arizona,154,291,4491
+NH,New Hampshire,33,17,IL,Illinois,148,314,6669
+NH,New Hampshire,33,45,SC,South Carolina,147,300,3666
+NH,New Hampshire,33,53,WA,Washington,130,226,3661
+NH,New Hampshire,33,47,TN,Tennessee,89,163,3594
+NH,New Hampshire,33,55,WI,Wisconsin,79,151,3016
+NH,New Hampshire,33,15,HI,Hawaii,75,146,1953
+NH,New Hampshire,33,22,LA,Louisiana,70,132,1816
+NH,New Hampshire,33,27,MN,Minnesota,67,119,2196
+NH,New Hampshire,33,29,MO,Missouri,66,160,2824
+NH,New Hampshire,33,18,IN,Indiana,62,119,2664
+NH,New Hampshire,33,41,OR,Oregon,61,116,2795
+NH,New Hampshire,33,35,NM,New Mexico,45,84,1387
+NH,New Hampshire,33,01,AL,Alabama,44,90,1208
+NH,New Hampshire,33,21,KY,Kentucky,44,93,1117
+NH,New Hampshire,33,32,NV,Nevada,44,78,1006
+NH,New Hampshire,33,49,UT,Utah,41,75,1015
+NH,New Hampshire,33,02,AK,Alaska,41,84,1029
+NH,New Hampshire,33,11,DC,District of Columbia,41,65,1978
+NH,New Hampshire,33,10,DE,Delaware,40,83,1558
+NH,New Hampshire,33,40,OK,Oklahoma,40,89,1297
+NH,New Hampshire,33,20,KS,Kansas,35,73,994
+NH,New Hampshire,33,30,MT,Montana,34,73,774
+NH,New Hampshire,33,19,IA,Iowa,30,52,895
+NH,New Hampshire,33,54,WV,West Virginia,29,58,710
+NH,New Hampshire,33,05,AR,Arkansas,27,73,745
+NH,New Hampshire,33,31,NE,Nebraska,25,52,853
+NH,New Hampshire,33,16,ID,Idaho,23,53,866
+NH,New Hampshire,33,28,MS,Mississippi,22,48,650
+NH,New Hampshire,33,56,WY,Wyoming,15,22,393
+NH,New Hampshire,33,46,SD,South Dakota,13,27,294
+NH,New Hampshire,33,38,ND,North Dakota,10,19,248
+NH,New Hampshire,33,33,NH,NH Non-migrants,413986,913300,15455192
+NJ,New Jersey,34,96,US+FO,Total Migration-US and Foreign,74088,141858,3109968
+NJ,New Jersey,34,36,NY,New York,25498,50940,1265341
+NJ,New Jersey,34,42,PA,Pennsylvania,11775,21469,426713
+NJ,New Jersey,34,12,FL,Florida,5055,9028,126083
+NJ,New Jersey,34,57,FR,Foreign,4738,7842,143012
+NJ,New Jersey,34,06,CA,California,3929,7797,173722
+NJ,New Jersey,34,51,VA,Virginia,1998,3910,72858
+NJ,New Jersey,34,25,MA,Massachusetts,1935,3351,84843
+NJ,New Jersey,34,09,CT,Connecticut,1725,3180,97002
+NJ,New Jersey,34,48,TX,Texas,1622,3473,82699
+NJ,New Jersey,34,24,MD,Maryland,1589,2931,65023
+NJ,New Jersey,34,17,IL,Illinois,1416,3095,96586
+NJ,New Jersey,34,37,NC,North Carolina,1390,2724,41918
+NJ,New Jersey,34,39,OH,Ohio,1076,2123,51467
+NJ,New Jersey,34,13,GA,Georgia,1020,2078,45844
+NJ,New Jersey,34,26,MI,Michigan,719,1381,30218
+NJ,New Jersey,34,10,DE,Delaware,695,1325,25729
+NJ,New Jersey,34,45,SC,South Carolina,649,1252,15855
+NJ,New Jersey,34,08,CO,Colorado,507,949,20144
+NJ,New Jersey,34,04,AZ,Arizona,451,875,15474
+NJ,New Jersey,34,53,WA,Washington,422,831,12642
+NJ,New Jersey,34,18,IN,Indiana,401,797,24364
+NJ,New Jersey,34,47,TN,Tennessee,358,689,13598
+NJ,New Jersey,34,22,LA,Louisiana,348,715,12770
+NJ,New Jersey,34,29,MO,Missouri,340,687,15806
+NJ,New Jersey,34,33,NH,New Hampshire,332,636,14778
+NJ,New Jersey,34,44,RI,Rhode Island,298,541,10007
+NJ,New Jersey,34,11,DC,District of Columbia,290,399,9875
+NJ,New Jersey,34,27,MN,Minnesota,285,539,14029
+NJ,New Jersey,34,01,AL,Alabama,256,517,8418
+NJ,New Jersey,34,55,WI,Wisconsin,256,497,11949
+NJ,New Jersey,34,32,NV,Nevada,234,394,4808
+NJ,New Jersey,34,21,KY,Kentucky,231,498,9031
+NJ,New Jersey,34,23,ME,Maine,219,407,5702
+NJ,New Jersey,34,40,OK,Oklahoma,214,494,7166
+NJ,New Jersey,34,15,HI,Hawaii,209,394,5087
+NJ,New Jersey,34,50,VT,Vermont,191,305,4337
+NJ,New Jersey,34,20,KS,Kansas,187,393,7998
+NJ,New Jersey,34,41,OR,Oregon,140,266,5202
+NJ,New Jersey,34,19,IA,Iowa,135,230,4322
+NJ,New Jersey,34,54,WV,West Virginia,134,283,3841
+NJ,New Jersey,34,28,MS,Mississippi,117,241,3126
+NJ,New Jersey,34,35,NM,New Mexico,105,220,3439
+NJ,New Jersey,34,02,AK,Alaska,101,224,2599
+NJ,New Jersey,34,05,AR,Arkansas,101,197,2491
+NJ,New Jersey,34,49,UT,Utah,97,179,3761
+NJ,New Jersey,34,31,NE,Nebraska,91,175,3322
+NJ,New Jersey,34,30,MT,Montana,53,84,1061
+NJ,New Jersey,34,38,ND,North Dakota,51,99,1202
+NJ,New Jersey,34,56,WY,Wyoming,38,70,900
+NJ,New Jersey,34,16,ID,Idaho,37,82,1340
+NJ,New Jersey,34,46,SD,South Dakota,30,52,466
+NJ,New Jersey,34,34,NJ,NJ Non-migrants,2912810,6269946,130833999
+NM,New Mexico,35,96,US+FO,Total Migration-US and Foreign,34996,76991,887991
+NM,New Mexico,35,48,TX,Texas,6651,16126,154966
+NM,New Mexico,35,06,CA,California,5400,11205,147940
+NM,New Mexico,35,04,AZ,Arizona,3490,8988,71641
+NM,New Mexico,35,57,FR,Foreign,2341,5211,53604
+NM,New Mexico,35,08,CO,Colorado,2177,4557,50433
+NM,New Mexico,35,12,FL,Florida,1075,2135,25198
+NM,New Mexico,35,32,NV,Nevada,1029,2425,24795
+NM,New Mexico,35,36,NY,New York,891,1470,24105
+NM,New Mexico,35,17,IL,Illinois,710,1477,24353
+NM,New Mexico,35,40,OK,Oklahoma,669,1485,16341
+NM,New Mexico,35,53,WA,Washington,604,1183,16553
+NM,New Mexico,35,49,UT,Utah,593,1715,17841
+NM,New Mexico,35,51,VA,Virginia,559,1186,20436
+NM,New Mexico,35,39,OH,Ohio,499,922,13285
+NM,New Mexico,35,42,PA,Pennsylvania,479,849,13357
+NM,New Mexico,35,26,MI,Michigan,445,876,10996
+NM,New Mexico,35,20,KS,Kansas,441,1019,10605
+NM,New Mexico,35,25,MA,Massachusetts,391,633,11567
+NM,New Mexico,35,29,MO,Missouri,367,767,9826
+NM,New Mexico,35,37,NC,North Carolina,345,720,7960
+NM,New Mexico,35,22,LA,Louisiana,340,804,8959
+NM,New Mexico,35,41,OR,Oregon,335,624,7228
+NM,New Mexico,35,24,MD,Maryland,333,677,14831
+NM,New Mexico,35,13,GA,Georgia,313,756,9064
+NM,New Mexico,35,34,NJ,New Jersey,293,487,9459
+NM,New Mexico,35,27,MN,Minnesota,268,451,6967
+NM,New Mexico,35,05,AR,Arkansas,264,589,5709
+NM,New Mexico,35,02,AK,Alaska,256,628,8820
+NM,New Mexico,35,18,IN,Indiana,253,479,5286
+NM,New Mexico,35,55,WI,Wisconsin,251,449,5119
+NM,New Mexico,35,16,ID,Idaho,241,586,6627
+NM,New Mexico,35,45,SC,South Carolina,238,584,5955
+NM,New Mexico,35,47,TN,Tennessee,212,427,5474
+NM,New Mexico,35,56,WY,Wyoming,211,520,5937
+NM,New Mexico,35,15,HI,Hawaii,210,473,8427
+NM,New Mexico,35,01,AL,Alabama,199,463,5226
+NM,New Mexico,35,09,CT,Connecticut,191,333,8600
+NM,New Mexico,35,31,NE,Nebraska,190,400,5167
+NM,New Mexico,35,19,IA,Iowa,153,259,3649
+NM,New Mexico,35,30,MT,Montana,149,300,3487
+NM,New Mexico,35,21,KY,Kentucky,144,299,3022
+NM,New Mexico,35,28,MS,Mississippi,126,249,2515
+NM,New Mexico,35,23,ME,Maine,118,192,2565
+NM,New Mexico,35,46,SD,South Dakota,111,215,2327
+NM,New Mexico,35,33,NH,New Hampshire,86,141,2230
+NM,New Mexico,35,38,ND,North Dakota,79,177,2286
+NM,New Mexico,35,11,DC,District of Columbia,76,121,3289
+NM,New Mexico,35,50,VT,Vermont,72,112,1333
+NM,New Mexico,35,44,RI,Rhode Island,52,86,969
+NM,New Mexico,35,54,WV,West Virginia,44,93,867
+NM,New Mexico,35,10,DE,Delaware,32,68,795
+NM,New Mexico,35,35,NM,NM Non-migrants,516898,1217247,14443184
+NY,New York,36,96,US+FO,Total Migration-US and Foreign,111721,190365,3516873
+NY,New York,36,34,NJ,New Jersey,16417,28180,680236
+NY,New York,36,57,FR,Foreign,13675,20136,335339
+NY,New York,36,12,FL,Florida,10910,18608,242544
+NY,New York,36,06,CA,California,9513,15853,316316
+NY,New York,36,42,PA,Pennsylvania,7168,12764,211481
+NY,New York,36,09,CT,Connecticut,6242,10192,305883
+NY,New York,36,25,MA,Massachusetts,5884,8942,192608
+NY,New York,36,51,VA,Virginia,3780,7183,112228
+NY,New York,36,48,TX,Texas,3424,6552,117685
+NY,New York,36,37,NC,North Carolina,2685,5014,60826
+NY,New York,36,17,IL,Illinois,2660,4487,116902
+NY,New York,36,24,MD,Maryland,2624,4533,81312
+NY,New York,36,39,OH,Ohio,2462,4188,77695
+NY,New York,36,13,GA,Georgia,1998,3722,55833
+NY,New York,36,26,MI,Michigan,1875,3309,58206
+NY,New York,36,45,SC,South Carolina,1296,2568,25190
+NY,New York,36,08,CO,Colorado,1206,2041,33635
+NY,New York,36,04,AZ,Arizona,1140,1965,25975
+NY,New York,36,53,WA,Washington,1116,1989,28024
+NY,New York,36,50,VT,Vermont,983,1685,24949
+NY,New York,36,11,DC,District of Columbia,968,1212,32920
+NY,New York,36,33,NH,New Hampshire,926,1580,27142
+NY,New York,36,18,IN,Indiana,844,1515,24523
+NY,New York,36,23,ME,Maine,813,1459,20064
+NY,New York,36,44,RI,Rhode Island,812,1356,27294
+NY,New York,36,47,TN,Tennessee,803,1503,24323
+NY,New York,36,29,MO,Missouri,718,1285,23253
+NY,New York,36,22,LA,Louisiana,672,1232,15314
+NY,New York,36,15,HI,Hawaii,661,1404,16402
+NY,New York,36,55,WI,Wisconsin,657,1118,21681
+NY,New York,36,27,MN,Minnesota,645,1043,19958
+NY,New York,36,01,AL,Alabama,568,1173,16227
+NY,New York,36,21,KY,Kentucky,524,1023,14282
+NY,New York,36,20,KS,Kansas,498,1005,12801
+NY,New York,36,32,NV,Nevada,483,867,10995
+NY,New York,36,40,OK,Oklahoma,468,928,9991
+NY,New York,36,41,OR,Oregon,415,653,9107
+NY,New York,36,35,NM,New Mexico,404,764,9051
+NY,New York,36,10,DE,Delaware,348,589,12287
+NY,New York,36,19,IA,Iowa,329,554,8853
+NY,New York,36,02,AK,Alaska,301,715,8735
+NY,New York,36,28,MS,Mississippi,275,507,4957
+NY,New York,36,54,WV,West Virginia,268,508,7252
+NY,New York,36,49,UT,Utah,247,479,6220
+NY,New York,36,31,NE,Nebraska,236,473,12517
+NY,New York,36,05,AR,Arkansas,221,458,5368
+NY,New York,36,16,ID,Idaho,133,267,3295
+NY,New York,36,30,MT,Montana,125,206,2111
+NY,New York,36,38,ND,North Dakota,117,244,2821
+NY,New York,36,56,WY,Wyoming,93,162,2014
+NY,New York,36,46,SD,South Dakota,91,172,2248
+NY,New York,36,36,NY,NY Non-migrants,6226817,13319784,249754633
+NC,North Carolina,37,96,US+FO,Total Migration-US and Foreign,107593,223917,3132119
+NC,North Carolina,37,12,FL,Florida,10451,21470,283922
+NC,North Carolina,37,51,VA,Virginia,10258,20871,290422
+NC,North Carolina,37,45,SC,South Carolina,8589,17571,223880
+NC,North Carolina,37,57,FR,Foreign,8412,17721,174909
+NC,North Carolina,37,36,NY,New York,7106,14092,229350
+NC,North Carolina,37,06,CA,California,5929,13354,200945
+NC,North Carolina,37,13,GA,Georgia,5453,11473,168184
+NC,North Carolina,37,48,TX,Texas,5099,11562,158246
+NC,North Carolina,37,42,PA,Pennsylvania,3792,7394,117132
+NC,North Carolina,37,34,NJ,New Jersey,3599,7349,147592
+NC,North Carolina,37,39,OH,Ohio,3487,6835,99221
+NC,North Carolina,37,24,MD,Maryland,3242,6577,98649
+NC,North Carolina,37,47,TN,Tennessee,2836,6040,82060
+NC,North Carolina,37,26,MI,Michigan,2299,4488,66644
+NC,North Carolina,37,17,IL,Illinois,2263,4595,90847
+NC,North Carolina,37,54,WV,West Virginia,1857,3597,36695
+NC,North Carolina,37,25,MA,Massachusetts,1683,3288,57304
+NC,North Carolina,37,09,CT,Connecticut,1650,3235,65818
+NC,North Carolina,37,01,AL,Alabama,1596,3487,45149
+NC,North Carolina,37,21,KY,Kentucky,1387,3086,39292
+NC,North Carolina,37,18,IN,Indiana,1269,2517,37562
+NC,North Carolina,37,22,LA,Louisiana,1241,2780,32371
+NC,North Carolina,37,29,MO,Missouri,1058,2267,30058
+NC,North Carolina,37,53,WA,Washington,1019,2244,25677
+NC,North Carolina,37,08,CO,Colorado,929,2033,27668
+NC,North Carolina,37,04,AZ,Arizona,915,2001,24167
+NC,North Carolina,37,15,HI,Hawaii,838,2266,21260
+NC,North Carolina,37,40,OK,Oklahoma,781,1761,20514
+NC,North Carolina,37,55,WI,Wisconsin,712,1355,21534
+NC,North Carolina,37,28,MS,Mississippi,706,1531,19597
+NC,North Carolina,37,20,KS,Kansas,662,1595,20680
+NC,North Carolina,37,05,AR,Arkansas,598,1294,14785
+NC,North Carolina,37,27,MN,Minnesota,562,1063,22180
+NC,North Carolina,37,11,DC,District of Columbia,553,1018,12043
+NC,North Carolina,37,33,NH,New Hampshire,470,953,13752
+NC,North Carolina,37,19,IA,Iowa,468,930,12385
+NC,North Carolina,37,02,AK,Alaska,399,1033,10546
+NC,North Carolina,37,23,ME,Maine,387,769,8037
+NC,North Carolina,37,35,NM,New Mexico,374,846,9127
+NC,North Carolina,37,10,DE,Delaware,374,821,14594
+NC,North Carolina,37,32,NV,Nevada,315,667,7642
+NC,North Carolina,37,41,OR,Oregon,299,566,7498
+NC,North Carolina,37,44,RI,Rhode Island,288,604,8166
+NC,North Carolina,37,31,NE,Nebraska,253,512,6693
+NC,North Carolina,37,50,VT,Vermont,248,486,6614
+NC,North Carolina,37,49,UT,Utah,245,567,6673
+NC,North Carolina,37,16,ID,Idaho,149,333,3202
+NC,North Carolina,37,38,ND,North Dakota,145,291,3383
+NC,North Carolina,37,30,MT,Montana,139,270,2703
+NC,North Carolina,37,46,SD,South Dakota,118,267,2668
+NC,North Carolina,37,56,WY,Wyoming,91,192,2079
+NC,North Carolina,37,37,NC,NC Non-migrants,2439408,5430745,76724257
+ND,North Dakota,38,96,US+FO,Total Migration-US and Foreign,9961,19737,207635
+ND,North Dakota,38,27,MN,Minnesota,2804,4774,54162
+ND,North Dakota,38,57,FR,Foreign,783,1712,13457
+ND,North Dakota,38,06,CA,California,650,1296,15393
+ND,North Dakota,38,46,SD,South Dakota,585,1177,11297
+ND,North Dakota,38,48,TX,Texas,457,1084,10897
+ND,North Dakota,38,30,MT,Montana,446,914,8077
+ND,North Dakota,38,53,WA,Washington,279,533,5465
+ND,North Dakota,38,08,CO,Colorado,264,505,6110
+ND,North Dakota,38,04,AZ,Arizona,245,515,5378
+ND,North Dakota,38,12,FL,Florida,214,408,3725
+ND,North Dakota,38,26,MI,Michigan,192,451,4523
+ND,North Dakota,38,55,WI,Wisconsin,188,365,4236
+ND,North Dakota,38,17,IL,Illinois,187,397,4918
+ND,North Dakota,38,19,IA,Iowa,167,343,3717
+ND,North Dakota,38,31,NE,Nebraska,153,356,4453
+ND,North Dakota,38,56,WY,Wyoming,133,263,3485
+ND,North Dakota,38,39,OH,Ohio,122,238,2317
+ND,North Dakota,38,42,PA,Pennsylvania,118,204,2211
+ND,North Dakota,38,29,MO,Missouri,117,253,2673
+ND,North Dakota,38,51,VA,Virginia,115,222,2846
+ND,North Dakota,38,37,NC,North Carolina,112,219,2254
+ND,North Dakota,38,36,NY,New York,109,187,2160
+ND,North Dakota,38,41,OR,Oregon,105,220,2123
+ND,North Dakota,38,32,NV,Nevada,104,206,2075
+ND,North Dakota,38,22,LA,Louisiana,96,227,1810
+ND,North Dakota,38,18,IN,Indiana,93,196,1787
+ND,North Dakota,38,40,OK,Oklahoma,90,202,2069
+ND,North Dakota,38,02,AK,Alaska,83,217,2235
+ND,North Dakota,38,20,KS,Kansas,80,189,2175
+ND,North Dakota,38,13,GA,Georgia,71,162,1581
+ND,North Dakota,38,16,ID,Idaho,71,161,1321
+ND,North Dakota,38,45,SC,South Carolina,68,166,1372
+ND,North Dakota,38,05,AR,Arkansas,64,155,1320
+ND,North Dakota,38,24,MD,Maryland,56,109,1293
+ND,North Dakota,38,35,NM,New Mexico,56,127,1422
+ND,North Dakota,38,21,KY,Kentucky,55,128,1084
+ND,North Dakota,38,49,UT,Utah,52,128,1082
+ND,North Dakota,38,25,MA,Massachusetts,51,104,1129
+ND,North Dakota,38,28,MS,Mississippi,50,106,1105
+ND,North Dakota,38,01,AL,Alabama,49,93,1548
+ND,North Dakota,38,47,TN,Tennessee,47,86,746
+ND,North Dakota,38,34,NJ,New Jersey,40,74,1222
+ND,North Dakota,38,15,HI,Hawaii,35,75,711
+ND,North Dakota,38,33,NH,New Hampshire,22,39,848
+ND,North Dakota,38,54,WV,West Virginia,18,31,414
+ND,North Dakota,38,23,ME,Maine,18,28,340
+ND,North Dakota,38,09,CT,Connecticut,18,28,346
+ND,North Dakota,38,44,RI,Rhode Island,10,16,227
+ND,North Dakota,38,11,DC,District of Columbia,9,20,204
+ND,North Dakota,38,10,DE,Delaware,7,15,126
+ND,North Dakota,38,50,VT,Vermont,3,13,166
+ND,North Dakota,38,38,ND,ND Non-migrants,224627,521264,6856110
+OH,Ohio,39,96,US+FO,Total Migration-US and Foreign,81917,164435,2478531
+OH,Ohio,39,12,FL,Florida,7473,14059,168076
+OH,Ohio,39,57,FR,Foreign,6287,10304,127302
+OH,Ohio,39,06,CA,California,6054,12360,199838
+OH,Ohio,39,26,MI,Michigan,5645,11021,184068
+OH,Ohio,39,42,PA,Pennsylvania,4923,9480,156821
+OH,Ohio,39,21,KY,Kentucky,4699,9071,117120
+OH,Ohio,39,18,IN,Indiana,4633,9298,138719
+OH,Ohio,39,48,TX,Texas,3589,8035,121573
+OH,Ohio,39,17,IL,Illinois,3460,7199,139924
+OH,Ohio,39,36,NY,New York,3170,6085,106756
+OH,Ohio,39,51,VA,Virginia,2875,6187,88651
+OH,Ohio,39,54,WV,West Virginia,2737,5465,57449
+OH,Ohio,39,37,NC,North Carolina,2597,5710,68117
+OH,Ohio,39,13,GA,Georgia,2131,4556,63226
+OH,Ohio,39,47,TN,Tennessee,1609,3468,49352
+OH,Ohio,39,24,MD,Maryland,1503,3150,56231
+OH,Ohio,39,34,NJ,New Jersey,1483,2986,76465
+OH,Ohio,39,45,SC,South Carolina,1308,2875,34764
+OH,Ohio,39,04,AZ,Arizona,1305,2608,33427
+OH,Ohio,39,29,MO,Missouri,1132,2430,42432
+OH,Ohio,39,08,CO,Colorado,1124,2362,32380
+OH,Ohio,39,25,MA,Massachusetts,1093,2095,52142
+OH,Ohio,39,09,CT,Connecticut,870,1798,55794
+OH,Ohio,39,01,AL,Alabama,784,1751,19814
+OH,Ohio,39,53,WA,Washington,783,1656,21663
+OH,Ohio,39,55,WI,Wisconsin,740,1423,28017
+OH,Ohio,39,22,LA,Louisiana,678,1502,19753
+OH,Ohio,39,40,OK,Oklahoma,670,1522,18942
+OH,Ohio,39,20,KS,Kansas,631,1452,22530
+OH,Ohio,39,27,MN,Minnesota,600,1165,21678
+OH,Ohio,39,32,NV,Nevada,463,872,9350
+OH,Ohio,39,19,IA,Iowa,447,942,14088
+OH,Ohio,39,15,HI,Hawaii,429,910,10607
+OH,Ohio,39,35,NM,New Mexico,371,849,10427
+OH,Ohio,39,28,MS,Mississippi,358,805,7824
+OH,Ohio,39,49,UT,Utah,299,727,9885
+OH,Ohio,39,05,AR,Arkansas,297,673,7343
+OH,Ohio,39,41,OR,Oregon,288,618,9812
+OH,Ohio,39,31,NE,Nebraska,281,683,10169
+OH,Ohio,39,02,AK,Alaska,252,606,7233
+OH,Ohio,39,23,ME,Maine,245,517,6016
+OH,Ohio,39,33,NH,New Hampshire,237,464,8386
+OH,Ohio,39,11,DC,District of Columbia,231,356,6494
+OH,Ohio,39,10,DE,Delaware,216,426,8986
+OH,Ohio,39,44,RI,Rhode Island,204,419,7486
+OH,Ohio,39,38,ND,North Dakota,148,326,3854
+OH,Ohio,39,16,ID,Idaho,132,291,4128
+OH,Ohio,39,46,SD,South Dakota,121,282,3750
+OH,Ohio,39,30,MT,Montana,117,222,2938
+OH,Ohio,39,50,VT,Vermont,101,165,2852
+OH,Ohio,39,56,WY,Wyoming,94,209,3879
+OH,Ohio,39,39,OH,OH Non-migrants,4102447,8727797,134055229
+OK,Oklahoma,40,96,US+FO,Total Migration-US and Foreign,44325,97845,1056689
+OK,Oklahoma,40,48,TX,Texas,9452,21311,249999
+OK,Oklahoma,40,06,CA,California,4708,10238,109496
+OK,Oklahoma,40,57,FR,Foreign,3894,8487,78873
+OK,Oklahoma,40,20,KS,Kansas,2658,5899,64613
+OK,Oklahoma,40,05,AR,Arkansas,2384,5434,43882
+OK,Oklahoma,40,29,MO,Missouri,1828,3909,40523
+OK,Oklahoma,40,12,FL,Florida,1458,3106,34315
+OK,Oklahoma,40,08,CO,Colorado,1286,2716,30772
+OK,Oklahoma,40,04,AZ,Arizona,1014,2254,23495
+OK,Oklahoma,40,17,IL,Illinois,966,2069,27210
+OK,Oklahoma,40,22,LA,Louisiana,848,2016,22925
+OK,Oklahoma,40,51,VA,Virginia,800,1825,21758
+OK,Oklahoma,40,13,GA,Georgia,753,1646,17658
+OK,Oklahoma,40,35,NM,New Mexico,751,1779,19007
+OK,Oklahoma,40,39,OH,Ohio,687,1423,15837
+OK,Oklahoma,40,53,WA,Washington,679,1533,15164
+OK,Oklahoma,40,37,NC,North Carolina,678,1477,15486
+OK,Oklahoma,40,36,NY,New York,627,1327,14585
+OK,Oklahoma,40,47,TN,Tennessee,605,1305,13901
+OK,Oklahoma,40,15,HI,Hawaii,583,1409,14582
+OK,Oklahoma,40,26,MI,Michigan,575,1221,13416
+OK,Oklahoma,40,24,MD,Maryland,542,1346,15193
+OK,Oklahoma,40,42,PA,Pennsylvania,443,898,11577
+OK,Oklahoma,40,18,IN,Indiana,440,931,10105
+OK,Oklahoma,40,01,AL,Alabama,415,943,9856
+OK,Oklahoma,40,45,SC,South Carolina,402,944,9703
+OK,Oklahoma,40,32,NV,Nevada,392,809,7176
+OK,Oklahoma,40,19,IA,Iowa,365,753,7231
+OK,Oklahoma,40,28,MS,Mississippi,364,784,6772
+OK,Oklahoma,40,31,NE,Nebraska,362,744,8346
+OK,Oklahoma,40,21,KY,Kentucky,327,748,7098
+OK,Oklahoma,40,41,OR,Oregon,310,650,4937
+OK,Oklahoma,40,27,MN,Minnesota,297,623,7201
+OK,Oklahoma,40,55,WI,Wisconsin,291,552,7018
+OK,Oklahoma,40,02,AK,Alaska,286,738,8280
+OK,Oklahoma,40,34,NJ,New Jersey,278,597,8673
+OK,Oklahoma,40,25,MA,Massachusetts,216,384,4930
+OK,Oklahoma,40,49,UT,Utah,185,479,4608
+OK,Oklahoma,40,56,WY,Wyoming,179,422,4940
+OK,Oklahoma,40,30,MT,Montana,134,316,3311
+OK,Oklahoma,40,09,CT,Connecticut,126,238,3991
+OK,Oklahoma,40,46,SD,South Dakota,117,261,2837
+OK,Oklahoma,40,16,ID,Idaho,107,254,2061
+OK,Oklahoma,40,38,ND,North Dakota,102,242,2796
+OK,Oklahoma,40,23,ME,Maine,95,201,2193
+OK,Oklahoma,40,54,WV,West Virginia,86,156,1755
+OK,Oklahoma,40,33,NH,New Hampshire,70,138,1898
+OK,Oklahoma,40,44,RI,Rhode Island,49,85,1139
+OK,Oklahoma,40,11,DC,District of Columbia,43,73,1169
+OK,Oklahoma,40,10,DE,Delaware,42,102,1834
+OK,Oklahoma,40,50,VT,Vermont,26,50,564
+OK,Oklahoma,40,40,OK,OK Non-migrants,1017473,2359791,30549712
+OR,Oregon,41,96,US+FO,Total Migration-US and Foreign,51485,102570,1392814
+OR,Oregon,41,06,CA,California,19648,41288,569455
+OR,Oregon,41,53,WA,Washington,8923,16915,225812
+OR,Oregon,41,57,FR,Foreign,1878,3103,37272
+OR,Oregon,41,04,AZ,Arizona,1702,3496,41226
+OR,Oregon,41,16,ID,Idaho,1534,3389,34168
+OR,Oregon,41,48,TX,Texas,1448,3157,42671
+OR,Oregon,41,32,NV,Nevada,1206,2280,26427
+OR,Oregon,41,08,CO,Colorado,1153,2170,31874
+OR,Oregon,41,02,AK,Alaska,1097,2103,29625
+OR,Oregon,41,12,FL,Florida,772,1497,19146
+OR,Oregon,41,36,NY,New York,751,1263,19740
+OR,Oregon,41,49,UT,Utah,746,1854,19375
+OR,Oregon,41,15,HI,Hawaii,737,1403,19920
+OR,Oregon,41,17,IL,Illinois,721,1347,24031
+OR,Oregon,41,30,MT,Montana,631,1120,11190
+OR,Oregon,41,26,MI,Michigan,504,914,17458
+OR,Oregon,41,25,MA,Massachusetts,458,702,15530
+OR,Oregon,41,51,VA,Virginia,458,930,16330
+OR,Oregon,41,27,MN,Minnesota,456,763,11521
+OR,Oregon,41,39,OH,Ohio,442,835,11886
+OR,Oregon,41,35,NM,New Mexico,394,768,11530
+OR,Oregon,41,42,PA,Pennsylvania,377,682,12342
+OR,Oregon,41,55,WI,Wisconsin,376,670,9594
+OR,Oregon,41,29,MO,Missouri,372,729,10070
+OR,Oregon,41,34,NJ,New Jersey,344,606,11560
+OR,Oregon,41,37,NC,North Carolina,336,686,8902
+OR,Oregon,41,13,GA,Georgia,311,669,9262
+OR,Oregon,41,20,KS,Kansas,301,660,7566
+OR,Oregon,41,40,OK,Oklahoma,293,640,7103
+OR,Oregon,41,24,MD,Maryland,286,543,9408
+OR,Oregon,41,09,CT,Connecticut,238,378,6512
+OR,Oregon,41,18,IN,Indiana,230,424,6076
+OR,Oregon,41,56,WY,Wyoming,225,451,6114
+OR,Oregon,41,19,IA,Iowa,215,410,4901
+OR,Oregon,41,22,LA,Louisiana,198,376,4373
+OR,Oregon,41,31,NE,Nebraska,198,413,5838
+OR,Oregon,41,47,TN,Tennessee,182,349,4137
+OR,Oregon,41,45,SC,South Carolina,142,278,3390
+OR,Oregon,41,05,AR,Arkansas,139,299,3296
+OR,Oregon,41,01,AL,Alabama,138,291,3441
+OR,Oregon,41,21,KY,Kentucky,135,288,3588
+OR,Oregon,41,46,SD,South Dakota,125,232,2460
+OR,Oregon,41,38,ND,North Dakota,114,236,2563
+OR,Oregon,41,33,NH,New Hampshire,106,176,2721
+OR,Oregon,41,23,ME,Maine,103,183,2465
+OR,Oregon,41,11,DC,District of Columbia,88,149,3196
+OR,Oregon,41,28,MS,Mississippi,86,179,1981
+OR,Oregon,41,50,VT,Vermont,60,88,1038
+OR,Oregon,41,44,RI,Rhode Island,40,70,877
+OR,Oregon,41,10,DE,Delaware,40,70,1199
+OR,Oregon,41,54,WV,West Virginia,28,48,654
+OR,Oregon,41,41,OR,OR Non-migrants,1011579,2253511,33457892
+PA,Pennsylvania,42,96,US+FO,Total Migration-US and Foreign,90384,176386,3037027
+PA,Pennsylvania,42,34,NJ,New Jersey,13955,26289,520644
+PA,Pennsylvania,42,36,NY,New York,10452,20982,415041
+PA,Pennsylvania,42,57,FR,Foreign,7486,11542,132291
+PA,Pennsylvania,42,24,MD,Maryland,6512,13106,221239
+PA,Pennsylvania,42,12,FL,Florida,6406,12024,154449
+PA,Pennsylvania,42,06,CA,California,5285,10594,193837
+PA,Pennsylvania,42,51,VA,Virginia,4570,9075,140408
+PA,Pennsylvania,42,39,OH,Ohio,4522,8849,154563
+PA,Pennsylvania,42,48,TX,Texas,2578,5671,96781
+PA,Pennsylvania,42,37,NC,North Carolina,2534,5356,72608
+PA,Pennsylvania,42,10,DE,Delaware,2153,4218,81268
+PA,Pennsylvania,42,25,MA,Massachusetts,2016,3678,83991
+PA,Pennsylvania,42,17,IL,Illinois,1798,3738,85199
+PA,Pennsylvania,42,09,CT,Connecticut,1613,3085,79386
+PA,Pennsylvania,42,26,MI,Michigan,1444,2920,58446
+PA,Pennsylvania,42,13,GA,Georgia,1438,3076,46717
+PA,Pennsylvania,42,54,WV,West Virginia,1192,2391,36737
+PA,Pennsylvania,42,45,SC,South Carolina,1093,2243,27461
+PA,Pennsylvania,42,18,IN,Indiana,931,2038,47143
+PA,Pennsylvania,42,08,CO,Colorado,911,1770,27441
+PA,Pennsylvania,42,04,AZ,Arizona,882,1714,22524
+PA,Pennsylvania,42,47,TN,Tennessee,827,1693,27458
+PA,Pennsylvania,42,53,WA,Washington,731,1468,21490
+PA,Pennsylvania,42,29,MO,Missouri,645,1362,25205
+PA,Pennsylvania,42,21,KY,Kentucky,592,1352,19882
+PA,Pennsylvania,42,22,LA,Louisiana,528,1196,16298
+PA,Pennsylvania,42,11,DC,District of Columbia,521,723,14477
+PA,Pennsylvania,42,55,WI,Wisconsin,473,977,19612
+PA,Pennsylvania,42,01,AL,Alabama,444,990,14313
+PA,Pennsylvania,42,23,ME,Maine,432,914,13206
+PA,Pennsylvania,42,33,NH,New Hampshire,426,871,17241
+PA,Pennsylvania,42,20,KS,Kansas,423,950,14159
+PA,Pennsylvania,42,27,MN,Minnesota,419,845,17177
+PA,Pennsylvania,42,15,HI,Hawaii,415,870,10528
+PA,Pennsylvania,42,40,OK,Oklahoma,412,894,11397
+PA,Pennsylvania,42,32,NV,Nevada,351,676,8161
+PA,Pennsylvania,42,44,RI,Rhode Island,340,660,10398
+PA,Pennsylvania,42,35,NM,New Mexico,314,615,8513
+PA,Pennsylvania,42,28,MS,Mississippi,268,620,7020
+PA,Pennsylvania,42,19,IA,Iowa,265,566,10186
+PA,Pennsylvania,42,41,OR,Oregon,246,488,7570
+PA,Pennsylvania,42,50,VT,Vermont,229,432,6722
+PA,Pennsylvania,42,05,AR,Arkansas,224,477,6621
+PA,Pennsylvania,42,49,UT,Utah,198,452,5778
+PA,Pennsylvania,42,02,AK,Alaska,197,473,5551
+PA,Pennsylvania,42,31,NE,Nebraska,192,403,6488
+PA,Pennsylvania,42,16,ID,Idaho,113,248,3407
+PA,Pennsylvania,42,56,WY,Wyoming,108,223,2604
+PA,Pennsylvania,42,30,MT,Montana,98,186,2108
+PA,Pennsylvania,42,38,ND,North Dakota,94,212,2856
+PA,Pennsylvania,42,46,SD,South Dakota,88,191,2427
+PA,Pennsylvania,42,42,PA,PA Non-migrants,4409247,9554677,154786166
+RI,Rhode Island,44,96,US+FO,Total Migration-US and Foreign,11396,20651,365045
+RI,Rhode Island,44,25,MA,Massachusetts,3098,5173,102942
+RI,Rhode Island,44,09,CT,Connecticut,1109,1831,39403
+RI,Rhode Island,44,36,NY,New York,1035,1690,38393
+RI,Rhode Island,44,12,FL,Florida,803,1505,17948
+RI,Rhode Island,44,57,FR,Foreign,802,1290,14908
+RI,Rhode Island,44,06,CA,California,726,1529,23347
+RI,Rhode Island,44,34,NJ,New Jersey,418,794,17119
+RI,Rhode Island,44,51,VA,Virginia,400,983,17096
+RI,Rhode Island,44,42,PA,Pennsylvania,302,603,10898
+RI,Rhode Island,44,23,ME,Maine,234,424,6259
+RI,Rhode Island,44,48,TX,Texas,216,453,7110
+RI,Rhode Island,44,33,NH,New Hampshire,214,402,6457
+RI,Rhode Island,44,24,MD,Maryland,166,330,5980
+RI,Rhode Island,44,37,NC,North Carolina,157,340,4441
+RI,Rhode Island,44,17,IL,Illinois,143,273,4533
+RI,Rhode Island,44,39,OH,Ohio,141,245,4633
+RI,Rhode Island,44,26,MI,Michigan,114,181,5547
+RI,Rhode Island,44,13,GA,Georgia,110,233,3156
+RI,Rhode Island,44,45,SC,South Carolina,103,243,2727
+RI,Rhode Island,44,50,VT,Vermont,94,134,1956
+RI,Rhode Island,44,53,WA,Washington,78,151,2202
+RI,Rhode Island,44,04,AZ,Arizona,76,147,2341
+RI,Rhode Island,44,15,HI,Hawaii,72,161,2173
+RI,Rhode Island,44,08,CO,Colorado,71,137,1814
+RI,Rhode Island,44,18,IN,Indiana,58,119,2315
+RI,Rhode Island,44,22,LA,Louisiana,55,130,1680
+RI,Rhode Island,44,27,MN,Minnesota,53,90,1363
+RI,Rhode Island,44,29,MO,Missouri,49,104,1849
+RI,Rhode Island,44,47,TN,Tennessee,40,76,1281
+RI,Rhode Island,44,55,WI,Wisconsin,39,69,1240
+RI,Rhode Island,44,11,DC,District of Columbia,39,54,1629
+RI,Rhode Island,44,10,DE,Delaware,34,69,897
+RI,Rhode Island,44,20,KS,Kansas,31,66,1016
+RI,Rhode Island,44,01,AL,Alabama,30,58,759
+RI,Rhode Island,44,32,NV,Nevada,28,42,377
+RI,Rhode Island,44,41,OR,Oregon,27,54,795
+RI,Rhode Island,44,28,MS,Mississippi,25,41,515
+RI,Rhode Island,44,40,OK,Oklahoma,23,47,460
+RI,Rhode Island,44,21,KY,Kentucky,23,51,784
+RI,Rhode Island,44,54,WV,West Virginia,22,45,555
+RI,Rhode Island,44,19,IA,Iowa,20,38,391
+RI,Rhode Island,44,31,NE,Nebraska,20,44,1046
+RI,Rhode Island,44,02,AK,Alaska,19,36,715
+RI,Rhode Island,44,49,UT,Utah,18,48,489
+RI,Rhode Island,44,05,AR,Arkansas,16,32,409
+RI,Rhode Island,44,35,NM,New Mexico,16,26,238
+RI,Rhode Island,44,16,ID,Idaho,12,26,505
+RI,Rhode Island,44,30,MT,Montana,9,18,179
+RI,Rhode Island,44,46,SD,South Dakota,5,9,104
+RI,Rhode Island,44,38,ND,North Dakota,3,7,71
+RI,Rhode Island,44,44,RI,RI Non-migrants,354155,741783,12505708
+SC,South Carolina,45,96,US+FO,Total Migration-US and Foreign,53060,112276,1541854
+SC,South Carolina,45,37,NC,North Carolina,8042,16775,219042
+SC,South Carolina,45,13,GA,Georgia,5113,10683,140903
+SC,South Carolina,45,12,FL,Florida,5054,10587,127999
+SC,South Carolina,45,57,FR,Foreign,4041,8347,91728
+SC,South Carolina,45,36,NY,New York,2970,5909,88578
+SC,South Carolina,45,51,VA,Virginia,2813,6170,81963
+SC,South Carolina,45,06,CA,California,2199,5057,68009
+SC,South Carolina,45,39,OH,Ohio,1880,3679,68318
+SC,South Carolina,45,48,TX,Texas,1867,4285,54510
+SC,South Carolina,45,42,PA,Pennsylvania,1741,3404,65925
+SC,South Carolina,45,34,NJ,New Jersey,1441,3026,60329
+SC,South Carolina,45,47,TN,Tennessee,1413,3012,40756
+SC,South Carolina,45,24,MD,Maryland,1326,2906,42179
+SC,South Carolina,45,17,IL,Illinois,1094,2349,47904
+SC,South Carolina,45,26,MI,Michigan,1079,2102,28866
+SC,South Carolina,45,09,CT,Connecticut,907,1916,37197
+SC,South Carolina,45,01,AL,Alabama,869,1897,27432
+SC,South Carolina,45,22,LA,Louisiana,693,1718,18029
+SC,South Carolina,45,25,MA,Massachusetts,687,1305,21416
+SC,South Carolina,45,21,KY,Kentucky,671,1451,16618
+SC,South Carolina,45,18,IN,Indiana,622,1213,17636
+SC,South Carolina,45,54,WV,West Virginia,517,996,11222
+SC,South Carolina,45,08,CO,Colorado,442,971,11533
+SC,South Carolina,45,29,MO,Missouri,433,906,12637
+SC,South Carolina,45,28,MS,Mississippi,407,902,9501
+SC,South Carolina,45,40,OK,Oklahoma,351,835,9830
+SC,South Carolina,45,04,AZ,Arizona,344,743,8002
+SC,South Carolina,45,53,WA,Washington,333,785,9457
+SC,South Carolina,45,55,WI,Wisconsin,330,652,11295
+SC,South Carolina,45,15,HI,Hawaii,320,845,8780
+SC,South Carolina,45,20,KS,Kansas,273,691,8218
+SC,South Carolina,45,05,AR,Arkansas,271,631,7060
+SC,South Carolina,45,44,RI,Rhode Island,240,595,7464
+SC,South Carolina,45,23,ME,Maine,227,516,6322
+SC,South Carolina,45,33,NH,New Hampshire,206,400,5952
+SC,South Carolina,45,11,DC,District of Columbia,194,381,3941
+SC,South Carolina,45,19,IA,Iowa,193,366,5670
+SC,South Carolina,45,32,NV,Nevada,177,429,4235
+SC,South Carolina,45,27,MN,Minnesota,168,323,5098
+SC,South Carolina,45,10,DE,Delaware,155,335,6057
+SC,South Carolina,45,35,NM,New Mexico,154,353,3484
+SC,South Carolina,45,02,AK,Alaska,143,381,3837
+SC,South Carolina,45,31,NE,Nebraska,117,266,2937
+SC,South Carolina,45,50,VT,Vermont,101,207,2240
+SC,South Carolina,45,49,UT,Utah,94,216,2334
+SC,South Carolina,45,41,OR,Oregon,91,174,2048
+SC,South Carolina,45,16,ID,Idaho,66,148,2665
+SC,South Carolina,45,46,SD,South Dakota,55,123,1155
+SC,South Carolina,45,30,MT,Montana,49,100,1058
+SC,South Carolina,45,38,ND,North Dakota,49,125,1527
+SC,South Carolina,45,56,WY,Wyoming,38,90,958
+SC,South Carolina,45,45,SC,SC Non-migrants,1227063,2806681,36184973
+SD,South Dakota,46,96,US+FO,Total Migration-US and Foreign,11576,23832,290730
+SD,South Dakota,46,27,MN,Minnesota,1504,2775,40424
+SD,South Dakota,46,19,IA,Iowa,1062,1942,33475
+SD,South Dakota,46,06,CA,California,987,2126,27808
+SD,South Dakota,46,31,NE,Nebraska,795,1617,20949
+SD,South Dakota,46,57,FR,Foreign,708,1322,11472
+SD,South Dakota,46,38,ND,North Dakota,672,1438,15647
+SD,South Dakota,46,08,CO,Colorado,518,1055,11302
+SD,South Dakota,46,48,TX,Texas,464,1106,12576
+SD,South Dakota,46,56,WY,Wyoming,443,956,8652
+SD,South Dakota,46,04,AZ,Arizona,342,681,7702
+SD,South Dakota,46,53,WA,Washington,272,555,5701
+SD,South Dakota,46,30,MT,Montana,269,593,5955
+SD,South Dakota,46,17,IL,Illinois,248,560,8552
+SD,South Dakota,46,12,FL,Florida,239,510,5839
+SD,South Dakota,46,55,WI,Wisconsin,238,447,6544
+SD,South Dakota,46,20,KS,Kansas,226,491,5455
+SD,South Dakota,46,29,MO,Missouri,176,413,4418
+SD,South Dakota,46,32,NV,Nevada,153,342,3486
+SD,South Dakota,46,26,MI,Michigan,144,313,4219
+SD,South Dakota,46,36,NY,New York,135,232,2643
+SD,South Dakota,46,39,OH,Ohio,124,249,3466
+SD,South Dakota,46,51,VA,Virginia,119,254,3307
+SD,South Dakota,46,41,OR,Oregon,118,254,2605
+SD,South Dakota,46,40,OK,Oklahoma,118,241,2210
+SD,South Dakota,46,37,NC,North Carolina,117,249,2596
+SD,South Dakota,46,35,NM,New Mexico,117,247,2834
+SD,South Dakota,46,42,PA,Pennsylvania,100,207,2338
+SD,South Dakota,46,02,AK,Alaska,99,268,2647
+SD,South Dakota,46,49,UT,Utah,82,204,1750
+SD,South Dakota,46,18,IN,Indiana,82,204,2086
+SD,South Dakota,46,22,LA,Louisiana,78,209,1666
+SD,South Dakota,46,13,GA,Georgia,78,167,1893
+SD,South Dakota,46,16,ID,Idaho,72,153,1824
+SD,South Dakota,46,05,AR,Arkansas,67,160,1258
+SD,South Dakota,46,25,MA,Massachusetts,62,125,1686
+SD,South Dakota,46,45,SC,South Carolina,59,150,1276
+SD,South Dakota,46,47,TN,Tennessee,58,120,1534
+SD,South Dakota,46,21,KY,Kentucky,56,129,1244
+SD,South Dakota,46,01,AL,Alabama,55,137,1552
+SD,South Dakota,46,34,NJ,New Jersey,52,96,1540
+SD,South Dakota,46,24,MD,Maryland,51,110,1458
+SD,South Dakota,46,15,HI,Hawaii,48,96,1048
+SD,South Dakota,46,09,CT,Connecticut,34,58,916
+SD,South Dakota,46,23,ME,Maine,30,70,810
+SD,South Dakota,46,33,NH,New Hampshire,27,49,605
+SD,South Dakota,46,28,MS,Mississippi,23,51,436
+SD,South Dakota,46,54,WV,West Virginia,16,41,411
+SD,South Dakota,46,10,DE,Delaware,11,19,196
+SD,South Dakota,46,11,DC,District of Columbia,11,12,379
+SD,South Dakota,46,44,RI,Rhode Island,9,15,124
+SD,South Dakota,46,50,VT,Vermont,8,14,216
+SD,South Dakota,46,46,SD,SD Non-migrants,248586,581602,7130068
+TN,Tennessee,47,96,US+FO,Total Migration-US and Foreign,72268,154710,2039372
+TN,Tennessee,47,12,FL,Florida,6355,13168,157482
+TN,Tennessee,47,13,GA,Georgia,5667,11833,152545
+TN,Tennessee,47,21,KY,Kentucky,4718,10259,109744
+TN,Tennessee,47,48,TX,Texas,4088,9276,138554
+TN,Tennessee,47,06,CA,California,4040,8852,126609
+TN,Tennessee,47,28,MS,Mississippi,3731,7765,85726
+TN,Tennessee,47,57,FR,Foreign,3573,7429,70492
+TN,Tennessee,47,51,VA,Virginia,3339,6898,90381
+TN,Tennessee,47,37,NC,North Carolina,3194,7066,92612
+TN,Tennessee,47,01,AL,Alabama,3155,6848,93248
+TN,Tennessee,47,17,IL,Illinois,3077,6770,100552
+TN,Tennessee,47,26,MI,Michigan,2921,6345,89028
+TN,Tennessee,47,39,OH,Ohio,2862,5986,89406
+TN,Tennessee,47,18,IN,Indiana,1903,4057,46569
+TN,Tennessee,47,05,AR,Arkansas,1893,3869,48712
+TN,Tennessee,47,36,NY,New York,1608,3302,52390
+TN,Tennessee,47,45,SC,South Carolina,1577,3519,43669
+TN,Tennessee,47,29,MO,Missouri,1382,2899,37946
+TN,Tennessee,47,22,LA,Louisiana,1372,2998,38669
+TN,Tennessee,47,42,PA,Pennsylvania,1245,2574,41177
+TN,Tennessee,47,24,MD,Maryland,945,1973,30273
+TN,Tennessee,47,34,NJ,New Jersey,809,1713,34618
+TN,Tennessee,47,40,OK,Oklahoma,767,1673,19308
+TN,Tennessee,47,08,CO,Colorado,698,1459,20001
+TN,Tennessee,47,04,AZ,Arizona,658,1458,20663
+TN,Tennessee,47,55,WI,Wisconsin,595,1239,19418
+TN,Tennessee,47,53,WA,Washington,559,1279,15072
+TN,Tennessee,47,25,MA,Massachusetts,527,1018,17325
+TN,Tennessee,47,20,KS,Kansas,523,1230,16893
+TN,Tennessee,47,54,WV,West Virginia,453,941,11788
+TN,Tennessee,47,27,MN,Minnesota,414,882,15526
+TN,Tennessee,47,15,HI,Hawaii,408,1090,10976
+TN,Tennessee,47,09,CT,Connecticut,393,856,19622
+TN,Tennessee,47,19,IA,Iowa,371,791,12939
+TN,Tennessee,47,32,NV,Nevada,264,541,7042
+TN,Tennessee,47,02,AK,Alaska,251,692,7612
+TN,Tennessee,47,35,NM,New Mexico,234,541,6632
+TN,Tennessee,47,41,OR,Oregon,218,478,8049
+TN,Tennessee,47,31,NE,Nebraska,194,438,5579
+TN,Tennessee,47,23,ME,Maine,158,332,3529
+TN,Tennessee,47,49,UT,Utah,156,351,4184
+TN,Tennessee,47,33,NH,New Hampshire,137,291,4279
+TN,Tennessee,47,10,DE,Delaware,134,296,4874
+TN,Tennessee,47,16,ID,Idaho,101,263,2707
+TN,Tennessee,47,11,DC,District of Columbia,97,142,2857
+TN,Tennessee,47,44,RI,Rhode Island,90,192,2665
+TN,Tennessee,47,38,ND,North Dakota,88,194,1906
+TN,Tennessee,47,30,MT,Montana,86,186,2183
+TN,Tennessee,47,46,SD,South Dakota,86,164,1949
+TN,Tennessee,47,50,VT,Vermont,82,145,1677
+TN,Tennessee,47,56,WY,Wyoming,72,149,1715
+TN,Tennessee,47,47,TN,TN Non-migrants,1759365,3967491,55205502
+TX,Texas,48,96,US+FO,Total Migration-US and Foreign,194391,427891,5954852
+TX,Texas,48,06,CA,California,25539,58639,808610
+TX,Texas,48,57,FR,Foreign,19937,41741,517859
+TX,Texas,48,22,LA,Louisiana,12847,29716,379643
+TX,Texas,48,12,FL,Florida,11556,26126,303694
+TX,Texas,48,40,OK,Oklahoma,10540,23016,329292
+TX,Texas,48,17,IL,Illinois,6749,14967,236538
+TX,Texas,48,35,NM,New Mexico,5968,14169,140354
+TX,Texas,48,08,CO,Colorado,5854,12895,185989
+TX,Texas,48,36,NY,New York,5333,10617,186327
+TX,Texas,48,13,GA,Georgia,5100,11686,162120
+TX,Texas,48,51,VA,Virginia,5070,11267,173260
+TX,Texas,48,05,AR,Arkansas,4751,10220,106491
+TX,Texas,48,04,AZ,Arizona,4599,9864,126184
+TX,Texas,48,29,MO,Missouri,4520,9598,208455
+TX,Texas,48,37,NC,North Carolina,4293,9741,112067
+TX,Texas,48,39,OH,Ohio,4223,8396,139638
+TX,Texas,48,26,MI,Michigan,4161,8825,124018
+TX,Texas,48,20,KS,Kansas,3978,8965,133796
+TX,Texas,48,53,WA,Washington,3371,7728,94646
+TX,Texas,48,47,TN,Tennessee,3365,7358,100940
+TX,Texas,48,42,PA,Pennsylvania,3055,6221,114981
+TX,Texas,48,01,AL,Alabama,2717,6181,79247
+TX,Texas,48,18,IN,Indiana,2708,5632,74831
+TX,Texas,48,24,MD,Maryland,2514,5566,99786
+TX,Texas,48,34,NJ,New Jersey,2461,5395,118479
+TX,Texas,48,28,MS,Mississippi,2358,5179,57530
+TX,Texas,48,45,SC,South Carolina,2138,5015,57534
+TX,Texas,48,25,MA,Massachusetts,2052,3872,77637
+TX,Texas,48,21,KY,Kentucky,2013,4593,55369
+TX,Texas,48,27,MN,Minnesota,1986,4090,62294
+TX,Texas,48,15,HI,Hawaii,1805,4321,51612
+TX,Texas,48,55,WI,Wisconsin,1764,3380,46134
+TX,Texas,48,19,IA,Iowa,1740,3586,51694
+TX,Texas,48,32,NV,Nevada,1670,3560,39314
+TX,Texas,48,31,NE,Nebraska,1433,3180,44214
+TX,Texas,48,09,CT,Connecticut,1385,2732,83871
+TX,Texas,48,41,OR,Oregon,1251,2707,30832
+TX,Texas,48,49,UT,Utah,1139,2873,35474
+TX,Texas,48,02,AK,Alaska,1087,2749,43328
+TX,Texas,48,56,WY,Wyoming,641,1545,20879
+TX,Texas,48,16,ID,Idaho,589,1489,11891
+TX,Texas,48,54,WV,West Virginia,499,1017,14248
+TX,Texas,48,23,ME,Maine,474,999,11708
+TX,Texas,48,46,SD,South Dakota,467,997,11215
+TX,Texas,48,11,DC,District of Columbia,454,743,17160
+TX,Texas,48,38,ND,North Dakota,448,1015,12114
+TX,Texas,48,30,MT,Montana,441,948,10429
+TX,Texas,48,33,NH,New Hampshire,439,845,16074
+TX,Texas,48,10,DE,Delaware,392,895,18829
+TX,Texas,48,44,RI,Rhode Island,319,671,9155
+TX,Texas,48,50,VT,Vermont,198,361,7068
+TX,Texas,48,48,TX,TX Non-migrants,5743026,13797341,190014563
+UT,Utah,49,96,US+FO,Total Migration-US and Foreign,26880,61674,731795
+UT,Utah,49,06,CA,California,6822,16370,200649
+UT,Utah,49,57,FR,Foreign,1752,3279,28251
+UT,Utah,49,16,ID,Idaho,1745,3926,35863
+UT,Utah,49,04,AZ,Arizona,1667,4090,37238
+UT,Utah,49,32,NV,Nevada,1624,3844,39299
+UT,Utah,49,08,CO,Colorado,1255,2768,33812
+UT,Utah,49,48,TX,Texas,1154,2897,42737
+UT,Utah,49,53,WA,Washington,1136,2678,30001
+UT,Utah,49,56,WY,Wyoming,679,1545,16499
+UT,Utah,49,41,OR,Oregon,643,1448,14351
+UT,Utah,49,12,FL,Florida,584,1353,18087
+UT,Utah,49,35,NM,New Mexico,506,1329,11579
+UT,Utah,49,17,IL,Illinois,439,920,15480
+UT,Utah,49,36,NY,New York,438,865,13599
+UT,Utah,49,51,VA,Virginia,409,921,14974
+UT,Utah,49,39,OH,Ohio,353,833,12459
+UT,Utah,49,30,MT,Montana,322,705,8577
+UT,Utah,49,26,MI,Michigan,320,663,8694
+UT,Utah,49,42,PA,Pennsylvania,313,702,10225
+UT,Utah,49,15,HI,Hawaii,271,663,6956
+UT,Utah,49,29,MO,Missouri,245,515,7108
+UT,Utah,49,37,NC,North Carolina,240,550,6424
+UT,Utah,49,13,GA,Georgia,236,504,8335
+UT,Utah,49,27,MN,Minnesota,227,429,5521
+UT,Utah,49,24,MD,Maryland,223,451,7378
+UT,Utah,49,18,IN,Indiana,216,478,6373
+UT,Utah,49,40,OK,Oklahoma,211,541,6265
+UT,Utah,49,02,AK,Alaska,207,478,7298
+UT,Utah,49,34,NJ,New Jersey,205,469,8891
+UT,Utah,49,55,WI,Wisconsin,203,383,4798
+UT,Utah,49,25,MA,Massachusetts,199,354,5724
+UT,Utah,49,20,KS,Kansas,182,477,5572
+UT,Utah,49,45,SC,South Carolina,166,434,4591
+UT,Utah,49,19,IA,Iowa,164,324,5326
+UT,Utah,49,22,LA,Louisiana,158,423,5161
+UT,Utah,49,31,NE,Nebraska,153,384,4047
+UT,Utah,49,09,CT,Connecticut,152,284,6124
+UT,Utah,49,47,TN,Tennessee,138,313,3384
+UT,Utah,49,01,AL,Alabama,136,362,4519
+UT,Utah,49,21,KY,Kentucky,105,258,3221
+UT,Utah,49,33,NH,New Hampshire,94,185,1966
+UT,Utah,49,05,AR,Arkansas,93,238,2183
+UT,Utah,49,28,MS,Mississippi,87,209,2065
+UT,Utah,49,46,SD,South Dakota,86,192,1817
+UT,Utah,49,23,ME,Maine,81,152,1812
+UT,Utah,49,38,ND,North Dakota,73,185,2001
+UT,Utah,49,50,VT,Vermont,51,76,1109
+UT,Utah,49,44,RI,Rhode Island,37,58,729
+UT,Utah,49,54,WV,West Virginia,33,63,665
+UT,Utah,49,11,DC,District of Columbia,24,42,597
+UT,Utah,49,10,DE,Delaware,23,64,1461
+UT,Utah,49,49,UT,UT Non-migrants,531047,1462291,17792104
+VT,Vermont,50,96,US+FO,Total Migration-US and Foreign,8694,15499,259658
+VT,Vermont,50,36,NY,New York,1453,2547,46618
+VT,Vermont,50,25,MA,Massachusetts,1212,2012,34361
+VT,Vermont,50,33,NH,New Hampshire,1137,2058,25882
+VT,Vermont,50,09,CT,Connecticut,722,1235,28484
+VT,Vermont,50,12,FL,Florida,496,859,10420
+VT,Vermont,50,06,CA,California,401,720,11677
+VT,Vermont,50,34,NJ,New Jersey,385,718,13518
+VT,Vermont,50,57,FR,Foreign,297,492,8062
+VT,Vermont,50,51,VA,Virginia,287,611,12587
+VT,Vermont,50,23,ME,Maine,254,443,5629
+VT,Vermont,50,42,PA,Pennsylvania,248,471,8783
+VT,Vermont,50,08,CO,Colorado,136,196,2464
+VT,Vermont,50,37,NC,North Carolina,125,247,3606
+VT,Vermont,50,48,TX,Texas,122,247,3075
+VT,Vermont,50,44,RI,Rhode Island,115,186,2549
+VT,Vermont,50,24,MD,Maryland,108,204,3610
+VT,Vermont,50,39,OH,Ohio,95,169,2669
+VT,Vermont,50,53,WA,Washington,93,162,2773
+VT,Vermont,50,17,IL,Illinois,90,170,7414
+VT,Vermont,50,04,AZ,Arizona,77,152,1578
+VT,Vermont,50,13,GA,Georgia,66,123,2731
+VT,Vermont,50,26,MI,Michigan,65,131,1827
+VT,Vermont,50,45,SC,South Carolina,58,124,1314
+VT,Vermont,50,55,WI,Wisconsin,50,84,1590
+VT,Vermont,50,27,MN,Minnesota,45,86,1248
+VT,Vermont,50,11,DC,District of Columbia,37,51,1333
+VT,Vermont,50,49,UT,Utah,36,64,752
+VT,Vermont,50,18,IN,Indiana,36,62,869
+VT,Vermont,50,47,TN,Tennessee,34,68,1187
+VT,Vermont,50,15,HI,Hawaii,33,61,906
+VT,Vermont,50,29,MO,Missouri,29,65,782
+VT,Vermont,50,22,LA,Louisiana,29,65,713
+VT,Vermont,50,41,OR,Oregon,28,41,640
+VT,Vermont,50,35,NM,New Mexico,25,42,576
+VT,Vermont,50,02,AK,Alaska,24,43,834
+VT,Vermont,50,40,OK,Oklahoma,23,51,858
+VT,Vermont,50,01,AL,Alabama,23,42,578
+VT,Vermont,50,21,KY,Kentucky,22,44,692
+VT,Vermont,50,32,NV,Nevada,20,36,461
+VT,Vermont,50,54,WV,West Virginia,19,37,379
+VT,Vermont,50,31,NE,Nebraska,18,37,487
+VT,Vermont,50,10,DE,Delaware,18,38,548
+VT,Vermont,50,16,ID,Idaho,15,34,498
+VT,Vermont,50,56,WY,Wyoming,15,28,338
+VT,Vermont,50,20,KS,Kansas,15,31,436
+VT,Vermont,50,19,IA,Iowa,14,22,305
+VT,Vermont,50,28,MS,Mississippi,14,24,283
+VT,Vermont,50,05,AR,Arkansas,11,26,216
+VT,Vermont,50,46,SD,South Dakota,7,16,175
+VT,Vermont,50,38,ND,North Dakota,7,15,208
+VT,Vermont,50,30,MT,Montana,5,9,135
+VT,Vermont,50,50,VT,VT Non-migrants,208557,456188,6614998
+VA,Virginia,51,96,US+FO,Total Migration-US and Foreign,119006,242098,3725497
+VA,Virginia,51,57,FR,Foreign,13116,28326,371020
+VA,Virginia,51,24,MD,Maryland,11894,21570,387624
+VA,Virginia,51,37,NC,North Carolina,7997,16475,206386
+VA,Virginia,51,12,FL,Florida,7732,16242,214084
+VA,Virginia,51,06,CA,California,7632,16689,281311
+VA,Virginia,51,36,NY,New York,7259,13700,229893
+VA,Virginia,51,42,PA,Pennsylvania,5864,10443,167022
+VA,Virginia,51,11,DC,District of Columbia,5526,8965,201749
+VA,Virginia,51,48,TX,Texas,4682,10295,166971
+VA,Virginia,51,34,NJ,New Jersey,3868,7499,142368
+VA,Virginia,51,39,OH,Ohio,3072,5961,89276
+VA,Virginia,51,13,GA,Georgia,3030,6443,93282
+VA,Virginia,51,45,SC,South Carolina,2781,6283,74484
+VA,Virginia,51,47,TN,Tennessee,2691,5707,71644
+VA,Virginia,51,17,IL,Illinois,2624,5467,94494
+VA,Virginia,51,54,WV,West Virginia,2348,4574,53930
+VA,Virginia,51,25,MA,Massachusetts,2186,4058,76211
+VA,Virginia,51,26,MI,Michigan,1939,3671,52853
+VA,Virginia,51,09,CT,Connecticut,1874,3715,74378
+VA,Virginia,51,01,AL,Alabama,1323,3017,42373
+VA,Virginia,51,08,CO,Colorado,1265,2632,44748
+VA,Virginia,51,22,LA,Louisiana,1197,2658,35684
+VA,Virginia,51,29,MO,Missouri,1134,2409,59737
+VA,Virginia,51,21,KY,Kentucky,1121,2456,31148
+VA,Virginia,51,53,WA,Washington,1109,2424,34959
+VA,Virginia,51,18,IN,Indiana,1098,2123,29944
+VA,Virginia,51,15,HI,Hawaii,1021,2810,37148
+VA,Virginia,51,04,AZ,Arizona,956,1973,30336
+VA,Virginia,51,31,NE,Nebraska,807,2304,31866
+VA,Virginia,51,23,ME,Maine,799,1775,20801
+VA,Virginia,51,28,MS,Mississippi,755,1720,18864
+VA,Virginia,51,40,OK,Oklahoma,748,1597,20091
+VA,Virginia,51,20,KS,Kansas,733,1773,27367
+VA,Virginia,51,44,RI,Rhode Island,721,1845,24002
+VA,Virginia,51,55,WI,Wisconsin,656,1213,19476
+VA,Virginia,51,10,DE,Delaware,614,1193,19851
+VA,Virginia,51,27,MN,Minnesota,596,1080,20945
+VA,Virginia,51,33,NH,New Hampshire,583,1072,19544
+VA,Virginia,51,05,AR,Arkansas,473,1023,12402
+VA,Virginia,51,35,NM,New Mexico,460,1068,15647
+VA,Virginia,51,02,AK,Alaska,395,1063,12713
+VA,Virginia,51,19,IA,Iowa,378,694,10766
+VA,Virginia,51,41,OR,Oregon,358,661,9486
+VA,Virginia,51,49,UT,Utah,332,760,10107
+VA,Virginia,51,32,NV,Nevada,323,672,10501
+VA,Virginia,51,50,VT,Vermont,235,430,5689
+VA,Virginia,51,46,SD,South Dakota,158,397,4649
+VA,Virginia,51,16,ID,Idaho,154,324,4474
+VA,Virginia,51,56,WY,Wyoming,133,290,3634
+VA,Virginia,51,30,MT,Montana,131,258,3273
+VA,Virginia,51,38,ND,North Dakota,125,301,4292
+VA,Virginia,51,51,VA,VA Non-migrants,2265550,4975432,83943964
+WA,Washington,53,96,US+FO,Total Migration-US and Foreign,90635,182652,2610545
+WA,Washington,53,06,CA,California,24010,50971,768137
+WA,Washington,53,41,OR,Oregon,10203,19985,282561
+WA,Washington,53,57,FR,Foreign,7442,15391,173893
+WA,Washington,53,48,TX,Texas,3920,8479,119384
+WA,Washington,53,16,ID,Idaho,3350,6629,78518
+WA,Washington,53,04,AZ,Arizona,2676,5213,65671
+WA,Washington,53,02,AK,Alaska,2599,5129,83509
+WA,Washington,53,12,FL,Florida,2181,4062,52191
+WA,Washington,53,08,CO,Colorado,2115,4045,60067
+WA,Washington,53,36,NY,New York,1905,3223,54027
+WA,Washington,53,15,HI,Hawaii,1902,4196,55320
+WA,Washington,53,17,IL,Illinois,1833,3449,59340
+WA,Washington,53,30,MT,Montana,1737,3227,36100
+WA,Washington,53,51,VA,Virginia,1442,3063,49467
+WA,Washington,53,32,NV,Nevada,1438,2820,37575
+WA,Washington,53,26,MI,Michigan,1315,2378,31855
+WA,Washington,53,39,OH,Ohio,1186,2199,42828
+WA,Washington,53,49,UT,Utah,1186,2731,37065
+WA,Washington,53,27,MN,Minnesota,1118,1923,31516
+WA,Washington,53,25,MA,Massachusetts,1059,1683,32597
+WA,Washington,53,42,PA,Pennsylvania,1048,1906,38196
+WA,Washington,53,37,NC,North Carolina,1012,2034,24454
+WA,Washington,53,13,GA,Georgia,966,2027,28483
+WA,Washington,53,24,MD,Maryland,856,1682,30686
+WA,Washington,53,29,MO,Missouri,789,1597,22173
+WA,Washington,53,55,WI,Wisconsin,759,1288,19380
+WA,Washington,53,34,NJ,New Jersey,718,1284,24264
+WA,Washington,53,35,NM,New Mexico,700,1460,18479
+WA,Washington,53,45,SC,South Carolina,673,1587,18895
+WA,Washington,53,20,KS,Kansas,666,1457,19212
+WA,Washington,53,47,TN,Tennessee,663,1337,21059
+WA,Washington,53,09,CT,Connecticut,659,1107,26964
+WA,Washington,53,40,OK,Oklahoma,650,1422,16070
+WA,Washington,53,22,LA,Louisiana,631,1400,13649
+WA,Washington,53,18,IN,Indiana,615,1142,14204
+WA,Washington,53,19,IA,Iowa,526,993,13664
+WA,Washington,53,31,NE,Nebraska,442,913,11338
+WA,Washington,53,01,AL,Alabama,415,922,10445
+WA,Washington,53,56,WY,Wyoming,399,788,10157
+WA,Washington,53,21,KY,Kentucky,380,841,9662
+WA,Washington,53,38,ND,North Dakota,336,617,7668
+WA,Washington,53,05,AR,Arkansas,320,743,7725
+WA,Washington,53,46,SD,South Dakota,295,586,7731
+WA,Washington,53,28,MS,Mississippi,277,599,7384
+WA,Washington,53,33,NH,New Hampshire,266,474,7555
+WA,Washington,53,23,ME,Maine,244,420,5345
+WA,Washington,53,11,DC,District of Columbia,229,349,7910
+WA,Washington,53,44,RI,Rhode Island,151,299,4218
+WA,Washington,53,50,VT,Vermont,139,212,3105
+WA,Washington,53,54,WV,West Virginia,108,211,2925
+WA,Washington,53,10,DE,Delaware,86,159,5924
+WA,Washington,53,53,WA,WA Non-migrants,1833601,4031130,68545302
+WV,West Virginia,54,96,US+FO,Total Migration-US and Foreign,19287,41006,476512
+WV,West Virginia,54,39,OH,Ohio,2890,6066,62690
+WV,West Virginia,54,51,VA,Virginia,2681,5694,68042
+WV,West Virginia,54,24,MD,Maryland,2023,4274,55925
+WV,West Virginia,54,37,NC,North Carolina,1467,3191,25574
+WV,West Virginia,54,42,PA,Pennsylvania,1428,2817,38942
+WV,West Virginia,54,12,FL,Florida,1320,2584,26096
+WV,West Virginia,54,57,FR,Foreign,714,1284,12829
+WV,West Virginia,54,21,KY,Kentucky,673,1587,17711
+WV,West Virginia,54,48,TX,Texas,546,1338,16930
+WV,West Virginia,54,06,CA,California,534,1177,15615
+WV,West Virginia,54,45,SC,South Carolina,495,1148,9470
+WV,West Virginia,54,13,GA,Georgia,417,908,9733
+WV,West Virginia,54,36,NY,New York,409,844,12720
+WV,West Virginia,54,47,TN,Tennessee,327,757,7363
+WV,West Virginia,54,26,MI,Michigan,321,660,8632
+WV,West Virginia,54,18,IN,Indiana,277,606,8024
+WV,West Virginia,54,34,NJ,New Jersey,277,555,8191
+WV,West Virginia,54,17,IL,Illinois,262,581,8331
+WV,West Virginia,54,22,LA,Louisiana,151,360,4286
+WV,West Virginia,54,08,CO,Colorado,140,305,3660
+WV,West Virginia,54,04,AZ,Arizona,134,282,3427
+WV,West Virginia,54,01,AL,Alabama,130,289,3503
+WV,West Virginia,54,25,MA,Massachusetts,121,261,4901
+WV,West Virginia,54,09,CT,Connecticut,119,237,4696
+WV,West Virginia,54,29,MO,Missouri,108,243,3379
+WV,West Virginia,54,53,WA,Washington,106,242,2670
+WV,West Virginia,54,10,DE,Delaware,100,214,3328
+WV,West Virginia,54,40,OK,Oklahoma,92,204,2776
+WV,West Virginia,54,11,DC,District of Columbia,81,117,2249
+WV,West Virginia,54,20,KS,Kansas,75,175,1934
+WV,West Virginia,54,15,HI,Hawaii,73,159,2074
+WV,West Virginia,54,28,MS,Mississippi,65,159,1778
+WV,West Virginia,54,35,NM,New Mexico,62,150,1769
+WV,West Virginia,54,02,AK,Alaska,60,135,1653
+WV,West Virginia,54,05,AR,Arkansas,58,147,1465
+WV,West Virginia,54,55,WI,Wisconsin,57,131,1511
+WV,West Virginia,54,23,ME,Maine,50,117,1342
+WV,West Virginia,54,32,NV,Nevada,43,95,852
+WV,West Virginia,54,33,NH,New Hampshire,41,87,936
+WV,West Virginia,54,19,IA,Iowa,40,93,884
+WV,West Virginia,54,41,OR,Oregon,40,83,991
+WV,West Virginia,54,27,MN,Minnesota,38,89,1098
+WV,West Virginia,54,30,MT,Montana,36,80,662
+WV,West Virginia,54,31,NE,Nebraska,35,85,1181
+WV,West Virginia,54,49,UT,Utah,31,78,696
+WV,West Virginia,54,38,ND,North Dakota,29,78,779
+WV,West Virginia,54,44,RI,Rhode Island,28,70,824
+WV,West Virginia,54,56,WY,Wyoming,27,50,734
+WV,West Virginia,54,16,ID,Idaho,22,52,541
+WV,West Virginia,54,50,VT,Vermont,18,40,808
+WV,West Virginia,54,46,SD,South Dakota,16,28,307
+WV,West Virginia,54,54,WV,WV Non-migrants,568702,1314615,16533184
+WI,Wisconsin,55,96,US+FO,Total Migration-US and Foreign,43659,86733,1274542
+WI,Wisconsin,55,17,IL,Illinois,9086,18694,299563
+WI,Wisconsin,55,27,MN,Minnesota,5536,10270,157106
+WI,Wisconsin,55,06,CA,California,3309,6394,95316
+WI,Wisconsin,55,57,FR,Foreign,2586,3903,39162
+WI,Wisconsin,55,26,MI,Michigan,2474,4864,69073
+WI,Wisconsin,55,12,FL,Florida,2064,3896,50588
+WI,Wisconsin,55,48,TX,Texas,1605,3445,44087
+WI,Wisconsin,55,19,IA,Iowa,1384,2785,43024
+WI,Wisconsin,55,18,IN,Indiana,1059,2246,35603
+WI,Wisconsin,55,39,OH,Ohio,1025,2166,43367
+WI,Wisconsin,55,04,AZ,Arizona,908,1727,22936
+WI,Wisconsin,55,08,CO,Colorado,864,1779,22221
+WI,Wisconsin,55,36,NY,New York,838,1594,29152
+WI,Wisconsin,55,51,VA,Virginia,724,1503,22780
+WI,Wisconsin,55,37,NC,North Carolina,718,1524,19644
+WI,Wisconsin,55,42,PA,Pennsylvania,656,1406,24805
+WI,Wisconsin,55,29,MO,Missouri,655,1410,20299
+WI,Wisconsin,55,53,WA,Washington,648,1380,17074
+WI,Wisconsin,55,13,GA,Georgia,569,1219,17283
+WI,Wisconsin,55,25,MA,Massachusetts,401,745,13829
+WI,Wisconsin,55,47,TN,Tennessee,400,863,12393
+WI,Wisconsin,55,20,KS,Kansas,350,812,10438
+WI,Wisconsin,55,34,NJ,New Jersey,345,715,15026
+WI,Wisconsin,55,32,NV,Nevada,339,621,7183
+WI,Wisconsin,55,24,MD,Maryland,330,658,10541
+WI,Wisconsin,55,21,KY,Kentucky,318,718,9673
+WI,Wisconsin,55,45,SC,South Carolina,303,658,9486
+WI,Wisconsin,55,40,OK,Oklahoma,295,647,7358
+WI,Wisconsin,55,31,NE,Nebraska,270,582,8065
+WI,Wisconsin,55,09,CT,Connecticut,269,508,12617
+WI,Wisconsin,55,28,MS,Mississippi,268,642,4245
+WI,Wisconsin,55,46,SD,South Dakota,250,555,6816
+WI,Wisconsin,55,41,OR,Oregon,241,464,6191
+WI,Wisconsin,55,22,LA,Louisiana,239,488,5941
+WI,Wisconsin,55,05,AR,Arkansas,237,493,4940
+WI,Wisconsin,55,38,ND,North Dakota,231,513,6511
+WI,Wisconsin,55,15,HI,Hawaii,214,393,5080
+WI,Wisconsin,55,01,AL,Alabama,201,443,5792
+WI,Wisconsin,55,35,NM,New Mexico,200,378,4379
+WI,Wisconsin,55,02,AK,Alaska,189,384,4963
+WI,Wisconsin,55,49,UT,Utah,171,364,4697
+WI,Wisconsin,55,30,MT,Montana,135,280,2321
+WI,Wisconsin,55,56,WY,Wyoming,113,229,2332
+WI,Wisconsin,55,16,ID,Idaho,112,257,2776
+WI,Wisconsin,55,33,NH,New Hampshire,107,227,4356
+WI,Wisconsin,55,23,ME,Maine,91,187,2554
+WI,Wisconsin,55,11,DC,District of Columbia,81,94,1724
+WI,Wisconsin,55,44,RI,Rhode Island,81,225,3003
+WI,Wisconsin,55,10,DE,Delaware,67,154,2215
+WI,Wisconsin,55,54,WV,West Virginia,59,138,2880
+WI,Wisconsin,55,50,VT,Vermont,44,93,1134
+WI,Wisconsin,55,55,WI,WI Non-migrants,1848238,4143125,64290688
+WY,Wyoming,56,96,US+FO,Total Migration-US and Foreign,11258,23842,332856
+WY,Wyoming,56,08,CO,Colorado,1470,3022,51754
+WY,Wyoming,56,06,CA,California,1218,2616,35032
+WY,Wyoming,56,30,MT,Montana,701,1513,15917
+WY,Wyoming,56,48,TX,Texas,572,1335,22028
+WY,Wyoming,56,49,UT,Utah,558,1306,16042
+WY,Wyoming,56,31,NE,Nebraska,480,1086,10937
+WY,Wyoming,56,57,FR,Foreign,468,957,9244
+WY,Wyoming,56,04,AZ,Arizona,410,841,8537
+WY,Wyoming,56,46,SD,South Dakota,341,753,7147
+WY,Wyoming,56,53,WA,Washington,339,731,7737
+WY,Wyoming,56,16,ID,Idaho,295,684,7383
+WY,Wyoming,56,32,NV,Nevada,285,618,6442
+WY,Wyoming,56,12,FL,Florida,280,554,10680
+WY,Wyoming,56,41,OR,Oregon,216,432,4699
+WY,Wyoming,56,17,IL,Illinois,212,452,6274
+WY,Wyoming,56,35,NM,New Mexico,188,461,5455
+WY,Wyoming,56,27,MN,Minnesota,183,333,5329
+WY,Wyoming,56,42,PA,Pennsylvania,176,315,24009
+WY,Wyoming,56,38,ND,North Dakota,176,413,4726
+WY,Wyoming,56,29,MO,Missouri,175,376,3863
+WY,Wyoming,56,39,OH,Ohio,163,316,6746
+WY,Wyoming,56,20,KS,Kansas,162,361,4071
+WY,Wyoming,56,40,OK,Oklahoma,154,358,4326
+WY,Wyoming,56,26,MI,Michigan,152,305,3382
+WY,Wyoming,56,36,NY,New York,151,276,5319
+WY,Wyoming,56,37,NC,North Carolina,141,287,3139
+WY,Wyoming,56,55,WI,Wisconsin,124,251,3342
+WY,Wyoming,56,51,VA,Virginia,124,231,3428
+WY,Wyoming,56,19,IA,Iowa,116,226,3814
+WY,Wyoming,56,02,AK,Alaska,112,271,5549
+WY,Wyoming,56,18,IN,Indiana,93,214,1973
+WY,Wyoming,56,13,GA,Georgia,86,163,1485
+WY,Wyoming,56,22,LA,Louisiana,86,200,2607
+WY,Wyoming,56,25,MA,Massachusetts,83,112,1666
+WY,Wyoming,56,47,TN,Tennessee,74,143,1587
+WY,Wyoming,56,24,MD,Maryland,73,128,1722
+WY,Wyoming,56,34,NJ,New Jersey,71,99,1692
+WY,Wyoming,56,05,AR,Arkansas,63,143,1163
+WY,Wyoming,56,21,KY,Kentucky,60,113,1639
+WY,Wyoming,56,09,CT,Connecticut,58,100,1997
+WY,Wyoming,56,45,SC,South Carolina,55,126,1231
+WY,Wyoming,56,15,HI,Hawaii,54,114,1232
+WY,Wyoming,56,01,AL,Alabama,45,102,1159
+WY,Wyoming,56,23,ME,Maine,43,84,856
+WY,Wyoming,56,50,VT,Vermont,36,57,741
+WY,Wyoming,56,28,MS,Mississippi,36,74,601
+WY,Wyoming,56,33,NH,New Hampshire,32,59,1305
+WY,Wyoming,56,54,WV,West Virginia,25,54,724
+WY,Wyoming,56,10,DE,Delaware,15,25,296
+WY,Wyoming,56,44,RI,Rhode Island,14,29,324
+WY,Wyoming,56,11,DC,District of Columbia,14,23,505
+WY,Wyoming,56,56,WY,WY Non-migrants,159022,380144,5309739
+FR,Foreign,57,96,US+FO,Total Migration-US and Foreign,134582,277871,3575817
+FR,Foreign,57,06,CA,California,17823,34814,480647
+FR,Foreign,57,48,TX,Texas,11045,25130,295197
+FR,Foreign,57,12,FL,Florida,9426,18862,211797
+FR,Foreign,57,51,VA,Virginia,8077,17322,246433
+FR,Foreign,57,36,NY,New York,8000,15239,295282
+FR,Foreign,57,13,GA,Georgia,5326,12502,120927
+FR,Foreign,57,37,NC,North Carolina,5302,11897,113998
+FR,Foreign,57,53,WA,Washington,4100,8495,104019
+FR,Foreign,57,17,IL,Illinois,4071,7402,108364
+FR,Foreign,57,24,MD,Maryland,3479,7762,110164
+FR,Foreign,57,34,NJ,New Jersey,3452,7542,128179
+FR,Foreign,57,42,PA,Pennsylvania,3361,6117,102858
+FR,Foreign,57,39,OH,Ohio,2978,5396,77634
+FR,Foreign,57,08,CO,Colorado,2837,6233,71120
+FR,Foreign,57,26,MI,Michigan,2801,5176,76919
+FR,Foreign,57,25,MA,Massachusetts,2788,5223,86000
+FR,Foreign,57,45,SC,South Carolina,2698,5844,58452
+FR,Foreign,57,04,AZ,Arizona,2211,4843,54558
+FR,Foreign,57,40,OK,Oklahoma,2174,4975,49665
+FR,Foreign,57,22,LA,Louisiana,2164,4655,37675
+FR,Foreign,57,01,AL,Alabama,2138,4786,50137
+FR,Foreign,57,21,KY,Kentucky,2097,5018,41998
+FR,Foreign,57,20,KS,Kansas,1953,4908,50300
+FR,Foreign,57,29,MO,Missouri,1912,4078,44954
+FR,Foreign,57,47,TN,Tennessee,1750,3475,36042
+FR,Foreign,57,09,CT,Connecticut,1700,3241,75101
+FR,Foreign,57,15,HI,Hawaii,1665,3138,42285
+FR,Foreign,57,18,IN,Indiana,1481,2732,31151
+FR,Foreign,57,35,NM,New Mexico,1274,2908,27880
+FR,Foreign,57,28,MS,Mississippi,1244,2561,24327
+FR,Foreign,57,27,MN,Minnesota,1082,1886,30837
+FR,Foreign,57,55,WI,Wisconsin,1076,1824,23042
+FR,Foreign,57,41,OR,Oregon,1005,1727,21835
+FR,Foreign,57,11,DC,District of Columbia,992,1837,42306
+FR,Foreign,57,05,AR,Arkansas,903,1800,17285
+FR,Foreign,57,31,NE,Nebraska,801,1700,18335
+FR,Foreign,57,32,NV,Nevada,798,1615,18397
+FR,Foreign,57,23,ME,Maine,717,1383,15173
+FR,Foreign,57,19,IA,Iowa,678,1215,13017
+FR,Foreign,57,49,UT,Utah,651,1551,16023
+FR,Foreign,57,38,ND,North Dakota,605,1307,12222
+FR,Foreign,57,16,ID,Idaho,484,872,8955
+FR,Foreign,57,33,NH,New Hampshire,455,811,12007
+FR,Foreign,57,02,AK,Alaska,439,850,12733
+FR,Foreign,57,44,RI,Rhode Island,435,940,13074
+FR,Foreign,57,46,SD,South Dakota,434,896,10365
+FR,Foreign,57,30,MT,Montana,427,865,7479
+FR,Foreign,57,54,WV,West Virginia,394,688,6821
+FR,Foreign,57,10,DE,Delaware,378,836,10682
+FR,Foreign,57,56,WY,Wyoming,314,681,6629
+FR,Foreign,57,50,VT,Vermont,187,313,4537
+FR,Foreign,57,57,FR,Foreign,398356,868049,13016449

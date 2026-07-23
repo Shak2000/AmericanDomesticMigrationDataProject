@@ -38,7 +38,7 @@ let dbQueryQueue = Promise.resolve();
  * Open (or reopen) the sql.js-httpvfs worker connection against the chunked
  * remote database.
  */
-const DB_LENGTH_BYTES = 1004535808;
+const DB_LENGTH_BYTES = 1055498240;
 
 async function openDbWorker() {
     const worker = await createDbWorker(
@@ -99,16 +99,30 @@ async function queryDb(sql) {
  * The slider positions 0/1/2 map to these keys in the flow maps.
  */
 const YEARS = [
-    '9293', '9394', '9495', '9596', '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
+    '9091', '9192', '9293', '9394', '9495', '9596', '9697', '9798', '9899', '9900', '0001', '0102', '0203', '0304', '0405', '0506', '0607', '0708', '0809', '0910', '1011', '1112', '1213', '1314', '1415',
     '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223'
 ];
 
 /** Human-readable labels for each year tag. */
 const YEAR_LABELS = {
-    '9293': '1992–1993', '9394': '1993–1994', '9495': '1994–1995', '9596': '1995–1996', '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
+    '9091': '1990–1991', '9192': '1991–1992', '9293': '1992–1993', '9394': '1993–1994', '9495': '1994–1995', '9596': '1995–1996', '9697': '1996–1997', '9798': '1997–1998', '9899': '1998–1999', '9900': '1999–2000', '0001': '2000–2001', '0102': '2001–2002', '0203': '2002–2003', '0304': '2003–2004', '0405': '2004–2005', '0506': '2005–2006', '0607': '2006–2007', '0708': '2007–2008', '0809': '2008–2009', '0910': '2009–2010', '1011': '2010–2011', '1112': '2011–2012', '1213': '2012–2013',
     '1314': '2013–2014', '1415': '2014–2015', '1516': '2015–2016', '1617': '2016–2017', '1718': '2017–2018',
     '1819': '2018–2019', '1920': '2019–2020', '2021': '2020–2021', '2122': '2021–2022', '2223': '2022–2023'
 };
+
+/**
+ * Years whose source files have no AGI (income) data at all — a reusable,
+ * general mechanism for "this year lacks metric X", not special-cased to
+ * just these two. Consulted by chart x-axis/series building and the Map's
+ * year slider whenever the AGI category is selected; see getYearsForCategory.
+ */
+const YEARS_WITHOUT_AGI = new Set(['9192', '9091']);
+
+/** Returns the year list to use for a given metric category — the full
+ * YEARS array, or YEARS with any AGI-less years filtered out. */
+function getYearsForCategory(category) {
+    return category === 'agi' ? YEARS.filter(y => !YEARS_WITHOUT_AGI.has(y)) : YEARS;
+}
 
 /** IRS aggregate FIPS — total U.S.+Foreign migration. */
 const FIPS_TOTAL = '96';  // US + Foreign total
@@ -1249,7 +1263,7 @@ function getMetricLabel(metricKey) {
  */
 const appState = {
     level: 'state',
-    yearIndex: 30,
+    yearIndex: 32,
     metricCategory: 'pop',
     metric: 'pop_inflow',
     primaryRegion: null,
@@ -2329,7 +2343,7 @@ function setupIndividualChart() {
 
     // ── Scales ────────────────────────────────────────────────────────────────
     indChartXScale = d3.scalePoint()
-        .domain(YEARS)
+        .domain(getYearsForCategory(indChartState.metricCategory))
         .range([0, width])
         .padding(0.1);
 
@@ -2397,8 +2411,9 @@ function renderIndividualChart() {
     const metricKey = indChartState.metric;
 
     // ── 3. Build Data Series for ALL regions ──────────────────────────────────
+    const chartYears = getYearsForCategory(indChartState.metricCategory);
     const allSeries = activeRegions.map((region) => {
-        const seriesData = YEARS.map(year => {
+        const seriesData = chartYears.map(year => {
             let value = null;
             if (region.level === 'state') {
                 value = _getStateMapValue(region.key, year, metricKey);
@@ -2683,7 +2698,7 @@ function setupPairChart() {
     pairChartSvg.attr('width', totalW).attr('height', totalH).attr('viewBox', `0 0 ${totalW} ${totalH}`);
     pairChartInner.attr('transform', `translate(${m.left},${m.top})`);
 
-    pairChartXScale = d3.scalePoint().domain(YEARS).range([0, width]).padding(0.1);
+    pairChartXScale = d3.scalePoint().domain(getYearsForCategory(pairChartState.metricCategory)).range([0, width]).padding(0.1);
     pairChartYScale = d3.scaleLinear().range([height, 0]);
 
     pairChartInner.select('.ind-chart-axis-x')
@@ -2726,8 +2741,9 @@ function renderPairChart() {
     const metricKey = pairChartState.metric;
 
     // ── 3. Build Data Series ──────────────────────────────────────────────────
+    const chartYears = getYearsForCategory(pairChartState.metricCategory);
     const allSeries = activePairs.map((pair) => {
-        const seriesData = YEARS.map(year => {
+        const seriesData = chartYears.map(year => {
             let value = null;
             if (pair.regionA.level === 'state') {
                 value = _getStateMapValue(pair.regionB.key, year, metricKey, pair.regionA.key);
@@ -3136,16 +3152,46 @@ function wireControls() {
     const yearLabel = document.getElementById('year-display');
     let yearSliderRafId = null;
 
+    /** First slider index selectable under the Map's current metric category
+     * (skips AGI-less years when AGI is selected; 0 otherwise). */
+    function minAllowedYearIndex() {
+        if (appState.metricCategory !== 'agi') return 0;
+        const idx = YEARS.findIndex(y => !YEARS_WITHOUT_AGI.has(y));
+        return idx === -1 ? 0 : idx;
+    }
+
+    /** Hides the tick marks for years excluded under the current category.
+     * Uses visibility (not display) so the remaining ticks keep their
+     * flexbox-computed positions instead of re-spacing across the track. */
+    function updateTickVisibility() {
+        const ticks = document.querySelectorAll('.slider-ticks .tick');
+        ticks.forEach((tick, i) => {
+            const excluded = appState.metricCategory === 'agi' && YEARS_WITHOUT_AGI.has(YEARS[i]);
+            tick.style.visibility = excluded ? 'hidden' : 'visible';
+        });
+    }
+
+    /** Syncs the slider thumb/fill/aria and year label to appState.yearIndex. */
+    function syncSliderUI() {
+        if (!slider) return;
+        const tag = currentYear();
+        slider.value = appState.yearIndex;
+        if (yearLabel) yearLabel.textContent = YEAR_LABELS[tag];
+        const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
+        slider.style.setProperty('--slider-pct', `${pct}%`);
+        slider.setAttribute('aria-valuenow', appState.yearIndex);
+        slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
+    }
+
+    updateTickVisibility();
+
     if (slider) {
         slider.addEventListener('input', () => {
             appState.yearIndex = +slider.value;
+            const minIdx = minAllowedYearIndex();
+            if (appState.yearIndex < minIdx) appState.yearIndex = minIdx;
+            syncSliderUI();
             const tag = currentYear();
-            yearLabel.textContent = YEAR_LABELS[tag];
-            // Update filled-track CSS custom property
-            const pct = (appState.yearIndex / (YEARS.length - 1)) * 100;
-            slider.style.setProperty('--slider-pct', `${pct}%`);
-            slider.setAttribute('aria-valuenow', appState.yearIndex);
-            slider.setAttribute('aria-valuetext', YEAR_LABELS[tag]);
 
             if (yearSliderRafId) cancelAnimationFrame(yearSliderRafId);
             yearSliderRafId = requestAnimationFrame(async () => {
@@ -3167,6 +3213,17 @@ function wireControls() {
             stateObj.metric = buildMetricKey(catSel.value, dirSel.value, statSel.value);
             if (stateObj.metricCategory !== undefined) {
                 stateObj.metricCategory = catSel.value;
+            }
+            // Only the Map has a single "current year" to gate/snap — the
+            // trend charts show all applicable years on their x-axis at
+            // once, handled entirely by getYearsForCategory in their render.
+            if (stateObj === appState) {
+                const minIdx = minAllowedYearIndex();
+                if (appState.yearIndex < minIdx) {
+                    appState.yearIndex = minIdx;
+                }
+                syncSliderUI();
+                updateTickVisibility();
             }
             await ensureCountyYearData(currentYear());
             renderFn();

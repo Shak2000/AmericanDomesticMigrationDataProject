@@ -613,13 +613,30 @@ Each milestone follows the same steps:
 - [x] Download and enrich state and county inflow/outflow data for 1992-93
 - [x] Rebuild SQLite DB and verify the year appears in the app
 
+> **AGI availability note (1991-92 and 1990-91):** these two years' source files have no AGI
+> (income) column at all — a first for Phase 11, unlike prior years which only had column-layout
+> quirks. AGI is stored as `0` for these years (simplest, no schema change) on the condition that
+> the UI never actually surfaces AGI for them:
+>
+> - When the **AGI** metric category is selected, both years are excluded from the Individual
+>   Trend chart's x-axis, the Pairwise Comparison chart's x-axis, and the Map's year slider (both
+>   its selectable range and its visible ticks). **Population** and **Households** continue to
+>   show these years normally — only AGI is restricted.
+> - If the Map is sitting on 1991-92 or 1990-91 and the Category dropdown switches to AGI, the
+>   year snaps forward to 1992-93 in the same interaction. Switching back to Population/Households
+>   un-hides the ticks; no snap is needed since the current year is already valid for both.
+>
+> Mechanism: `YEARS_WITHOUT_AGI` (a `Set` of year tags) and `getYearsForCategory(category)` in
+> script.js are the single source of truth — a reusable, general pattern for any future "this year
+> lacks metric X" case, not special-cased to just these two years.
+
 ### Milestone 11.17 – 1991-92
-- [ ] Download and enrich state and county inflow/outflow data for 1991-92
-- [ ] Rebuild SQLite DB and verify the year appears in the app
+- [x] Download and enrich state and county inflow/outflow data for 1991-92
+- [x] Rebuild SQLite DB and verify the year appears in the app
 
 ### Milestone 11.18 – 1990-91
-- [ ] Download and enrich state and county inflow/outflow data for 1990-91
-- [ ] Rebuild SQLite DB and verify the year appears in the app
+- [x] Download and enrich state and county inflow/outflow data for 1990-91
+- [x] Rebuild SQLite DB and verify the year appears in the app
 
 ---
 

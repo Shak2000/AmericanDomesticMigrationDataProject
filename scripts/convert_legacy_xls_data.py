@@ -91,7 +91,24 @@ LEGACY_ZIPS: dict[str, dict[str, str]] = {
         "state": "1992to1993statemigration.zip",
         "county": "1992to1993countymigration.zip",
     },
+    "9192": {
+        "state": "1991to1992statemigration.zip",
+        "county": "1991to1992countymigration.zip",
+    },
+    "9091": {
+        "state": "1990to1991statemigration.zip",
+        "county": "1990to1991countymigration.zip",
+    },
 }
+
+# 1991-92 and 1990-91 predate AGI reporting entirely — neither the state nor
+# county source files have an income column, only returns/exemptions plus two
+# "percent of migrants" columns. State files are still .xls but 7 columns
+# instead of 6; county files are plain fixed-width .txt, not .xls at all.
+# AGI is written out as "0" for these years — see YEARS_WITHOUT_AGI in
+# script.js for how the app hides AGI-based views for them.
+LEGACY_7COL_STATE_YEARS = {"9192", "9091"}
+LEGACY_TXT_COUNTY_YEARS = {"9192", "9091"}
 
 # The "TO: NN-STATE" / "FROM: NN-STATE" label is sometimes one cell, sometimes
 # split across two or three cells (e.g. ['FROM:', '', '21-KENTUCKY']) —
@@ -242,14 +259,87 @@ def parse_state_workbook(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
     return direction, fixed_fips, rows
 
 
+def parse_state_workbook_legacy7col(raw_bytes: bytes) -> tuple[str, str, list[dict]]:
+    """
+    Parse the pre-1992-93 7-column state format (1991-92, 1990-91): columns
+    are [fips, abbrv, name, returns, pct_of_migrants_returns, exemptions,
+    pct_of_migrants_exemptions] — no AGI column at all. Return_Num is
+    normally at index 3, but at least one file (Alabama, 1990-91 outflow)
+    has a duplicated abbreviation column shifting everything right by one —
+    detect the actual column instead of assuming a fixed index.
+
+    Unlike parse_state_workbook, the header reliably includes the FIPS
+    directly in every file across both years (e.g. "FROM: 39-Ohio") — no
+    Non-Migrants-row fallback needed. The aggregate row already uses the
+    standard 96 marker directly (e.g. [96.0, '', 'TOTAL FLOW', ...]), so no
+    aggregate-code rewrite is needed either.
+    """
+    wb = xlrd.open_workbook(file_contents=raw_bytes)
+    sh = wb.sheet_by_index(0)
+
+    header_r = find_state_header_row(sh)
+    header_row = " ".join(str(v) for v in sh.row_values(header_r))
+    m = TO_FROM_RE.search(header_row)
+    if not m:
+        raise ValueError(f"Could not parse header row: {header_row!r}")
+    direction = "inflow" if m.group(1).upper() == "TO" else "outflow"
+    fixed_fips = m.group(2).zfill(2)
+
+    returns_col = data_start = None
+    for candidate_col in (3, 4):
+        for r in range(header_r, sh.nrows):
+            if sh.cell_type(r, candidate_col) == xlrd.XL_CELL_NUMBER:
+                returns_col, data_start = candidate_col, r
+                break
+        if returns_col is not None:
+            break
+    if returns_col is None:
+        raise ValueError("Could not locate Return_Num column")
+    name_col = returns_col - 1
+    exempt_col = returns_col + 2  # returns_col+1 is a percent — discard
+
+    rows = []
+    for r in range(data_start, sh.nrows):
+        # Trailing footer text ("SOURCE: INTERNAL REVENUE SERVICE", etc.) is
+        # non-blank, so a blank-row check alone won't skip it — require a
+        # genuinely numeric Return_Num instead.
+        if sh.cell_type(r, returns_col) != xlrd.XL_CELL_NUMBER:
+            continue
+        row_vals = sh.row_values(r)
+        other_fips = cell_fips(row_vals[0], 2)
+        abbrv = str(row_vals[1]).strip()
+        name = str(row_vals[name_col]).strip()
+        n1 = cell_int(row_vals[returns_col])
+        n2 = cell_int(row_vals[exempt_col])
+        agi = "0"  # no AGI column exists in this format
+
+        if direction == "inflow":
+            rows.append({
+                "State_Code_Dest": fixed_fips, "County_Code_Dest": "000",
+                "State_Code_Origin": other_fips, "County_Code_Origin": "000",
+                "State_Abbrv": abbrv, "State_Name": name,
+                "Return_Num": n1, "Exmpt_Num": n2, "Aggr_AGI": agi,
+            })
+        else:
+            rows.append({
+                "State_Code_Origin": fixed_fips, "County_Code_Origin": "000",
+                "State_Code_Dest": other_fips, "County_Code_Dest": "000",
+                "State_Abbrv": abbrv, "State_Name": name,
+                "Return_Num": n1, "Exmpt_Num": n2, "Aggr_AGI": agi,
+            })
+
+    return direction, fixed_fips, rows
+
+
 def convert_state_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
     inflow_rows: dict[str, list[dict]] = {}
     outflow_rows: dict[str, list[dict]] = {}
+    parser = parse_state_workbook_legacy7col if year in LEGACY_7COL_STATE_YEARS else parse_state_workbook
 
     for name in zf.namelist():
         if not name.lower().endswith(".xls"):
             continue
-        direction, fixed_fips, rows = parse_state_workbook(zf.read(name))
+        direction, fixed_fips, rows = parser(zf.read(name))
         target = inflow_rows if direction == "inflow" else outflow_rows
         if fixed_fips in target:
             continue  # duplicate/typo-named file for a state already processed
@@ -374,6 +464,121 @@ def parse_county_workbook(raw_bytes: bytes, direction: str) -> tuple[str, list[d
     return fixed_fips, rows
 
 
+# A numeric token: "1234", "18.02", or ".66" (IRS drops the leading 0 on
+# percentages under 1%).
+_TXT_NUM_TOKEN_RE = re.compile(r"^-?(?:\d+\.\d+|\.\d+|\d+)$")
+# Every real data line starts with "<state fips> <county fips> ..."; every
+# summary/breakdown line (see below) does not, so this single check is
+# sufficient to separate real rows from noise — verified against all 208
+# 1991-92/1990-91 county files with zero lines slipping through uncaught.
+_TXT_LEADING_FIPS_RE = re.compile(r"^(\d{1,2})\s+(\d{1,3})\s+(.*)$")
+
+
+def parse_county_txt(text: str, direction: str) -> list[dict]:
+    """
+    Parse 1991-92/1990-91's plain fixed-width county migration text files
+    (e.g. "C9192nyo.txt") — a different file format entirely from every
+    other year (not Excel), with inconsistent row alignment (confirmed via
+    direct testing that character-offset slicing does not line up reliably),
+    so rows are classified by shape via whitespace tokenization instead.
+
+    Each state's file is a sequence of per-county blocks. A block opens with
+    an aggregate/total row giving that county's own FIPS (2 trailing
+    numbers: returns, exemptions — no percents, since they'd trivially be
+    100%), followed by detail rows for each real origin/destination county
+    (4 trailing numbers: returns, pct, exemptions, pct) and closed by a
+    "County Non-Migrants" row (2 trailing numbers again). Only the block's
+    aggregate row states its own FIPS+name; detail rows give the *other*
+    county's FIPS/name directly but rely on the still-open block for which
+    county they belong to — so this parser is stateful across lines, unlike
+    every other parser in this file.
+
+    Interspersed "Same Region, Diff. State", "Different Region",
+    "All Migration Flows", "Foreign", "Region N: <name>", and "Same State"
+    lines are aggregate breakdowns, not real per-county data — they carry no
+    leading FIPS pair at all, so they're excluded by construction (the
+    leading-FIPS check is the only gate needed, confirmed against every line
+    in every file for both years — see convert_legacy_xls_data test sweep).
+    """
+    fields = COUNTY_INFLOW_FIELDS if direction == "inflow" else COUNTY_OUTFLOW_FIELDS
+    rows: list[dict] = []
+    fixed_sf: str | None = None
+    fixed_cf: str | None = None
+    fixed_abbrv: str | None = None
+
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        m = _TXT_LEADING_FIPS_RE.match(line)
+        if not m:
+            continue  # region/breakdown summary line — not real county data
+        sf, cf, rest = m.group(1).zfill(2), m.group(2).zfill(3), m.group(3)
+
+        tokens = rest.split()
+        num_count = 0
+        for tok in reversed(tokens):
+            if _TXT_NUM_TOKEN_RE.match(tok):
+                num_count += 1
+            else:
+                break
+        if num_count not in (2, 4):
+            continue  # unrecognized shape — be defensive, skip rather than guess
+
+        label_tokens = tokens[:-num_count]
+        nums = [t.replace(",", "") for t in tokens[-num_count:]]
+        # The last label token is always a clean 2-letter postal abbreviation
+        # (verified against every aggregate and detail row in both years'
+        # files — 155,390+ rows, zero exceptions) — except the Non-Migrants
+        # row, whose label never includes one; it reuses the block's own
+        # abbreviation instead. This isn't cosmetic: enrich_county_data.py
+        # only resolves the *county name* via FIPS lookup for the "other"
+        # side of a normal detail row — the postal abbreviation has no
+        # lookup fallback there and comes straight from this field, so a
+        # blank value here causes a false "unresolved" report even though
+        # the row is fully valid (confirmed against Autauga County, AL,
+        # whose own FIPS "01/001" also collides with the special "same
+        # state total" aggregate marker "001", tripping the enrichment
+        # script's is_non_migrant check and forcing it down the
+        # lookup-for-name-only path).
+        row_abbrv = label_tokens[-1] if label_tokens else ""
+
+        if num_count == 2:
+            n1, n2 = nums
+            if "non-migrant" in " ".join(label_tokens).lower():
+                if fixed_sf is None:
+                    continue  # malformed file — non-migrant row before any block opened
+                other_sf, other_cf, abbrv, name = fixed_sf, fixed_cf, fixed_abbrv or "", "Non-Migrants"
+            else:
+                # Opens a new block — this row's own FIPS becomes "fixed" for
+                # subsequent detail rows. The "other" side (96/000, the
+                # national aggregate marker) has no label of its own in this
+                # row — mirror the convention every other year's XLS parser
+                # already relies on (see the 1994-95+ "Total Migration" rewrite
+                # above): echo the fixed side's own abbreviation and give the
+                # name a "Total Migration" substring so enrich_county_data.py's
+                # dedicated aggregate-row branch resolves the state name via
+                # SPECIAL_STATE_FIPS lookup instead of misreporting it unresolved.
+                fixed_sf, fixed_cf, fixed_abbrv = sf, cf, row_abbrv
+                other_sf, other_cf, abbrv, name = "96", "000", row_abbrv, "Total Migration"
+        else:
+            if fixed_sf is None:
+                continue  # malformed file — detail row before any block opened
+            other_sf, other_cf = sf, cf
+            abbrv = row_abbrv
+            name = " ".join(label_tokens[:-1]) if len(label_tokens) > 1 else ""
+            n1, _pct1, n2, _pct2 = nums
+
+        rows.append({
+            fields[0]: fixed_sf, fields[1]: fixed_cf,
+            fields[2]: other_sf, fields[3]: other_cf,
+            fields[4]: abbrv, fields[5]: name,
+            fields[6]: cell_int(float(n1)), fields[7]: cell_int(float(n2)), fields[8]: "0",
+        })
+
+    return rows
+
+
 def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
     # Deduplicate at the row level (by the 4 FIPS columns), not at the file
     # level. A file-level dedup (keyed on the first data row's FIPS) breaks
@@ -388,9 +593,12 @@ def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
     inflow_rows: dict[tuple, dict] = {}
     outflow_rows: dict[tuple, dict] = {}
 
+    is_txt_year = year in LEGACY_TXT_COUNTY_YEARS
+    ext = ".txt" if is_txt_year else ".xls"
+
     for name in zf.namelist():
         base = Path(name).name
-        if not base.lower().endswith(".xls"):
+        if not base.lower().endswith(ext):
             continue
         lower_path = name.lower()
         lower_base = base.lower()
@@ -401,16 +609,19 @@ def convert_county_zip(zf: zipfile.ZipFile, year: str, out_dir: Path) -> None:
             direction = "inflow"
         elif "outflow" in lower_path:
             direction = "outflow"
-        elif lower_base.endswith("i.xls"):
+        elif lower_base.endswith(f"i{ext}"):
             direction = "inflow"
-        elif lower_base.endswith("o.xls"):
+        elif lower_base.endswith(f"o{ext}"):
             direction = "outflow"
         else:
             print(f"    WARNING: could not classify direction for {base}, skipping")
             continue
 
         fields = COUNTY_INFLOW_FIELDS if direction == "inflow" else COUNTY_OUTFLOW_FIELDS
-        _fixed_fips, rows = parse_county_workbook(zf.read(name), direction)
+        if is_txt_year:
+            rows = parse_county_txt(zf.read(name).decode("ascii"), direction)
+        else:
+            _fixed_fips, rows = parse_county_workbook(zf.read(name), direction)
         target = inflow_rows if direction == "inflow" else outflow_rows
         for row in rows:
             key = (row[fields[0]], row[fields[1]], row[fields[2]], row[fields[3]])

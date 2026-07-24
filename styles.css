@@ -209,6 +209,8 @@ body {
 /* ── 4a. Radio buttons ───────────────────────────────────── */
 .radio-group {
   display: flex;
+  align-self: flex-start;
+  width: fit-content;
   gap: 2px;
   background: var(--accent-bg);
   border-radius: var(--radius-sm);

@@ -640,35 +640,6 @@ Each milestone follows the same steps:
 
 ---
 
-## Phase 12 — Polish, Accessibility & Validation
-
-**Goal:** Final pass for quality, performance, and usability.
-
-### Milestone 12.1 — Micro-Animations & UX Polish
-
-- [ ] Animated map load: regions fade in with a staggered `delay` on first render.
-- [ ] Line chart path draws itself in on appearance.
-- [ ] Slider year indicator updates a visible numeric label in real time.
-- [ ] Metric dropdown uses a custom-styled `<select>` grouped by metric category.
-
-### Milestone 12.2 — Accessibility
-
-- [ ] All interactive elements have `aria-label` attributes.
-- [ ] Color scales are supplemented with pattern fills (optional hatching) for colorblind accessibility.
-- [ ] Keyboard navigation: Tab order through controls → map (arrow keys to move selection) → line chart.
-
-### Milestone 12.3 — Final Validation Checklist
-
-- [ ] All 22 metrics render correctly for both state and county modes
-- [ ] Selection states (none / primary / primary+secondary) all work as specified
-- [ ] Line chart shows correct data in all three display modes
-- [ ] Year slider transitions the map smoothly between available years
-- [ ] State ↔ County toggle clears selection and re-renders correctly
-- [ ] No console errors in Chrome/Firefox/Safari
-- [ ] Responsive layout works at 1280px, 1440px, and 1920px widths
-
----
-
 ## Deliverable Summary
 
 ```

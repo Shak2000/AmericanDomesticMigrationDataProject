@@ -262,7 +262,10 @@ function parseNum(s) {
  * (not an IRS aggregate code like 96/97/98/57/58/59).
  */
 function isRealStateFips(fips) {
-    return !SPECIAL_STATE_FIPS.has(fips);
+    // Must look like an actual 2-digit FIPS code — guards against corrupted
+    // raw values (e.g. a stray "TO:" header fragment from a legacy XLS quirk)
+    // leaking through as a bogus region in the combobox.
+    return /^\d{2}$/.test(fips) && !SPECIAL_STATE_FIPS.has(fips);
 }
 
 /**

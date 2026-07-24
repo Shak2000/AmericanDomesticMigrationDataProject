@@ -638,6 +638,19 @@ Each milestone follows the same steps:
 - [x] Download and enrich state and county inflow/outflow data for 1990-91
 - [x] Rebuild SQLite DB and verify the year appears in the app
 
+> **Post-11.18 fixes discovered during full-range testing:**
+> - **Bogus region-combobox entry:** a corrupted FIPS value (`"TO:"`, a leftover header
+>   fragment) in one row of the 1995-96 state outflow file was passing `isRealStateFips()`'s
+>   check, since that function only excluded *known* aggregate codes (96/97/98/57) rather than
+>   validating the shape of a real code. It surfaced as a bogus "AL Total Mig - US & For" entry
+>   in the Individual Trend region search. Fixed generally in `script.js` by requiring the FIPS
+>   match `^\d{2}$` in addition to not being a special code — guards against any similar
+>   corruption in any year, not just this one row.
+> - **Level toggle background overflow:** the State/County toggle's gray pill background was
+>   stretching to the sidebar's full width instead of hugging its two buttons, because it's a
+>   flex child in a column layout (default `align-items: stretch`). Fixed in `styles.css`'s
+>   `.radio-group` rule with `align-self: flex-start; width: fit-content;`.
+
 ---
 
 ## Deliverable Summary
@@ -648,7 +661,11 @@ IRSMigrationDataProject/
 │   ├── parse_fips.py                           # Phase 1.1
 │   ├── enrich_state_data.py                    # Phase 1.2
 │   ├── enrich_county_data.py                   # Phase 1.3
-│   └── validate_data.py                        # Phase 1.4
+│   ├── validate_data.py                        # Phase 1.4
+│   ├── download_raw_data.py                    # Phase 10.1 — fetch 2008-09+ CSVs
+│   ├── build_sqlite_db.py                      # Phase 10.2 — consolidate enriched CSVs
+│   ├── chunk_database.py                       # Phase 10.3 — split DB for sql.js-httpvfs
+│   └── convert_legacy_xls_data.py              # Phase 11 — fetch + convert pre-2008 XLS/legacy ZIPs
 ├── data/
 │   ├── fips/
 │   │   ├── all-geocodes-v2021.csv              # Census source (pre-2022 county definitions)
@@ -657,25 +674,27 @@ IRSMigrationDataProject/
 │   │   └── county_fips.csv                     # output of parse_fips.py (unified: old CT + new CT)
 │   ├── original/
 │   │   ├── state_inflow/
-│   │   │   └── stateinflow0809.csv ... stateinflow2223.csv (15 files)
+│   │   │   └── stateinflow9091.csv ... stateinflow2223.csv (33 files)
 │   │   ├── state_outflow/
-│   │   │   └── stateoutflow0809.csv ... stateoutflow2223.csv (15 files)
+│   │   │   └── stateoutflow9091.csv ... stateoutflow2223.csv (33 files)
 │   │   ├── county_inflow/
-│   │   │   └── countyinflow0809.csv ... countyinflow2223.csv (15 files)
+│   │   │   └── countyinflow9091.csv ... countyinflow2223.csv (33 files)
 │   │   └── county_outflow/
-│   │       └── countyoutflow0809.csv ... countyoutflow2223.csv (15 files)
-│   └── enriched/
-│       ├── state_inflow/
-│       │   └── stateinflow0809_enriched.csv ... stateinflow2223_enriched.csv (15 files)
-│       ├── state_outflow/
-│       │   └── stateoutflow0809_enriched.csv ... stateoutflow2223_enriched.csv (15 files)
-│       ├── county_inflow/
-│       │   └── countyinflow0809_enriched.csv ... countyinflow2223_enriched.csv (15 files)
-│       └── county_outflow/
-│           └── countyoutflow0809_enriched.csv ... countyoutflow2223_enriched.csv (15 files)
+│   │       └── countyoutflow9091.csv ... countyoutflow2223.csv (33 files)
+│   ├── enriched/
+│   │   ├── state_inflow/
+│   │   │   └── stateinflow9091_enriched.csv ... stateinflow2223_enriched.csv (33 files)
+│   │   ├── state_outflow/
+│   │   │   └── stateoutflow9091_enriched.csv ... stateoutflow2223_enriched.csv (33 files)
+│   │   ├── county_inflow/
+│   │   │   └── countyinflow9091_enriched.csv ... countyinflow2223_enriched.csv (33 files)
+│   │   └── county_outflow/
+│   │       └── countyoutflow9091_enriched.csv ... countyoutflow2223_enriched.csv (33 files)
+│   ├── database.sqlite                         # output of build_sqlite_db.py — not committed
+│   └── db_chunks/                              # output of chunk_database.py — served to the browser
 ├── index.html                                  # Phase 2.1
 ├── styles.css                                  # Phase 2.2
-└── script.js                                   # Phases 3–7
+└── script.js                                   # Phases 3–7, 11
 ```
 
 ---

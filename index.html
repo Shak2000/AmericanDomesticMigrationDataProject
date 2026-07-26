@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO -->
-  <title>U.S. Migration Explorer — IRS SOI Data</title>
+  <title>American Domestic Migration Data Project</title>
   <meta name="description" content="Interactive visualization of U.S. domestic migration patterns using IRS
                  Statistics of Income (SOI) tax data from 2007 to 2023. Explore population,
                  household, and income flows at the state and county level." />
@@ -38,11 +38,11 @@
     <div class="chart-section-header">
       <div class="chart-section-title-group">
         <h2 id="map-heading" class="chart-section-heading">
-          United States Migration Patterns
+          United States Domestic Migration Patterns
           <span id="site-subtitle">| Data: IRS SOI Tax Stats</span>
         </h2>
         <p class="chart-section-subtitle">
-          Interactive U.S. migration map — explore state and county data by year, category, and statistic.
+          Interactive U.S. domestic migration map — explore state and county data by year, category, and statistic.
         </p>
       </div>
 
@@ -57,7 +57,7 @@
       <div id="year-control" class="control-group top-year-control">
         <label for="year-slider" class="control-label">Year: <span id="year-display"></span></label>
         <div class="slider-track-container">
-          <input type="range" id="year-slider" min="0" max="32" value="32" aria-label="Select migration year">
+          <input type="range" id="year-slider" min="0" max="32" value="32" aria-label="Select domestic migration year">
           <div class="slider-ticks" aria-hidden="true">
             <div class="tick"><span class="tick-label">1990-<br>1991</span></div>
             <div class="tick"><span class="tick-label">1991-<br>1992</span></div>
@@ -200,7 +200,7 @@
           <p id="map-statistic-description" class="statistic-description" aria-live="polite"></p>
 
           <!-- Map SVG is injected here by D3 -->
-          <div id="map" role="img" aria-label="U.S. choropleth migration map"></div>
+          <div id="map" role="img" aria-label="U.S. choropleth domestic migration map"></div>
 
           <!-- Hover / selection status bar -->
           <div id="map-status-bar" role="status" aria-live="polite" aria-atomic="true">
@@ -235,7 +235,7 @@
     <div class="chart-section-header">
       <div class="chart-section-title-group">
         <h2 id="chart-individual-heading" class="chart-section-heading">
-          Migration Trend — Individual States and Counties
+          Domestic Migration Trend — Individual States and Counties
         </h2>
         <p class="chart-section-subtitle">
           Select a state or county and a metric to trace how a single state or county has changed over time.
@@ -304,10 +304,10 @@
       <p id="ind-statistic-description" class="statistic-description" aria-live="polite"></p>
 
       <div id="chart-individual-placeholder" class="chart-placeholder" role="status" aria-live="polite">
-        <p>Select a state or county above to view its migration trend over time.</p>
+        <p>Select a state or county above to view its domestic migration trend over time.</p>
       </div>
 
-      <div id="chart-individual-svg-container" aria-label="Individual region migration trend chart" hidden></div>
+      <div id="chart-individual-svg-container" aria-label="Individual region domestic migration trend chart" hidden></div>
 
     </div>
   </section>
@@ -324,7 +324,7 @@
           Migration Trend — Between Two Regions
         </h2>
         <p class="chart-section-subtitle">
-          Select two states or counties to view the migration flows between them over time.
+          Select two states or counties to view the domestic migration flows between them over time.
         </p>
       </div>
       <nav class="site-nav" aria-label="Main navigation">
@@ -403,10 +403,10 @@
       <p id="pair-statistic-description" class="statistic-description" aria-live="polite"></p>
 
       <div id="chart-pair-placeholder" class="chart-placeholder" role="status" aria-live="polite">
-        <p>Select two states or counties above to view the migration flows between them over time.</p>
+        <p>Select two states or counties above to view the domestic migration flows between them over time.</p>
       </div>
 
-      <div id="chart-pair-svg-container" aria-label="Pairwise region migration trend chart" hidden></div>
+      <div id="chart-pair-svg-container" aria-label="Pairwise region domestic migration trend chart" hidden></div>
 
     </div>
   </section>
@@ -457,7 +457,7 @@
                 region.</li>
             </ul>
             <p>
-              <strong>Click a state or county</strong>, and the map will re-shade to show migration flows <em>to and
+              <strong>Click a state or county</strong>, and the map will re-shade to show domestic migration flows <em>to and
                 from</em> that region. Click that region again to deselect.
             </p>
 
@@ -516,7 +516,7 @@
 
               <dt>Inbound Rate</dt>
               <dd>
-                The proportion of total migration volume that is <em>inbound</em>. Calculated as
+                The proportion of total domestic migration volume that is <em>inbound</em>. Calculated as
                 <code>inflow ÷ (inflow + outflow)</code>. A rate above 50 % indicates the region attracts more
                 migrants than it loses.
               </dd>
@@ -554,7 +554,7 @@
 
               <dt>Outbound Rate</dt>
               <dd>
-                The proportion of total migration volume that is <em>outbound</em>. Calculated as
+                The proportion of total domestic migration volume that is <em>outbound</em>. Calculated as
                 <code>outflow ÷ (inflow + outflow)</code>. Equal to <code>1 − inbound rate</code>.
               </dd>
 
@@ -591,7 +591,7 @@
 
               <dt>Tax Year</dt>
               <dd>
-                The IRS filing year associated with a migration record. A label such as "2021–2022" means the data
+                The IRS filing year associated with a domestic migration record. A label such as "2021–2022" means the data
                 compares addresses on returns filed in 2021 with those filed in 2022.
               </dd>
             </dl>
